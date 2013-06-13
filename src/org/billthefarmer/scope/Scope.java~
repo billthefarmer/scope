@@ -1,0 +1,16 @@
+package org.billthefarmer.scope;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.View;
+
+public class Scope extends View
+{
+
+	public Scope(Context context, AttributeSet attrs)
+	{
+		super(context, attrs);
+		// TODO Auto-generated constructor stub
+	}
+
+}

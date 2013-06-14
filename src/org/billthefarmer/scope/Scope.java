@@ -63,6 +63,7 @@ public class Scope extends View
     {
     	canvas.drawColor(Color.BLACK);
 
+    	paint.setStrokeWidth(2);
     	paint.setColor(Color.argb(255, 0, 63, 0));
 
     	for (int i = 0; i < width; i += SIZE)

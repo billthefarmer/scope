@@ -1,19 +1,26 @@
 package org.billthefarmer.scope;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.View.MeasureSpec;
 
 public class YScale extends View
 {
+	private static final int SIZE = 20;
+
     private int width;
     private int height;
 
-	public YScale(Context context, AttributeSet attrs)
+    private Paint paint;
+
+    public YScale(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
+
+		paint = new Paint();
 	}
 
 	@Override
@@ -23,7 +30,7 @@ public class YScale extends View
 
 		int h = MeasureSpec.getSize(heightMeasureSpec);
 
-		setMeasuredDimension(h / 16, h);
+		setMeasuredDimension(h / 24, h);
 	}
 
     @Override
@@ -35,4 +42,15 @@ public class YScale extends View
 	height = h;
     }
 
+    @Override
+    protected void onDraw(Canvas canvas)
+    {
+    	paint.setStrokeWidth(2);
+
+    	for (int i = (height % SIZE) / 2; i < height; i += SIZE)
+    		canvas.drawLine(width * 2 / 3, i, width, i, paint);
+
+    	for (int i = (height % SIZE) / 2; i < height; i += SIZE * 5)
+    		canvas.drawLine(width / 3, i, width, i, paint);
+    }
 }

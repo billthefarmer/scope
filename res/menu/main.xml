@@ -3,56 +3,56 @@
   <item
       android:id="@+id/input"
       android:orderInCategory="100"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_input_level"
       android:icon="@drawable/ic_action_input_level" />
 
   <item
       android:id="@+id/bright"
       android:orderInCategory="100"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_bright_line"
-      android:icon="@drawable/ic_action_input_level" />
+      android:icon="@drawable/ic_action_bright_line" />
 
   <item
       android:id="@+id/single"
       android:orderInCategory="100"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_single_shot"
-      android:icon="@drawable/ic_action_input_level" />
+      android:icon="@drawable/ic_action_single_shot" />
 
   <item
       android:id="@+id/trigger"
       android:orderInCategory="100"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_trigger"
       android:icon="@drawable/ic_action_trigger" />
 
   <item
       android:id="@+id/polarity"
       android:orderInCategory="100"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_polarity"
       android:icon="@drawable/ic_action_polarity" />
 
   <item
       android:id="@+id/timebase"
       android:orderInCategory="100"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_timebase"
       android:icon="@drawable/ic_action_timebase" />
 
   <item
       android:id="@+id/storage"
       android:orderInCategory="100"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_storage"
       android:icon="@drawable/ic_action_storage" />
 
   <item
       android:id="@+id/action_settings"
       android:orderInCategory="100"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_settings"
       android:icon="@drawable/ic_action_settings" />
 

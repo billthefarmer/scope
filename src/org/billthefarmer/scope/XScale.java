@@ -1,7 +1,9 @@
 package org.billthefarmer.scope;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.util.AttributeSet;
@@ -43,10 +45,12 @@ public class XScale extends View
 	height = h;
     }
 
-    @Override
+    @SuppressLint("DefaultLocale")
+	@Override
     protected void onDraw(Canvas canvas)
     {
     	paint.setStrokeWidth(2);
+    	paint.setColor(Color.BLACK);
 
     	for (int i = 0; i < width; i += SIZE)
     		canvas.drawLine(i, 0, i, height / 4, paint);
@@ -57,6 +61,13 @@ public class XScale extends View
     	paint.setAntiAlias(true);
     	paint.setTextSize(height / 2);
     	paint.setTextAlign(Align.CENTER);
+
+    	for (int i = 0; i < width; i += SIZE * 5)
+    	{
+    		String s = String.format("%3.1f", i / (SIZE * 5f));
+    		canvas.drawText(s, i, height - (height / 8), paint);
+    	}
+
     	canvas.drawText("ms", 0, height - (height / 8), paint);
     }
 

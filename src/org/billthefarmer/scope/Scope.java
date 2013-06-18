@@ -32,7 +32,7 @@ import android.view.View;
 
 public class Scope extends View
 {
-	private static final int SIZE = 20;
+    private static final int SIZE = 20;
 
     private int width;
     private int height;
@@ -61,20 +61,23 @@ public class Scope extends View
     @Override
     protected void onDraw(Canvas canvas)
     {
-    	canvas.drawColor(Color.BLACK);
+	canvas.drawColor(Color.BLACK);
 
-    	paint.setStrokeWidth(2);
-    	paint.setColor(Color.argb(255, 0, 63, 0));
+	paint.setStrokeWidth(2);
+	paint.setColor(Color.argb(255, 0, 63, 0));
 
-    	for (int i = 0; i < width; i += SIZE)
-    		canvas.drawLine(i, 0, i, height, paint);
+	for (int i = 0; i < width; i += SIZE)
+	    canvas.drawLine(i, 0, i, height, paint);
 
-    	for (int i = (height % SIZE) / 2; i < height; i += SIZE)
-    		canvas.drawLine(0, i, width, i, paint);
+	canvas.translate(0, height / 2);
 
-    	canvas.translate(0, height / 2);
+	for (int i = 0; i < height / 2; i += SIZE)
+	{
+	    canvas.drawLine(0, i, width, i, paint);
+	    canvas.drawLine(0, -i, width, -i, paint);
+	}
 
-    	paint.setColor(Color.GREEN);
-    	canvas.drawLine(0, 0, width, 0, paint);
+	paint.setColor(Color.GREEN);
+	canvas.drawLine(0, 0, width, 0, paint);
     }
 }

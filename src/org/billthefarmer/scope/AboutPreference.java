@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  Scope - An Android scope written in Java.
+//  Accordion - An Android Accordion written in Java.
 //
 //  Copyright (C) 2013	Bill Farmer
 //
@@ -24,62 +24,58 @@
 package org.billthefarmer.scope;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.TextView;
 
-public class Scope extends View
+public class AboutPreference extends DialogPreference
 {
-    private static final int SIZE = 20;
 
-    private int width;
-    private int height;
-    
-    private Paint paint;
+    // Constructor
 
-    protected float step;
-    protected float scale;
-    protected float start;
-
-    public Scope(Context context, AttributeSet attrs)
+    public AboutPreference(Context context, AttributeSet attrs)
     {
 	super(context, attrs);
-	// TODO Auto-generated constructor stub
-
-	paint = new Paint();
     }
 
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh)
-    {
-	super.onSizeChanged(w, h, oldw, oldh);
-
-	width = w;
-	height = h;
-    }
+    // On bind dialog view
 
     @Override
-    protected void onDraw(Canvas canvas)
+    protected void onBindDialogView(View view)
     {
-	canvas.drawColor(Color.BLACK);
+	// Get version text view
 
-	paint.setStrokeWidth(2);
-	paint.setColor(Color.argb(255, 0, 63, 0));
+	TextView version = (TextView) view.findViewById(R.id.about);
 
-	for (int i = 0; i < width; i += SIZE)
-	    canvas.drawLine(i, 0, i, height, paint);
+	// Get context and package manager
 
-	canvas.translate(0, height / 2);
+	Context context = getContext();
+	PackageManager manager = context.getPackageManager();
 
-	for (int i = 0; i < height / 2; i += SIZE)
+	// Get info
+
+	PackageInfo info = null;
+	try
 	{
-	    canvas.drawLine(0, i, width, i, paint);
-	    canvas.drawLine(0, -i, width, -i, paint);
+	    info = manager.getPackageInfo("org.billthefarmer.scope", 0);
+	}
+		
+	catch (NameNotFoundException e)
+	{
+	    e.printStackTrace();
 	}
 
-	paint.setColor(Color.GREEN);
-	canvas.drawLine(0, 0, width, 0, paint);
+	// Set version in text view
+
+	if (info != null)
+	{
+	    String v = (String) version.getText();
+	    String s = String.format(v, info.versionName);
+	    version.setText(s);
+	}
     }
 }

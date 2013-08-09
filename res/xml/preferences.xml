@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/action_settings">
+
+  <PreferenceCategory
+      android:key="pref_about_category"
+      android:title="@string/pref_about">
+
+    <org.billthefarmer.scope.AboutPreference
+	android:key="pref_about"
+	android:icon="@drawable/ic_about"
+	android:dialogIcon="@drawable/ic_about"
+	android:negativeButtonText=""
+	android:title="@string/pref_about"
+	android:summary="@string/pref_about_summ"
+	android:dialogLayout="@layout/about_dialog" />
+
+  </PreferenceCategory>
+
+</PreferenceScreen>

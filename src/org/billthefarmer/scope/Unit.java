@@ -9,6 +9,7 @@ import android.view.View;
 
 public class Unit extends View
 {
+    protected float scale;
 
     private int width;
     private int height;
@@ -18,9 +19,10 @@ public class Unit extends View
     public Unit(Context context, AttributeSet attrs)
     {
 	super(context, attrs);
-	// TODO Auto-generated constructor stub
 
 	paint = new Paint();
+
+	scale = 1;
     }
 
     @Override
@@ -40,8 +42,13 @@ public class Unit extends View
 	canvas.drawLine(width, 0, width, height / 2, paint);
 
 	paint.setAntiAlias(true);
-	paint.setTextSize(height / 2);
+	paint.setTextSize(height * 2 / 3);
 	paint.setTextAlign(Align.CENTER);
-	canvas.drawText("ms", width, height - (height / 8), paint);
+
+	if (scale < 100.0)
+	    canvas.drawText("ms", width, height - (height / 8), paint);
+
+	else
+	    canvas.drawText("sec", width, height - (height / 8), paint);
     }
 }

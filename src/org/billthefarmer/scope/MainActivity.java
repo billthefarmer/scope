@@ -62,7 +62,7 @@ public class MainActivity extends Activity
      2048, 4096, 8192, 16384,
      32768, 65536, 131072, 262144};
 
-    private int index;
+    private int timebase;
 
     private boolean storage;
     private boolean clear;
@@ -80,6 +80,7 @@ public class MainActivity extends Activity
 	setContentView(R.layout.activity_main);
 
 	scope = (Scope)findViewById(R.id.scope);
+	xscale = (XScale)findViewById(R.id.xscale);
 
 	// Create audio
 
@@ -91,7 +92,7 @@ public class MainActivity extends Activity
 
 	// Set timebase index
 
-	index = 3;
+	timebase = 3;
     }
 
     @Override
@@ -171,19 +172,19 @@ public class MainActivity extends Activity
 	    // Zoom in
 
 	case R.id.zoom_in:
-	    index--;
-	    if (index < 0)
-		index = 0;
-	    showTimebase(index);
+	    timebase--;
+	    if (timebase < 0)
+		timebase = 0;
+	    showTimebase(timebase);
 	    break;
 
 	    // Zoom out
 
 	case R.id.zoom_out:
-	    index++;
-	    if (index >= strings.length)
-		index = strings.length - 1;
-	    showTimebase(index);
+	    timebase++;
+	    if (timebase >= strings.length)
+		timebase = strings.length - 1;
+	    showTimebase(timebase);
 	    break;
 
 	    // Storage
@@ -224,9 +225,9 @@ public class MainActivity extends Activity
 
     // Show timebase
 
-    void showTimebase(int index)
+    void showTimebase(int timebase)
     {
-	String text = "Timebase: " + strings[index];
+	String text = "Timebase: " + strings[timebase];
 
 	showToast(text);
     }
@@ -600,7 +601,7 @@ public class MainActivity extends Activity
 
 		    // Update count
 
-		    count = counts[index];
+		    count = counts[timebase];
 		    length = count;
 
 		    // Copy data
@@ -653,11 +654,11 @@ public class MainActivity extends Activity
 		    break;
 		}
 
-		if (scope.scale != values[index])
+		if (scope.scale != values[timebase])
 		{
 		    // Set up scale
 
-		    scope.scale = (float)values[index];
+		    scope.scale = (float)values[timebase];
 		    xscale.scale = scope.scale;
 		    xscale.step = 500 * xscale.scale;
 

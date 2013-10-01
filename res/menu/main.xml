@@ -2,98 +2,84 @@
 
   <item
       android:id="@+id/bright"
-      android:orderInCategory="100"
       android:showAsAction="always"
       android:title="@string/action_bright_line"
       android:icon="@drawable/ic_action_bright_line" />
 
   <item
       android:id="@+id/single"
-      android:orderInCategory="100"
       android:showAsAction="always"
       android:title="@string/action_single_shot"
       android:icon="@drawable/ic_action_single_shot" />
 
   <item
       android:id="@+id/trigger"
-      android:orderInCategory="100"
       android:showAsAction="always"
       android:title="@string/action_trigger"
       android:icon="@drawable/ic_action_trigger" />
 
   <item
       android:id="@+id/polarity"
-      android:orderInCategory="100"
       android:showAsAction="always"
       android:title="@string/action_polarity"
       android:icon="@drawable/ic_action_polarity" />
 
   <item
       android:id="@+id/zoom_in"
-      android:orderInCategory="100"
       android:showAsAction="always"
       android:title="@string/action_zoom_in"
       android:icon="@drawable/ic_action_zoom_in" />
 
   <item
       android:id="@+id/zoom_out"
-      android:orderInCategory="100"
       android:showAsAction="always"
       android:title="@string/action_zoom_out"
       android:icon="@drawable/ic_action_zoom_out" />
 
   <item
       android:id="@+id/storage"
-      android:orderInCategory="100"
       android:showAsAction="always"
       android:title="@string/action_storage"
       android:icon="@drawable/ic_action_storage" />
 
   <item
       android:id="@+id/clear"
-      android:orderInCategory="100"
       android:showAsAction="always"
       android:title="@string/action_clear"
       android:icon="@drawable/ic_action_clear" />
 
   <item
       android:id="@+id/left"
-      android:orderInCategory="100"
       android:showAsAction="always"
       android:title="@string/action_left"
       android:icon="@drawable/ic_action_left" />
 
   <item
       android:id="@+id/right"
-      android:orderInCategory="100"
       android:showAsAction="always"
       android:title="@string/action_right"
       android:icon="@drawable/ic_action_right" />
 
   <item
       android:id="@+id/start"
-      android:orderInCategory="100"
       android:showAsAction="always"
       android:title="@string/action_start"
       android:icon="@drawable/ic_action_start" />
 
   <item
       android:id="@+id/end"
-      android:orderInCategory="100"
       android:showAsAction="always"
       android:title="@string/action_end"
       android:icon="@drawable/ic_action_end" />
 
   <item
       android:id="@+id/reset"
-      android:orderInCategory="100"
       android:showAsAction="always"
       android:title="@string/action_reset"
       android:icon="@drawable/ic_action_reset" />
 
   <item
       android:id="@+id/action_settings"
-      android:orderInCategory="100"
       android:showAsAction="always"
       android:title="@string/action_settings"
       android:icon="@drawable/ic_action_settings" />

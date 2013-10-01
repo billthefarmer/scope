@@ -145,6 +145,8 @@ public class MainActivity extends Activity
 
 	case R.id.bright:
 	    audio.bright = !audio.bright;
+	    item.setIcon(audio.bright? R.drawable.ic_action_bright_line_checked:
+			 R.drawable.ic_action_bright_line);
 	    showToast(audio.bright? R.string.bright_on: R.string.bright_off);
 	    break;
 
@@ -152,6 +154,8 @@ public class MainActivity extends Activity
 
 	case R.id.single:
 	    audio.single = !audio.single;
+	    item.setIcon(audio.single? R.drawable.ic_action_single_shot_checked:
+			 R.drawable.ic_action_single_shot);
 	    showToast(audio.single? R.string.single_on: R.string.single_off);
 	    break;
 
@@ -166,6 +170,8 @@ public class MainActivity extends Activity
 
 	case R.id.polarity:
 	    audio.polarity = !audio.polarity;
+	    item.setIcon(audio.polarity? R.drawable.ic_action_polarity_checked:
+			 R.drawable.ic_action_polarity);
 	    showToast(audio.polarity? R.string.sync_pos: R.string.sync_neg);
 	    break;
 
@@ -191,6 +197,8 @@ public class MainActivity extends Activity
 
 	case R.id.storage:
 	    storage = !storage;
+	    item.setIcon(storage? R.drawable.ic_action_storage_checked:
+			 R.drawable.ic_action_storage);
 	    showToast(storage? R.string.storage_on: R.string.storage_off);
 	    break;
 

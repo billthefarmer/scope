@@ -86,6 +86,8 @@ public class MainActivity extends Activity
 
 	audio = new Audio();
 
+	scope.audio = audio;
+
 	// Set up the click listeners
 
 	setClickListeners();
@@ -384,7 +386,7 @@ public class MainActivity extends Activity
 	protected boolean polarity;
 
 	protected int input;
-	protected double sample;
+	protected int sample;
 
 	// Data
 
@@ -457,7 +459,7 @@ public class MainActivity extends Activity
 	    // Get buffer size
 
 	    int size =
-		AudioRecord.getMinBufferSize((int)sample,
+		AudioRecord.getMinBufferSize(sample,
 					     AudioFormat.CHANNEL_IN_MONO,
 					     AudioFormat.ENCODING_PCM_16BIT);
 	    // Give up if it doesn't work
@@ -483,10 +485,29 @@ public class MainActivity extends Activity
 	    // Create the AudioRecord object
 
 	    audioRecord =
-		new AudioRecord(input, (int)sample,
+		new AudioRecord(input, sample,
 				AudioFormat.CHANNEL_IN_MONO,
 				AudioFormat.ENCODING_PCM_16BIT,
 				size);
+
+	    // Check audiorecord
+
+	    if (audioRecord == NULL)
+	    {
+		runOnUiThread(new Runnable()
+		    {
+			@Override
+			public void run()
+			{
+			    showAlert(R.string.app_name,
+				      R.string.error_init);
+			}
+		    });
+
+		thread = null;
+		return;
+	    }
+
 	    // Check state
 
 	    int state = audioRecord.getState(); 

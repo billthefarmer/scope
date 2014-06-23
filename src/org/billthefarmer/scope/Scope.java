@@ -43,6 +43,8 @@ public class Scope extends View
     protected float scale;
     protected float start;
 
+    protected MainActivity.Audio audio;
+
     public Scope(Context context, AttributeSet attrs)
     {
 	super(context, attrs);

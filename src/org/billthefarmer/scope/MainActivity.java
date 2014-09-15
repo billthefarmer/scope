@@ -62,13 +62,11 @@ public class MainActivity extends Activity
      2048, 4096, 8192, 16384,
      32768, 65536, 131072, 262144};
 
-    private int timebase;
-
-    private boolean storage;
-    private boolean clear;
+    protected int timebase;
 
     private Scope scope;
     private XScale xscale;
+    private Unit unit;
 
     private Audio audio;
     private Toast toast;
@@ -81,12 +79,17 @@ public class MainActivity extends Activity
 
 	scope = (Scope)findViewById(R.id.scope);
 	xscale = (XScale)findViewById(R.id.xscale);
+	unit = (Unit)findViewById(R.id.unit);
 
 	// Create audio
 
 	audio = new Audio();
 
-	scope.audio = audio;
+	if (scope != null)
+	{
+	    scope.main = this;
+	    scope.audio = audio;
+	}
 
 	// Set up the click listeners
 
@@ -198,17 +201,22 @@ public class MainActivity extends Activity
 	    // Storage
 
 	case R.id.storage:
-	    storage = !storage;
-	    item.setIcon(storage? R.drawable.ic_action_storage_checked:
-			 R.drawable.ic_action_storage);
-	    showToast(storage? R.string.storage_on: R.string.storage_off);
+	    if (scope != null)
+	    {
+		scope.storage = !scope.storage;
+		item.setIcon(scope.storage?
+			     R.drawable.ic_action_storage_checked:
+			     R.drawable.ic_action_storage);
+		showToast(scope.storage?
+			  R.string.storage_on: R.string.storage_off);
+	    }
 	    break;
 
 	    // Clear
 
 	case R.id.clear:
-	    if (storage)
-		clear = true;
+	    if ((scope != null) && scope.storage)
+		scope.clear = true;
 	    break;
 
 	    // Settings
@@ -391,14 +399,13 @@ public class MainActivity extends Activity
 	// Data
 
 	protected Thread thread;
-	protected short buffer[];
-	protected long length;
 	protected short data[];
+	protected long length;
 
 	// Private data
 
 	private static final int SAMPLES = 262144;
-	private static final int STEP = 4096;
+	private static final int FRAMES = 4096;
 
 	private static final int INIT  = 0;
 	private static final int FIRST = 1;
@@ -406,13 +413,14 @@ public class MainActivity extends Activity
 	private static final int LAST  = 3;
 
 	private AudioRecord audioRecord;
+	private short buffer[];
 
 	// Constructor
 
 	protected Audio()
 	{
-	    buffer = new short[SAMPLES];
-	    data = new short[STEP];
+	    buffer = new short[FRAMES];
+	    data = new short[SAMPLES];
 	}
 
 	// Start audio
@@ -492,7 +500,7 @@ public class MainActivity extends Activity
 
 	    // Check audiorecord
 
-	    if (audioRecord == NULL)
+	    if (audioRecord == null)
 	    {
 		runOnUiThread(new Runnable()
 		    {
@@ -545,7 +553,7 @@ public class MainActivity extends Activity
 	    {
 		// Read a buffer of data
 
-		size = audioRecord.read(data, 0, STEP);
+		size = audioRecord.read(buffer, 0, FRAMES);
 
 		// Stop the thread if no data
 
@@ -581,35 +589,35 @@ public class MainActivity extends Activity
 
 			if (polarity)
 			{
-			    for (int i = 0; i < STEP; i++)
+			    for (int i = 0; i < size; i++)
 			    {
-				dx = data[i] - last;
+				dx = buffer[i] - last;
 
-				if (dx < 0 && last > 0 && data[i] < 0)
+				if (dx < 0 && last > 0 && buffer[i] < 0)
 				{
 				    index = i;
 				    state++;
 				    break;
 				}
 
-				last = data[i];
+				last = buffer[i];
 			    }
 			}
 
 			else
 			{
-			    for (int i = 0; i < STEP; i++)
+			    for (int i = 0; i < size; i++)
 			    {
-				dx = data[i] - last;
+				dx = buffer[i] - last;
 
-				if (dx > 0 && last < 0 && data[i] > 0)
+				if (dx > 0 && last < 0 && buffer[i] > 0)
 				{
 				    index = i;
 				    state++;
 				    break;
 				}
 
-				last = data[i];
+				last = buffer[i];
 			    }
 			}
 		    }
@@ -635,8 +643,8 @@ public class MainActivity extends Activity
 
 		    // Copy data
 
-		    System.arraycopy(data, index, buffer, 0, STEP - index);
-		    index = STEP - index;
+		    System.arraycopy(buffer, index, data, 0, size - index);
+		    index = size - index;
 
 		    // If done, wait for sync again
 
@@ -655,8 +663,8 @@ public class MainActivity extends Activity
 
 		    // Copy data
 
-		    System.arraycopy(data, 0, buffer, index, STEP);
-		    index += STEP;
+		    System.arraycopy(buffer, 0, data, index, size);
+		    index += size;
 
 		    // Done, wait for sync again
 
@@ -665,7 +673,7 @@ public class MainActivity extends Activity
 
 		    // Else if last but one chunk, get last chunk next time
 
-		    else if (index + STEP >= count)
+		    else if (index + size >= count)
 			state++;
 		    break;
 
@@ -675,7 +683,7 @@ public class MainActivity extends Activity
 
 		    // Copy data
 
-		    System.arraycopy(data, 0, buffer, index, count - index);
+		    System.arraycopy(buffer, 0, data, index, count - index);
 
 		    // Wait for sync next time
 
@@ -690,6 +698,7 @@ public class MainActivity extends Activity
 		    scope.scale = (float)values[timebase];
 		    xscale.scale = scope.scale;
 		    xscale.step = 500 * xscale.scale;
+		    unit.scale = scope.scale;
 
 		    // Reset start
 
@@ -699,7 +708,7 @@ public class MainActivity extends Activity
 		    // Update display
 
 		    xscale.postInvalidate();
-
+		    unit.postInvalidate();
 		}
 
 		// Update display

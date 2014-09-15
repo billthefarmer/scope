@@ -219,6 +219,67 @@ public class MainActivity extends Activity
 		scope.clear = true;
 	    break;
 
+	    // Left
+
+	case R.id.left:
+	    if (scope != null && xscale != null)
+	    {
+		scope.start -= xscale.step;
+		if (scope.start < 0)
+		    scope.start = 0;
+
+		xscale.start = scope.start;
+	    }
+	    break;
+
+	    // Right
+
+	case R.id.right:
+	    if (scope != null && xscale != null)
+	    {
+		scope.start += xscale.step;
+		if (scope.start >= audio.length)
+		    scope.start -= xscale.step;
+
+		xscale.start = scope.start;
+	    }
+	    break;
+
+	    // Start
+
+	case R.id.start:
+	    if (scope != null && xscale != null)
+	    {
+		scope.start = 0;
+		xscale.start = 0;
+	    }
+	    break;
+
+	    // End
+
+	case R.id.end:
+	    if (scope != null && xscale != null)
+	    {
+		scope.start = audio.length - xscale.step;
+		xscale.start = scope.start;
+	    }
+	    break;
+
+	    // Reset
+
+	case R.id.reset:
+	    if (scope != null && xscale != null)
+	    {
+		scope.start = 0;
+		xscale.start = 0;
+		scope.storage = false;
+		audio.bright = false;
+		audio.single = false;
+		audio.polarity = false;
+	    }
+	    showToast(R.string.reset);
+	    break;
+
 	    // Settings
 
 	case R.id.action_settings:

@@ -12,6 +12,7 @@
   <string name="action_single_shot">Single Shot</string>
   <string name="action_trigger">Trigger</string>
   <string name="action_polarity">Sync Polarity</string>
+  <string name="action_timebase">Timebase</string>
   <string name="action_zoom_in">Zoom in</string>
   <string name="action_zoom_out">Zoom out</string>
   <string name="action_storage">Storage</string>
@@ -22,6 +23,19 @@
   <string name="action_end">End</string>
   <string name="action_reset">Reset</string>
   <string name="action_settings">Settings</string>
+
+  <string name="tb0.1ms">0.1  ms</string>
+  <string name="tb0.2ms">0.2  ms</string>
+  <string name="tb0.5ms">0.5  ms</string>
+  <string name="tb1.0ms">1.0  ms</string>
+  <string name="tb2.0ms">2.0  ms</string>
+  <string name="tb5.0ms">5.0  ms</string>
+  <string name="tb10ms">10  ms</string>
+  <string name="tb20ms">20  ms</string>
+  <string name="tb50ms">50  ms</string>
+  <string name="tb0.1sec">0.1  sec</string>
+  <string name="tb0.2sec">0.2  sec</string>
+  <string name="tb0.5sec">0.5  sec</string>
 
   <string name="bright_on">Bright line on</string>
   <string name="bright_off">Bright line off</string>

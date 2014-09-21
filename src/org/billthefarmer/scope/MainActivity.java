@@ -28,23 +28,18 @@ import android.media.AudioManager;
 import android.media.AudioRecord;
 import android.media.AudioTrack;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.SubMenu;
 import android.widget.Toast;
 
 public class MainActivity extends Activity
-    implements OnClickListener
 {
     private static final double values[] =
     {0.1, 0.2, 0.5, 1.0,
@@ -60,7 +55,8 @@ public class MainActivity extends Activity
     private static final int counts[] =
     {128, 256, 512, 1024,
      2048, 4096, 8192, 16384,
-     32768, 65536, 131072, 262144};
+     32768, 65536, 131072, 262144,
+     524288, 1048576};
 
     protected int timebase;
 
@@ -70,6 +66,7 @@ public class MainActivity extends Activity
 
     private Audio audio;
     private Toast toast;
+    private SubMenu submenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -91,10 +88,6 @@ public class MainActivity extends Activity
 	    scope.audio = audio;
 	}
 
-	// Set up the click listeners
-
-	setClickListeners();
-
 	// Set timebase index
 
 	timebase = 3;
@@ -108,39 +101,13 @@ public class MainActivity extends Activity
 	return true;
     }
 
-    // Set click listeners
-
-    void setClickListeners()
-    {
-	// Scope
-
-	if (scope != null)
-	    scope.setOnClickListener(this);
-    }
-
-    // On click
-
-    @Override
-    public void onClick(View v)
-    {
-	// Get id
-
-	int id = v.getId();
-	switch (id)
-	{
-	    // Scope
-
-	case R.id.scope:
-	    // TODO
-	    break;
-	}
-    }
-
     // On options item
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
+	MenuItem last;
+
 	// Get id
 
 	int id = item.getItemId();
@@ -180,21 +147,130 @@ public class MainActivity extends Activity
 	    showToast(audio.polarity? R.string.sync_pos: R.string.sync_neg);
 	    break;
 
-	    // Zoom in
+	    // Timebase
 
-	case R.id.zoom_in:
-	    timebase--;
-	    if (timebase < 0)
-		timebase = 0;
+	case R.id.timebase:
+	    if (item.hasSubMenu())
+		submenu = item.getSubMenu();
+	    break;
+
+	    // 0.1 ms
+
+	case R.id.tb0_1ms:
+	    last = submenu.getItem(timebase);
+	    last.setChecked(false);
+	    timebase = 0;
+	    item.setChecked(true);
 	    showTimebase(timebase);
 	    break;
 
-	    // Zoom out
+	    // 0.2 ms
 
-	case R.id.zoom_out:
-	    timebase++;
-	    if (timebase >= strings.length)
-		timebase = strings.length - 1;
+	case R.id.tb0_2ms:
+	    last = submenu.getItem(timebase);
+	    last.setChecked(false);
+	    timebase = 1;
+	    item.setChecked(true);
+	    showTimebase(timebase);
+	    break;
+
+	    // 0.5 ms
+
+	case R.id.tb0_5ms:
+	    last = submenu.getItem(timebase);
+	    last.setChecked(false);
+	    timebase = 2;
+	    item.setChecked(true);
+	    showTimebase(timebase);
+	    break;
+
+	    // 1.0 ms
+
+	case R.id.tb1_0ms:
+	    last = submenu.getItem(timebase);
+	    last.setChecked(false);
+	    timebase = 3;
+	    item.setChecked(true);
+	    showTimebase(timebase);
+	    break;
+
+	    // 2.0 ms
+
+	case R.id.tb2_0ms:
+	    last = submenu.getItem(timebase);
+	    last.setChecked(false);
+	    timebase = 4;
+	    item.setChecked(true);
+	    showTimebase(timebase);
+	    break;
+
+	    // 5.0 ms
+
+	case R.id.tb5_0ms:
+	    last = submenu.getItem(timebase);
+	    last.setChecked(false);
+	    timebase = 5;
+	    item.setChecked(true);
+	    showTimebase(timebase);
+	    break;
+
+	    // 10 ms
+
+	case R.id.tb10ms:
+	    last = submenu.getItem(timebase);
+	    last.setChecked(false);
+	    timebase = 6;
+	    item.setChecked(true);
+	    showTimebase(timebase);
+	    break;
+
+	    // 20 ms
+
+	case R.id.tb20ms:
+	    last = submenu.getItem(timebase);
+	    last.setChecked(false);
+	    timebase = 7;
+	    item.setChecked(true);
+	    showTimebase(timebase);
+	    break;
+
+	    // 50 ms
+
+	case R.id.tb50ms:
+	    last = submenu.getItem(timebase);
+	    last.setChecked(false);
+	    timebase = 8;
+	    item.setChecked(true);
+	    showTimebase(timebase);
+	    break;
+
+	    // 0.1 sec
+
+	case R.id.tb0_1sec:
+	    last = submenu.getItem(timebase);
+	    last.setChecked(false);
+	    timebase = 9;
+	    item.setChecked(true);
+	    showTimebase(timebase);
+	    break;
+
+	    // 0.2 sec
+
+	case R.id.tb0_2sec:
+	    last = submenu.getItem(timebase);
+	    last.setChecked(false);
+	    timebase = 10;
+	    item.setChecked(true);
+	    showTimebase(timebase);
+	    break;
+
+	    // 0.5 sec
+
+	case R.id.tb0_5sec:
+	    last = submenu.getItem(timebase);
+	    last.setChecked(false);
+	    timebase = 11;
+	    item.setChecked(true);
 	    showTimebase(timebase);
 	    break;
 
@@ -229,6 +305,7 @@ public class MainActivity extends Activity
 		    scope.start = 0;
 
 		xscale.start = scope.start;
+		xscale.postInvalidate();
 	    }
 	    break;
 
@@ -242,6 +319,7 @@ public class MainActivity extends Activity
 		    scope.start -= xscale.step;
 
 		xscale.start = scope.start;
+		xscale.postInvalidate();
 	    }
 	    break;
 
@@ -251,7 +329,9 @@ public class MainActivity extends Activity
 	    if (scope != null && xscale != null)
 	    {
 		scope.start = 0;
+		scope.index = 0;
 		xscale.start = 0;
+		xscale.postInvalidate();
 	    }
 	    break;
 
@@ -262,22 +342,8 @@ public class MainActivity extends Activity
 	    {
 		scope.start = audio.length - xscale.step;
 		xscale.start = scope.start;
+		xscale.postInvalidate();
 	    }
-	    break;
-
-	    // Reset
-
-	case R.id.reset:
-	    if (scope != null && xscale != null)
-	    {
-		scope.start = 0;
-		xscale.start = 0;
-		scope.storage = false;
-		audio.bright = false;
-		audio.single = false;
-		audio.polarity = false;
-	    }
-	    showToast(R.string.reset);
 	    break;
 
 	    // Settings
@@ -350,10 +416,6 @@ public class MainActivity extends Activity
     {
 	super.onResume();
 
-	// Get preferences
-
-	getPreferences();
-
 	// Start the audio thread
 
 	audio.start();
@@ -363,10 +425,6 @@ public class MainActivity extends Activity
     protected void onPause()
     {
 	super.onPause();
-
-	// Save preferences
-
-	savePreferences();
 
 	// Stop audio thread
 
@@ -379,34 +437,6 @@ public class MainActivity extends Activity
     protected void onStop()
     {
 	super.onStop();
-    }
-
-    // Save preferences
-
-    void savePreferences()
-    {
-	SharedPreferences preferences =
-	    PreferenceManager.getDefaultSharedPreferences(this);
-
-	Editor editor = preferences.edit();
-	// TODO
-	editor.commit();
-    }
-
-    // Get preferences
-
-    void getPreferences()
-    {
-	// Load preferences
-
-	PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-
-	SharedPreferences preferences =
-	    PreferenceManager.getDefaultSharedPreferences(this);
-
-	// Set preferences
-
-	// TODO
     }
 
     // Show alert
@@ -758,7 +788,7 @@ public class MainActivity extends Activity
 
 		    scope.scale = (float)values[timebase];
 		    xscale.scale = scope.scale;
-		    xscale.step = 500 * xscale.scale;
+		    xscale.step = 1000 * xscale.scale;
 		    unit.scale = scope.scale;
 
 		    // Reset start

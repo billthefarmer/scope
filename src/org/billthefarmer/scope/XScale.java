@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Paint.Align;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -69,7 +68,7 @@ public class XScale extends View
 
 	paint.setAntiAlias(true);
 	paint.setTextSize(height * 2 / 3);
-	paint.setTextAlign(Align.CENTER);
+	paint.setTextAlign(Paint.Align.CENTER);
 
 	if (scale < 100.0)
 	{

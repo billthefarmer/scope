@@ -23,6 +23,7 @@
 
 package org.billthefarmer.scope;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -30,11 +31,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class Scope extends View
 {
     private static final int SIZE = 20;
+    private static final float SMALL_SCALE = 200;
+    private static final float LARGE_SCALE = 200000;
 
     private int width;
     private int height;
@@ -51,6 +55,7 @@ public class Scope extends View
     protected float step;
     protected float scale;
     protected float start;
+    protected float index;
 
     protected MainActivity main;
     protected MainActivity.Audio audio;
@@ -58,7 +63,6 @@ public class Scope extends View
     public Scope(Context context, AttributeSet attrs)
     {
 	super(context, attrs);
-	// TODO Auto-generated constructor stub
 
 	path = new Path();
 	paint = new Paint();
@@ -105,6 +109,7 @@ public class Scope extends View
 
     private int max;
 
+    @SuppressLint("DefaultLocale")
     @Override
     protected void onDraw(Canvas canvas)
     {
@@ -183,6 +188,64 @@ public class Scope extends View
 	paint.setColor(Color.GREEN);
 	cb.drawPath(path, paint);
 
+	// Draw index
+
+	if (index > 0 && index < width)
+	{
+	    paint.setColor(Color.YELLOW);
+	    paint.setTextAlign(Paint.Align.LEFT);
+	    cb.drawLine(index, -height / 2, index, height / 2, paint);
+
+	    int i = Math.round((float)index / xscale);
+	    float y = -audio.data[i + xstart] / yscale;
+
+	    String s = String.format("%3.2f", audio.data[i + xstart] / 32768.0);
+	    cb.drawText(s, index, y, paint);
+
+	    paint.setTextAlign(Paint.Align.CENTER);
+
+	    if (scale < 100.0)
+	    {
+		s = String.format((scale < 1.0)? "%3.3f": 
+				  (scale < 10.0)? "%3.2f": "%3.1f",
+				  (start + (index * scale)) / SMALL_SCALE);
+		cb.drawText(s, index, height / 2, paint);
+	    }
+
+	    else
+	    {
+		s = String.format("%3.3f", (start + (index *
+						     scale)) / LARGE_SCALE);
+		cb.drawText(s, index, height / 2, paint);
+	    }
+	}
+
 	canvas.drawBitmap(bitmap, 0, 0, null);
+    }
+
+    // On touch event
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+	float x = event.getX();
+	float y = event.getY();
+
+	switch (event.getAction())
+	{
+	case MotionEvent.ACTION_DOWN:
+	    index = x;
+	    break;
+
+	case MotionEvent.ACTION_MOVE:
+	    index = x;
+	    break;
+
+	case MotionEvent.ACTION_UP:
+	    index = x;
+	    break;
+	}
+
+	return true;
     }
 }

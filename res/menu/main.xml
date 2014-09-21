@@ -25,17 +25,85 @@
       android:icon="@drawable/ic_action_polarity" />
 
   <item
-      android:id="@+id/zoom_in"
+      android:id="@+id/timebase"
       android:showAsAction="always"
-      android:title="@string/action_zoom_in"
-      android:icon="@drawable/ic_action_zoom_in" />
+      android:title="@string/action_timebase"
+      android:icon="@drawable/ic_action_timebase" >
+    <menu>
+      <group
+	  android:checkableBehavior="single" >
 
+	<item
+	    android:id="@+id/tb0_1ms"
+	    android:checkable="true"
+	    android:title="@string/tb0.1ms" />
+
+	<item
+	    android:id="@+id/tb0_2ms"
+	    android:checkable="true"
+	    android:title="@string/tb0.2ms" />
+
+	<item
+	    android:id="@+id/tb0_5ms"
+	    android:checkable="true"
+	    android:title="@string/tb0.5ms" />
+
+	<item
+	    android:id="@+id/tb1_0ms"
+	    android:checkable="true"
+	    android:checked="true"
+	    android:title="@string/tb1.0ms" />
+
+	<item
+	    android:id="@+id/tb2_0ms"
+	    android:checkable="true"
+	    android:title="@string/tb2.0ms" />
+
+	<item
+	    android:id="@+id/tb5_0ms"
+	    android:checkable="true"
+	    android:title="@string/tb5.0ms" />
+
+	<item
+	    android:id="@+id/tb10ms"
+	    android:checkable="true"
+	    android:title="@string/tb10ms" />
+
+	<item
+	    android:id="@+id/tb20ms"
+	    android:checkable="true"
+	    android:title="@string/tb20ms" />
+
+	<item
+	    android:id="@+id/tb50ms"
+	    android:checkable="true"
+	    android:title="@string/tb50ms" />
+
+	<item
+	    android:id="@+id/tb0_1sec"
+	    android:checkable="true"
+	    android:title="@string/tb0.1sec" />
+
+	<item
+	    android:id="@+id/tb0_2sec"
+	    android:checkable="true"
+	    android:title="@string/tb0.2sec" />
+
+	<item
+	    android:id="@+id/tb0_5sec"
+	    android:checkable="true"
+	    android:title="@string/tb0.5sec" />
+
+      </group>
+    </menu>
+  </item>
+  <!--
   <item
       android:id="@+id/zoom_out"
       android:showAsAction="always"
       android:title="@string/action_zoom_out"
       android:icon="@drawable/ic_action_zoom_out" />
-
+  -->
   <item
       android:id="@+id/storage"
       android:showAsAction="always"
@@ -71,13 +139,13 @@
       android:showAsAction="always"
       android:title="@string/action_end"
       android:icon="@drawable/ic_action_end" />
-
-  <item
+  <!--
+      <item
       android:id="@+id/reset"
       android:showAsAction="always"
       android:title="@string/action_reset"
       android:icon="@drawable/ic_action_reset" />
-
+  -->
   <item
       android:id="@+id/action_settings"
       android:showAsAction="always"

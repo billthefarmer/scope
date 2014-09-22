@@ -41,10 +41,10 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity
 {
-    private static final double values[] =
-    {0.1, 0.2, 0.5, 1.0,
-     2.0, 5.0, 10.0, 20.0,
-     50.0, 100.0, 200.0, 500.0};
+    private static final float values[] =
+    {0.1f, 0.2f, 0.5f, 1.0f,
+     2.0f, 5.0f, 10.0f, 20.0f,
+     50.0f, 100.0f, 200.0f, 500.0f};
 	
     private static final String strings[] =
     {"0.1 ms", "0.2 ms", "0.5 ms",
@@ -53,9 +53,9 @@ public class MainActivity extends Activity
      "0.1 sec", "0.2 sec", "0.5 sec"};
 
     private static final int counts[] =
-    {128, 256, 512, 1024,
-     2048, 4096, 8192, 16384,
-     32768, 65536, 131072, 262144,
+    {256, 512, 1024, 2048,
+     4096, 8192, 16384, 32768,
+     65536, 131072, 262144,
      524288, 1048576};
 
     protected int timebase;
@@ -91,6 +91,16 @@ public class MainActivity extends Activity
 	// Set timebase index
 
 	timebase = 3;
+
+	// Set up scale
+
+	if (scope != null && xscale != null && unit != null)
+	{
+	    scope.scale = values[timebase];
+	    xscale.scale = scope.scale;
+	    xscale.step = 1000 * xscale.scale;
+	    unit.scale = scope.scale;
+	}
     }
 
     @Override
@@ -106,8 +116,6 @@ public class MainActivity extends Activity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-	MenuItem last;
-
 	// Get id
 
 	int id = item.getItemId();
@@ -144,7 +152,7 @@ public class MainActivity extends Activity
 	    audio.polarity = !audio.polarity;
 	    item.setIcon(audio.polarity? R.drawable.ic_action_polarity_checked:
 			 R.drawable.ic_action_polarity);
-	    showToast(audio.polarity? R.string.sync_pos: R.string.sync_neg);
+	    showToast(!audio.polarity? R.string.sync_pos: R.string.sync_neg);
 	    break;
 
 	    // Timebase
@@ -157,121 +165,109 @@ public class MainActivity extends Activity
 	    // 0.1 ms
 
 	case R.id.tb0_1ms:
-	    last = submenu.getItem(timebase);
-	    last.setChecked(false);
+	    clearLast(submenu, timebase);
 	    timebase = 0;
 	    item.setChecked(true);
-	    showTimebase(timebase);
+	    setTimebase(timebase);
 	    break;
 
 	    // 0.2 ms
 
 	case R.id.tb0_2ms:
-	    last = submenu.getItem(timebase);
-	    last.setChecked(false);
+	    clearLast(submenu, timebase);
 	    timebase = 1;
 	    item.setChecked(true);
-	    showTimebase(timebase);
+	    setTimebase(timebase);
 	    break;
 
 	    // 0.5 ms
 
 	case R.id.tb0_5ms:
-	    last = submenu.getItem(timebase);
-	    last.setChecked(false);
+	    clearLast(submenu, timebase);
 	    timebase = 2;
 	    item.setChecked(true);
-	    showTimebase(timebase);
+	    setTimebase(timebase);
 	    break;
 
 	    // 1.0 ms
 
 	case R.id.tb1_0ms:
-	    last = submenu.getItem(timebase);
-	    last.setChecked(false);
+	    clearLast(submenu, timebase);
 	    timebase = 3;
 	    item.setChecked(true);
-	    showTimebase(timebase);
+	    setTimebase(timebase);
 	    break;
 
 	    // 2.0 ms
 
 	case R.id.tb2_0ms:
-	    last = submenu.getItem(timebase);
-	    last.setChecked(false);
+	    clearLast(submenu, timebase);
 	    timebase = 4;
 	    item.setChecked(true);
-	    showTimebase(timebase);
+	    setTimebase(timebase);
 	    break;
 
 	    // 5.0 ms
 
 	case R.id.tb5_0ms:
-	    last = submenu.getItem(timebase);
-	    last.setChecked(false);
+	    clearLast(submenu, timebase);
 	    timebase = 5;
 	    item.setChecked(true);
-	    showTimebase(timebase);
+	    setTimebase(timebase);
 	    break;
 
 	    // 10 ms
 
 	case R.id.tb10ms:
-	    last = submenu.getItem(timebase);
-	    last.setChecked(false);
+	    clearLast(submenu, timebase);
 	    timebase = 6;
 	    item.setChecked(true);
-	    showTimebase(timebase);
+	    setTimebase(timebase);
 	    break;
 
 	    // 20 ms
 
 	case R.id.tb20ms:
-	    last = submenu.getItem(timebase);
-	    last.setChecked(false);
+	    clearLast(submenu, timebase);
 	    timebase = 7;
 	    item.setChecked(true);
-	    showTimebase(timebase);
+	    setTimebase(timebase);
 	    break;
 
 	    // 50 ms
 
 	case R.id.tb50ms:
-	    last = submenu.getItem(timebase);
-	    last.setChecked(false);
+	    clearLast(submenu, timebase);
 	    timebase = 8;
 	    item.setChecked(true);
-	    showTimebase(timebase);
+	    setTimebase(timebase);
 	    break;
 
 	    // 0.1 sec
 
 	case R.id.tb0_1sec:
-	    last = submenu.getItem(timebase);
-	    last.setChecked(false);
+	    clearLast(submenu, timebase);
 	    timebase = 9;
 	    item.setChecked(true);
-	    showTimebase(timebase);
+	    setTimebase(timebase);
 	    break;
 
 	    // 0.2 sec
 
 	case R.id.tb0_2sec:
-	    last = submenu.getItem(timebase);
-	    last.setChecked(false);
+	    clearLast(submenu, timebase);
 	    timebase = 10;
 	    item.setChecked(true);
-	    showTimebase(timebase);
+	    setTimebase(timebase);
 	    break;
 
 	    // 0.5 sec
 
 	case R.id.tb0_5sec:
-	    last = submenu.getItem(timebase);
-	    last.setChecked(false);
+	    clearLast(submenu, timebase);
 	    timebase = 11;
 	    item.setChecked(true);
-	    showTimebase(timebase);
+	    setTimebase(timebase);
 	    break;
 
 	    // Storage
@@ -340,7 +336,9 @@ public class MainActivity extends Activity
 	case R.id.end:
 	    if (scope != null && xscale != null)
 	    {
-		scope.start = audio.length - xscale.step;
+		while (scope.start < audio.length)
+		    scope.start += xscale.step;
+		scope.start -= xscale.step;
 		xscale.start = scope.start;
 		xscale.postInvalidate();
 	    }
@@ -366,6 +364,45 @@ public class MainActivity extends Activity
 	startActivity(intent);
 
 	return true;
+    }
+
+    // Clear last
+
+    void clearLast(SubMenu submenu, int timebase)
+    {
+	if (submenu != null)
+	{
+	    MenuItem last =  submenu.getItem(timebase);
+
+	    if (last != null)
+		last.setChecked(false);
+	}
+    }
+
+    // Set timebase
+
+    void setTimebase(int timebase)
+    {
+	// Set up scale
+
+	scope.scale = values[timebase];
+	xscale.scale = scope.scale;
+	xscale.step = 1000 * xscale.scale;
+	unit.scale = scope.scale;
+
+	// Reset start
+
+	scope.start = 0;
+	xscale.start = 0;
+
+	// Update display
+
+	xscale.postInvalidate();
+	unit.postInvalidate();
+
+	// Show timebase
+
+	showTimebase(timebase);
     }
 
     // Show timebase
@@ -495,7 +532,7 @@ public class MainActivity extends Activity
 
 	// Private data
 
-	private static final int SAMPLES = 262144;
+	private static final int SAMPLES = 524288;
 	private static final int FRAMES = 4096;
 
 	private static final int INIT  = 0;
@@ -780,26 +817,6 @@ public class MainActivity extends Activity
 
 		    state = INIT;
 		    break;
-		}
-
-		if (scope.scale != values[timebase])
-		{
-		    // Set up scale
-
-		    scope.scale = (float)values[timebase];
-		    xscale.scale = scope.scale;
-		    xscale.step = 1000 * xscale.scale;
-		    unit.scale = scope.scale;
-
-		    // Reset start
-
-		    scope.start = 0;
-		    xscale.start = 0;
-
-		    // Update display
-
-		    xscale.postInvalidate();
-		    unit.postInvalidate();
 		}
 
 		// Update display

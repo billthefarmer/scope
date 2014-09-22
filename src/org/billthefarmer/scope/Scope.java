@@ -153,7 +153,7 @@ public class Scope extends View
 
 	if (xscale < 1.0)
 	{
-	    for (int i = 0; i <= xstop - xstart; i += xstep)
+	    for (int i = 0; i < xstop - xstart; i += xstep)
 	    {
 		if (max < Math.abs(audio.data[i + xstart]))
 		    max = Math.abs(audio.data[i + xstart]);
@@ -166,7 +166,7 @@ public class Scope extends View
 
 	else
 	{
-	    for (int i = 0; i <= xstop - xstart; i++)
+	    for (int i = 0; i < xstop - xstart; i++)
 	    {
 		if (max < Math.abs(audio.data[i + xstart]))
 		    max = Math.abs(audio.data[i + xstart]);

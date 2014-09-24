@@ -3,9 +3,9 @@ Oscilloscope
 
 Android Oscilloscope
 
-![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Scope-large.png)
-
 ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Scope.png)
+
+![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Scope-large.png)
 
  *  Timebase 0.1 ms - 0.5 sec
  *  Single shot

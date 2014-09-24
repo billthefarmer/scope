@@ -1,8 +1,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  Accordion - An Android Accordion written in Java.
+//  Scope - An Android scope written in Java.
 //
-//  Copyright (C) 2013	Bill Farmer
+//  Copyright (C) 2014	Bill Farmer
 //
 //  This program is free software; you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -27,7 +27,6 @@ import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -38,7 +37,6 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
 public class SettingsFragment extends PreferenceFragment
-    implements OnSharedPreferenceChangeListener
 {
     private static final String KEY_PREF_ABOUT = "pref_about";
 
@@ -53,8 +51,6 @@ public class SettingsFragment extends PreferenceFragment
 
 	SharedPreferences preferences =
 	    PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-	preferences.registerOnSharedPreferenceChangeListener(this);
 
 	// Get about summary
 
@@ -88,17 +84,6 @@ public class SettingsFragment extends PreferenceFragment
 	}
     }
 
-    @Override
-    public void onPause()
-    {
-	super.onPause();
-
-	SharedPreferences preferences =
-	    PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-	preferences.unregisterOnSharedPreferenceChangeListener(this);
-    }
-
     // On preference tree click
 
     @Override
@@ -116,13 +101,5 @@ public class SettingsFragment extends PreferenceFragment
     	}
 
     	return result;
-    }
-
-    // On shared preference changed
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences preferences,
-					  String key)
-    {
     }
 }

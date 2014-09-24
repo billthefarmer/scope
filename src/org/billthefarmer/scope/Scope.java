@@ -2,7 +2,7 @@
 //
 //  Scope - An Android scope written in Java.
 //
-//  Copyright (C) 2013	Bill Farmer
+//  Copyright (C) 2014	Bill Farmer
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -36,10 +36,6 @@ import android.view.View;
 
 public class Scope extends View
 {
-    private static final int SIZE = 20;
-    private static final float SMALL_SCALE = 200;
-    private static final float LARGE_SCALE = 200000;
-
     private int width;
     private int height;
 
@@ -64,6 +60,8 @@ public class Scope extends View
     {
 	super(context, attrs);
 
+	// Create path and paint
+
 	path = new Path();
 	paint = new Paint();
     }
@@ -73,17 +71,27 @@ public class Scope extends View
     {
 	super.onSizeChanged(w, h, oldw, oldh);
 
+	// Get dimensions
+
 	width = w;
 	height = h;
 
+	// Create a bitmap for trace storage
+
 	bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 	cb = new Canvas(bitmap);
+
+	// Create a bitmap for the graticule
 
 	graticule = Bitmap.createBitmap(width, height,
 					Bitmap.Config.ARGB_8888);
 	Canvas canvas = new Canvas(graticule);
 
+	// Black background
+
 	canvas.drawColor(Color.BLACK);
+
+	// Set up paint
 
 	paint.setStrokeWidth(2);
 	paint.setStyle(Paint.Style.STROKE);
@@ -91,16 +99,18 @@ public class Scope extends View
 
 	// Draw graticule
 
-	for (int i = 0; i < width; i += SIZE)
+	for (int i = 0; i < width; i += MainActivity.SIZE)
 	    canvas.drawLine(i, 0, i, height, paint);
 
 	canvas.translate(0, height / 2);
 
-	for (int i = 0; i < height / 2; i += SIZE)
+	for (int i = 0; i < height / 2; i += MainActivity.SIZE)
 	{
 	    canvas.drawLine(0, i, width, i, paint);
 	    canvas.drawLine(0, -i, width, -i, paint);
 	}
+
+	// Draw the graticule on the bitmap
 
 	cb.drawBitmap(graticule, 0, 0, null);
 
@@ -121,15 +131,17 @@ public class Scope extends View
 	    return;
 	}
 
+	// Draw the graticule on the bitmap
+
 	if (!storage || clear)
 	{
 	    cb.drawBitmap(graticule, 0, -height / 2, null);
 	    clear = false;
 	}
 
-	// Calculate scale etc
+	// Calculate x scale etc
 
-	float xscale = (float)(1.0 / ((audio.sample / 100000.0) * scale));
+	float xscale = (float)(2.0 / ((audio.sample / 100000.0) * scale));
 	int xstart = Math.round(start);
 	int xstep = Math.round((float)1.0 / xscale);
 	int xstop = Math.round(xstart + ((float)width / xscale));
@@ -137,7 +149,7 @@ public class Scope extends View
 	if (xstop > audio.length)
 	    xstop = (int)audio.length;
 
-	// Calculate scale
+	// Calculate y scale
 
 	if (max < 4096)
 	    max = 4096;
@@ -185,6 +197,8 @@ public class Scope extends View
 	    }
 	}
 
+	// Green trace
+
 	paint.setColor(Color.GREEN);
 	cb.drawPath(path, paint);
 
@@ -192,30 +206,39 @@ public class Scope extends View
 
 	if (index > 0 && index < width)
 	{
+	    // Yellow index
+
 	    paint.setColor(Color.YELLOW);
 	    paint.setTextAlign(Paint.Align.LEFT);
 	    cb.drawLine(index, -height / 2, index, height / 2, paint);
 
-	    int i = Math.round((float)index / xscale);
+	    // Get value
+
+	    int i = Math.round(index / xscale);
 	    float y = -audio.data[i + xstart] / yscale;
+
+	    // Draw value
 
 	    String s = String.format("%3.2f", audio.data[i + xstart] / 32768.0);
 	    cb.drawText(s, index, y, paint);
 
 	    paint.setTextAlign(Paint.Align.CENTER);
 
+	    // Draw time value
+
 	    if (scale < 100.0)
 	    {
 		s = String.format((scale < 1.0)? "%3.3f": 
 				  (scale < 10.0)? "%3.2f": "%3.1f",
-				  (start + (index * scale)) / SMALL_SCALE);
+				  (start + (index * scale)) /
+				  MainActivity.SMALL_SCALE);
 		cb.drawText(s, index, height / 2, paint);
 	    }
 
 	    else
 	    {
-		s = String.format("%3.3f", (start + (index *
-						     scale)) / LARGE_SCALE);
+		s = String.format("%3.3f", (start + (index * scale)) /
+				  MainActivity.LARGE_SCALE);
 		cb.drawText(s, index, height / 2, paint);
 	    }
 	}
@@ -230,6 +253,8 @@ public class Scope extends View
     {
 	float x = event.getX();
 	float y = event.getY();
+
+	// Set the index from the touch dimension
 
 	switch (event.getAction())
 	{

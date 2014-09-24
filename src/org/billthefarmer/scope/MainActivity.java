@@ -2,7 +2,7 @@
 //
 //  Scope - An Android scope written in Java.
 //
-//  Copyright (C) 2013	Bill Farmer
+//  Copyright (C) 2014	Bill Farmer
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -55,8 +55,11 @@ public class MainActivity extends Activity
     private static final int counts[] =
     {256, 512, 1024, 2048,
      4096, 8192, 16384, 32768,
-     65536, 131072, 262144,
-     524288, 1048576};
+     65536, 131072, 262144, 524288};
+
+    protected static final int SIZE = 20;
+    protected static final float SMALL_SCALE = 200;
+    protected static final float LARGE_SCALE = 200000;
 
     protected int timebase;
 
@@ -67,6 +70,8 @@ public class MainActivity extends Activity
     private Audio audio;
     private Toast toast;
     private SubMenu submenu;
+
+    // On create
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -370,6 +375,8 @@ public class MainActivity extends Activity
 
     void clearLast(SubMenu submenu, int timebase)
     {
+	// Clear last submenu item tickbox
+
 	if (submenu != null)
 	{
 	    MenuItem last =  submenu.getItem(timebase);
@@ -587,7 +594,7 @@ public class MainActivity extends Activity
 	protected void processAudio()
 	{
 	    // Assume the output sample will work on the input as
-	    // there isn't a AudioRecord.getNativeInputSampleRate()
+	    // there isn't an AudioRecord.getNativeInputSampleRate()
 
 	    sample =
 		AudioTrack.getNativeOutputSampleRate(AudioManager.STREAM_MUSIC);

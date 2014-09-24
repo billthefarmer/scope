@@ -1,3 +1,26 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Scope - An Android scope written in Java.
+//
+//  Copyright (C) 2014	Bill Farmer
+//
+//  This program is free software; you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation; either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+//  Bill Farmer	 william j farmer [at] yahoo [dot] co [dot] uk.
+//
+///////////////////////////////////////////////////////////////////////////////
+
 package org.billthefarmer.scope;
 
 import android.annotation.SuppressLint;
@@ -10,9 +33,7 @@ import android.view.View;
 
 public class XScale extends View
 {
-    private static final int SIZE = 20;
-    private static final float SMALL_SCALE = 200;
-    private static final float LARGE_SCALE = 200000;
+    private static final int HEIGHT_FRACTION = 32;
 
     protected float step;
     protected float scale;
@@ -27,7 +48,11 @@ public class XScale extends View
     {
 	super(context, attrs);
 
+	// Create paint
+
 	paint = new Paint();
+
+	// Set initial values
 
 	start = 0;
 	scale = 1;
@@ -39,15 +64,21 @@ public class XScale extends View
     {
 	super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
+	// Get offered dimension
+
 	int w = MeasureSpec.getSize(widthMeasureSpec);
 
-	setMeasuredDimension(w, w / 32);
+	// Set wanted dimensions
+
+	setMeasuredDimension(w, w / HEIGHT_FRACTION);
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
 	super.onSizeChanged(w, h, oldw, oldh);
+
+	// Get actual dimensions
 
 	width = w;
 	height = h;
@@ -57,27 +88,36 @@ public class XScale extends View
     @Override
     protected void onDraw(Canvas canvas)
     {
+	// Set up paint
+
 	paint.setStrokeWidth(2);
 	paint.setColor(Color.BLACK);
 
-	for (int i = 0; i < width; i += SIZE)
+	// Draw ticks
+
+	for (int i = 0; i < width; i += MainActivity.SIZE)
 	    canvas.drawLine(i, 0, i, height / 4, paint);
 
-	for (int i = 0; i < width; i += SIZE * 5)
+	for (int i = 0; i < width; i += MainActivity.SIZE * 5)
 	    canvas.drawLine(i, 0, i, height / 3, paint);
+
+	// Set up paint
 
 	paint.setAntiAlias(true);
 	paint.setTextSize(height * 2 / 3);
 	paint.setTextAlign(Paint.Align.CENTER);
 
+	// Draw scale
+
 	if (scale < 100.0)
 	{
 	    canvas.drawText("ms", 0, height - (height / 8), paint);
 
-	    for (int i = SIZE * 10; i < width; i += SIZE * 10)
+	    for (int i = MainActivity.SIZE * 10; i < width;
+		 i += MainActivity.SIZE * 10)
 	    {
 		String s = String.format("%1.1f", (start + (i * scale)) /
-					 SMALL_SCALE);
+					 MainActivity.SMALL_SCALE);
 		canvas.drawText(s, i, height - (height / 8), paint);
 	    }
 	}
@@ -86,10 +126,11 @@ public class XScale extends View
 	{
 	    canvas.drawText("sec", 0, height - (height / 8), paint);
  
-	    for (int i = SIZE * 10; i < width; i += SIZE * 10)
+	    for (int i = MainActivity.SIZE * 10; i < width;
+		 i += MainActivity.SIZE * 10)
 	    {
 		String s = String.format("%1.1f", (start + (i * scale)) /
-					 LARGE_SCALE);
+					 MainActivity.LARGE_SCALE);
 		canvas.drawText(s, i, height - (height / 8), paint);
 	    }
 	}

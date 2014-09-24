@@ -1,3 +1,26 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Scope - An Android scope written in Java.
+//
+//  Copyright (C) 2014	Bill Farmer
+//
+//  This program is free software; you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation; either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+//  Bill Farmer	 william j farmer [at] yahoo [dot] co [dot] uk.
+//
+///////////////////////////////////////////////////////////////////////////////
+
 package org.billthefarmer.scope;
 
 import android.content.Context;
@@ -8,7 +31,7 @@ import android.view.View;
 
 public class YScale extends View
 {
-    private static final int SIZE = 20;
+    private static final int WIDTH_FRACTION = 24;
 
     private int width;
     private int height;
@@ -18,7 +41,8 @@ public class YScale extends View
     public YScale(Context context, AttributeSet attrs)
     {
 	super(context, attrs);
-	// TODO Auto-generated constructor stub
+
+	// Create pain
 
 	paint = new Paint();
     }
@@ -28,15 +52,21 @@ public class YScale extends View
     {
 	super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
+	// Get offered dimension
+
 	int h = MeasureSpec.getSize(heightMeasureSpec);
 
-	setMeasuredDimension(h / 24, h);
+	// Set wanted dimensions
+
+	setMeasuredDimension(h / WIDTH_FRACTION, h);
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
 	super.onSizeChanged(w, h, oldw, oldh);
+
+	// Get actual dimensions
 
 	width = w;
 	height = h;
@@ -49,13 +79,15 @@ public class YScale extends View
 
 	canvas.translate(0, height / 2);
 
-	for (int i = 0; i < height / 2; i += SIZE)
+	// Draw scale ticks
+
+	for (int i = 0; i < height / 2; i += MainActivity.SIZE)
 	{
 	    canvas.drawLine(width * 2 / 3, i, width, i, paint);
 	    canvas.drawLine(width * 2 / 3, -i, width, -i, paint);
 	}
 
-	for (int i = 0; i < height / 2; i += SIZE * 5)
+	for (int i = 0; i < height / 2; i += MainActivity.SIZE * 5)
 	{
 	    canvas.drawLine(width / 3, i, width, i, paint);
 	    canvas.drawLine(width / 3, -i, width, -i, paint);

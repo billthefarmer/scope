@@ -29,6 +29,7 @@
       android:showAsAction="always"
       android:title="@string/action_timebase"
       android:icon="@drawable/ic_action_timebase" >
+
     <menu>
       <group
 	  android:checkableBehavior="single" >
@@ -97,13 +98,7 @@
       </group>
     </menu>
   </item>
-  <!--
-  <item
-      android:id="@+id/zoom_out"
-      android:showAsAction="always"
-      android:title="@string/action_zoom_out"
-      android:icon="@drawable/ic_action_zoom_out" />
-  -->
+
   <item
       android:id="@+id/storage"
       android:showAsAction="always"
@@ -139,13 +134,7 @@
       android:showAsAction="always"
       android:title="@string/action_end"
       android:icon="@drawable/ic_action_end" />
-  <!--
-      <item
-      android:id="@+id/reset"
-      android:showAsAction="always"
-      android:title="@string/action_reset"
-      android:icon="@drawable/ic_action_reset" />
-  -->
+
   <item
       android:id="@+id/action_settings"
       android:showAsAction="always"

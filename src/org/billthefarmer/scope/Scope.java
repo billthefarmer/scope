@@ -209,6 +209,7 @@ public class Scope extends View
 	    // Yellow index
 
 	    paint.setColor(Color.YELLOW);
+	    paint.setTextSize(height / 48);
 	    paint.setTextAlign(Paint.Align.LEFT);
 	    cb.drawLine(index, -height / 2, index, height / 2, paint);
 

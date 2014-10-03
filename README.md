@@ -25,7 +25,7 @@ Android Oscilloscope
  *  **Left** Moves the trace to the left
  *  **Right** Moves the trace to the right
  *  **Start** Moves the trace to the start
- *  **End** Moves the trace to the ends
+ *  **End** Moves the trace to the end
  *  **Settings** Just an **About** item
 
 Touching the display will produce a vertical index line, which will show the value at that point. The value is arbitrary, as there is automatic gain control on the input so the trace does not get clipped. The position of the index can be finely adjusted by rolling the finger tip. The index can be removed by wiping it off to the left, or touching the Start icon.

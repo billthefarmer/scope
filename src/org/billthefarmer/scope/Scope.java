@@ -216,12 +216,16 @@ public class Scope extends View
 	    // Get value
 
 	    int i = Math.round(index / xscale);
-	    float y = -audio.data[i + xstart] / yscale;
+	    if (i + xstart < audio.length)
+	    {
+		float y = -audio.data[i + xstart] / yscale;
 
-	    // Draw value
+		// Draw value
 
-	    String s = String.format("%3.2f", audio.data[i + xstart] / 32768.0);
-	    cb.drawText(s, index, y, paint);
+		String s = String.format("%3.2f",
+					 audio.data[i + xstart] / 32768.0);
+		cb.drawText(s, index, y, paint);
+	    }
 
 	    paint.setTextAlign(Paint.Align.CENTER);
 
@@ -229,16 +233,16 @@ public class Scope extends View
 
 	    if (scale < 100.0)
 	    {
-		s = String.format((scale < 1.0)? "%3.3f": 
-				  (scale < 10.0)? "%3.2f": "%3.1f",
-				  (start + (index * scale)) /
-				  MainActivity.SMALL_SCALE);
+		String s = String.format((scale < 1.0)? "%3.3f": 
+					 (scale < 10.0)? "%3.2f": "%3.1f",
+					 (start + (index * scale)) /
+					 MainActivity.SMALL_SCALE);
 		cb.drawText(s, index, height / 2, paint);
 	    }
 
 	    else
 	    {
-		s = String.format("%3.3f", (start + (index * scale)) /
+		String s = String.format("%3.3f", (start + (index * scale)) /
 				  MainActivity.LARGE_SCALE);
 		cb.drawText(s, index, height / 2, paint);
 	    }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <string name="app_name">Oscillocope</string>
+  <string name="app_name">Oscilloscope</string>
   <string name="copyright">Copyright \u00A9 2014 Bill Farmer</string>
   <string name="licence">Licence: GNU GPLv3</string>
 

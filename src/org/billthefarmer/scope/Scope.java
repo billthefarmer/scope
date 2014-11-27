@@ -34,6 +34,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+// Scope
+
 public class Scope extends View
 {
     private int width;
@@ -56,6 +58,8 @@ public class Scope extends View
     protected MainActivity main;
     protected MainActivity.Audio audio;
 
+    // Scope
+
     public Scope(Context context, AttributeSet attrs)
     {
 	super(context, attrs);
@@ -65,6 +69,8 @@ public class Scope extends View
 	path = new Path();
 	paint = new Paint();
     }
+
+    // On size changed
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
@@ -118,6 +124,8 @@ public class Scope extends View
     }
 
     private int max;
+
+    // On draw
 
     @SuppressLint("DefaultLocale")
     @Override

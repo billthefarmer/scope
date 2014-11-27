@@ -349,6 +349,11 @@ public class MainActivity extends Activity
 	    }
 	    break;
 
+	    // Spectrum
+
+	case R.id.action_spectrum:
+	    return onSpectrumClick(item);
+
 	    // Settings
 
 	case R.id.action_settings:
@@ -366,6 +371,16 @@ public class MainActivity extends Activity
     private boolean onSettingsClick(MenuItem item)
     {
 	Intent intent = new Intent(this, SettingsActivity.class);
+	startActivity(intent);
+
+	return true;
+    }
+
+    // On settings click
+
+    private boolean onSpectrumClick(MenuItem item)
+    {
+	Intent intent = new Intent(this, SpectrumActivity.class);
 	startActivity(intent);
 
 	return true;

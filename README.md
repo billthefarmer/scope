@@ -28,6 +28,6 @@ Android Oscilloscope
  *  **End** Moves the trace to the end
  *  **Settings** Just an **About** item
 
-Touching the display will produce a vertical index line, which will show the value at that point. The value is arbitrary, as there is automatic gain control on the input so the trace does not get clipped. The position of the index can be finely adjusted by rolling the finger tip. The index can be removed by wiping it off to the left, or touching the Start icon.
+Touching the display will produce a vertical index line, which will show the value at that point. The value is arbitrary, as there is automatic gain control on the input so the trace does not get clipped. The position of the index can be finely adjusted by rolling the finger tip. The index can be removed by swiping it off to the left, or touching the Start icon.
 
 In single shot mode the timebase may be changed to zoom in and pan left and right using the right and left icons.

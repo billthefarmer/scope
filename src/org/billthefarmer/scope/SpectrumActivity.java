@@ -28,6 +28,7 @@ import android.media.AudioManager;
 import android.media.AudioRecord;
 import android.media.AudioTrack;
 import android.os.Bundle;
+import android.os.Handler;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -39,11 +40,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.widget.Toast;
+import android.widget.TextView;
 
 public class SpectrumActivity extends Activity
 {
     private Spectrum spectrum;
     private FreqScale scale;
+    private TextView text;
+    private Unit unit;
+
     private Audio audio;
 
     // On create
@@ -56,12 +61,24 @@ public class SpectrumActivity extends Activity
 
 	spectrum = (Spectrum)findViewById(R.id.spectrum);
 	scale = (FreqScale)findViewById(R.id.freqscale);
+	unit = (Unit)findViewById(R.id.specunit);
+
+	unit.scale = 0;
 
 	// Enable back navigation on action bar
 
 	ActionBar actionBar = getActionBar();
 	actionBar.setDisplayHomeAsUpEnabled(true);
 	actionBar.setTitle(R.string.spectrum);
+
+	actionBar.setCustomView(R.layout.text);
+	actionBar.setDisplayShowCustomEnabled(true);
+	text = (TextView)actionBar.getCustomView();
+
+	audio = new Audio();
+
+	if (spectrum != null)
+	    spectrum.audio = audio;
     }
 
     @Override
@@ -103,6 +120,28 @@ public class SpectrumActivity extends Activity
 	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
 	startActivity(intent);
+    }
+
+    // On Resume
+
+    @Override
+    protected void onResume()
+    {
+	super.onResume();
+
+	// Start the audio thread
+
+	audio.start();
+    }
+
+    @Override
+    protected void onPause()
+    {
+	super.onPause();
+
+	// Stop audio thread
+
+	audio.stop();
     }
 
     // Show alert
@@ -148,21 +187,23 @@ public class SpectrumActivity extends Activity
 
 	// Data
 
-	protected Thread thread;
-	protected short data[];
-	protected double buffer[];
-	protected long length;
 	protected double frequency;
+	protected double fps;
 
 	private AudioRecord audioRecord;
 
 	private static final int OVERSAMPLE = 16;
 	private static final int SAMPLES = 16384;
-	private static final int RANGE = SAMPLES * 3 / 8;
+	private static final int RANGE = SAMPLES * 7 / 16;
 	private static final int STEP = SAMPLES / OVERSAMPLE;
 	private static final int SIZE = 4096;
 
 	private static final double MIN = 0.5;
+	private static final double expect = 2.0 * Math.PI * STEP / SAMPLES;
+
+	private Thread thread;
+	private short data[];
+	private double buffer[];
 
 	private Complex x;
 
@@ -303,8 +344,7 @@ public class SpectrumActivity extends Activity
 
 	    // Calculate fps and expect
 
-	    final double fps = (double)sample / SAMPLES;
-	    final double expect = 2.0 * Math.PI * STEP / SAMPLES;
+	    fps = (double)sample / SAMPLES;
 
 	    // Start recording
 
@@ -430,12 +470,33 @@ public class SpectrumActivity extends Activity
 
 		if (max > MIN)
 		{
+		    final String s = String.format("%1.1fHz", frequency);
+		    Handler handler = text.getHandler();
+		    handler.post(new Runnable()
+			{
+			    @Override
+			    public void run()
+			    {
+				text.setText(s);
+			    }
+			});
 		}
 
 		else
 		{
 		    frequency = 0.0;
+		    Handler handler = text.getHandler();
+		    handler.post(new Runnable()
+			{
+			    @Override
+			    public void run()
+			    {
+				text.setText("");
+			    }
+			});
 		}
+
+		spectrum.postInvalidate();
 	    }
 
 	    // Stop and release the audio recorder

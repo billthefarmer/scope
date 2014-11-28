@@ -111,7 +111,7 @@ public class XScale extends View
 
 	if (scale < 100.0)
 	{
-	    canvas.drawText("ms", 0, height - (height / 8), paint);
+	    canvas.drawText("ms", 0, height - (height / 6), paint);
 
 	    for (int i = MainActivity.SIZE * 10; i < width;
 		 i += MainActivity.SIZE * 10)
@@ -124,7 +124,7 @@ public class XScale extends View
 
 	else
 	{
-	    canvas.drawText("sec", 0, height - (height / 8), paint);
+	    canvas.drawText("sec", 0, height - (height / 6), paint);
  
 	    for (int i = MainActivity.SIZE * 10; i < width;
 		 i += MainActivity.SIZE * 10)

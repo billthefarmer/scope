@@ -82,5 +82,24 @@ public class FreqScale extends View
 
 	paint.setStrokeWidth(2);
 	paint.setColor(Color.BLACK);
+
+	// canvas.drawLine(0, 0, 0, height / 3, paint);
+
+	// Draw ticks
+
+	for (int i = 0; i < width; i += MainActivity.SIZE)
+	    canvas.drawLine(i, 0, i, height / 4, paint);
+
+	for (int i = 0; i < width; i += MainActivity.SIZE * 5)
+	    canvas.drawLine(i, 0, i, height / 3, paint);
+
+	// Set up paint
+
+	paint.setAntiAlias(true);
+	paint.setTextSize(height * 2 / 3);
+	paint.setTextAlign(Paint.Align.CENTER);
+
+	canvas.drawText("freq", 0, height - (height / 6), paint);
+
     }
 }

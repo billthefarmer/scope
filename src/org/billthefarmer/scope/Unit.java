@@ -70,7 +70,7 @@ public class Unit extends View
 
 	// Draw half a tick
 
-	canvas.drawLine(width, 0, width, height / 2, paint);
+	canvas.drawLine(width, 0, width, height / 3, paint);
 
 	// Set up paint
 
@@ -80,10 +80,16 @@ public class Unit extends View
 
 	// Draw half of the units
 
-	if (scale < 100.0)
-	    canvas.drawText("ms", width, height - (height / 8), paint);
+	if (scale == 0)
+	{
+	    canvas.drawLine(width / 3, 0, width, 0, paint);
+	    canvas.drawText("freq", width, height - (height / 6), paint);
+	}
+
+	else if (scale < 100.0)
+	    canvas.drawText("ms", width, height - (height / 6), paint);
 
 	else
-	    canvas.drawText("sec", width, height - (height / 8), paint);
+	    canvas.drawText("sec", width, height - (height / 6), paint);
     }
 }

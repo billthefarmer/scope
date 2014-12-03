@@ -376,7 +376,7 @@ public class MainActivity extends Activity
 	return true;
     }
 
-    // On settings click
+    // On spectrum click
 
     private boolean onSpectrumClick(MenuItem item)
     {

@@ -94,21 +94,27 @@ public class SpectrumActivity extends Activity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-	// Switch on item id
+	// Get id
 
-	switch (item.getItemId())
+	int id = item.getItemId();
+	switch (id)
 	{
+	    // Home
+
 	case android.R.id.home:
-	    // app icon in action bar clicked; go home
-	    Intent intent = new Intent(this, MainActivity.class);
-	    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	    onBackPressed();
+	    break;
 
-	    startActivity(intent);
-	    return true;
+	    // Settings
+
+	case R.id.action_settings:
+	    return onSettingsClick(item);
+
 	default:
-
-	    return super.onOptionsItemSelected(item);
+	    return false;
 	}
+
+	return true;
     }
 
     // On back pressed
@@ -118,8 +124,18 @@ public class SpectrumActivity extends Activity
     {
 	Intent intent = new Intent(this, MainActivity.class);
 	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
 	startActivity(intent);
+    }
+
+    // On settings click
+
+    private boolean onSettingsClick(MenuItem item)
+    {
+	Intent intent = new Intent(this, SettingsActivity.class);
+	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	startActivity(intent);
+
+	return true;
     }
 
     // On Resume
@@ -262,7 +278,6 @@ public class SpectrumActivity extends Activity
 
 	protected void processAudio()
 	{
-
 	    // Assume the output sample will work on the input as
 	    // there isn't an AudioRecord.getNativeInputSampleRate()
 
@@ -342,7 +357,7 @@ public class SpectrumActivity extends Activity
 		return;
 	    }
 
-	    // Calculate fps and expect
+	    // Calculate fps
 
 	    fps = (double)sample / SAMPLES;
 
@@ -389,7 +404,7 @@ public class SpectrumActivity extends Activity
 
 		dmax = 0.0;
 
-		// Copy data to FFT input arrays for tuner
+		// Copy data to FFT input arrays
 
 		for (int i = 0; i < SAMPLES; i++)
 		{
@@ -409,7 +424,7 @@ public class SpectrumActivity extends Activity
 		    x.r[i] = buffer[i] / norm * window;
 		}
 
-		// do FFT for tuner
+		// do FFT
 
 		fftr(x);
 

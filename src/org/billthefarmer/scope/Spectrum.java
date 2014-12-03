@@ -34,7 +34,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-// Scope
+// Spectrum
 
 public class Spectrum extends View
 {
@@ -42,14 +42,13 @@ public class Spectrum extends View
     private int height;
 
     private Path path;
-    private Canvas cb;
     private Paint paint;
 
     private Bitmap graticule;
 
-    protected SpectrumActivity.Audio audio;
-
     private float max;
+
+    protected SpectrumActivity.Audio audio;
 
     // Spectrum
 
@@ -90,9 +89,6 @@ public class Spectrum extends View
 	paint.setStrokeWidth(2);
 	paint.setStyle(Paint.Style.STROKE);
 	paint.setColor(Color.argb(255, 0, 63, 0));
-
-	// canvas.translate(0, height);
-	// canvas.scale(1, -1);
 
 	// Draw graticule
 
@@ -176,39 +172,22 @@ public class Spectrum extends View
 
 	// Color green
 
-	paint.setStrokeWidth(2);
-	paint.setAntiAlias(true);
 	paint.setColor(Color.GREEN);
 
 	// Draw path
 
 	canvas.drawPath(path, paint);
-	path.rewind();
 
 	// Yellow pen for frequency trace
 
-	paint.setTextAlign(Paint.Align.CENTER);
 	paint.setColor(Color.YELLOW);
-	paint.setStyle(Paint.Style.FILL);
-	paint.setAntiAlias(false);
-	paint.setStrokeWidth(1);
+	paint.setTextSize(height / 48);
+	paint.setTextAlign(Paint.Align.CENTER);
 
 	// Create line for frequency
 
 	float x = (float)(audio.frequency / audio.fps / xscale);
-
-	path.moveTo(x, 0);
-	path.lineTo(x, height);
-
-	// Yellow pen for frequency trace
-
-	paint.setStyle(Paint.Style.STROKE);
-	paint.setAntiAlias(true);
-	paint.setStrokeWidth(2);
-
-	// Draw path
-
-	canvas.drawPath(path, paint);
+	canvas.drawLine(x, 0, x, height, paint);
 
 	// Draw frequency value
 

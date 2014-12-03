@@ -61,16 +61,15 @@ public class SettingsActivity extends Activity
 	switch (item.getItemId())
 	{
 	case android.R.id.home:
-	    // app icon in action bar clicked; go home
-	    Intent intent = new Intent(this, MainActivity.class);
-	    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	    onBackPressed();
+	    break;
 
-	    startActivity(intent);
-	    return true;
 	default:
 
-	    return super.onOptionsItemSelected(item);
+	    return false;
 	}
+
+	return true;
     }
 
     // On back pressed
@@ -80,7 +79,6 @@ public class SettingsActivity extends Activity
     {
 	Intent intent = new Intent(this, MainActivity.class);
 	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
 	startActivity(intent);
     }
 }

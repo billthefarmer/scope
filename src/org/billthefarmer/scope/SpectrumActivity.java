@@ -63,7 +63,8 @@ public class SpectrumActivity extends Activity
 	scale = (FreqScale)findViewById(R.id.freqscale);
 	unit = (Unit)findViewById(R.id.specunit);
 
-	unit.scale = 0;
+	if (unit != null)
+	    unit.scale = 0;
 
 	// Enable back navigation on action bar
 
@@ -79,6 +80,9 @@ public class SpectrumActivity extends Activity
 
 	if (spectrum != null)
 	    spectrum.audio = audio;
+
+	if (scale != null)
+	    scale.audio = audio;
     }
 
     @Override

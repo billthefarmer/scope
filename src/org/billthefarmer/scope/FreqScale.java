@@ -40,6 +40,8 @@ public class FreqScale extends View
 
     private Paint paint;
 
+    protected SpectrumActivity.Audio audio;
+
     public FreqScale(Context context, AttributeSet attrs)
     {
 	super(context, attrs);
@@ -78,20 +80,38 @@ public class FreqScale extends View
     @Override
     protected void onDraw(Canvas canvas)
     {
-	// Set up paint
+	// Check for data
 
-	paint.setStrokeWidth(2);
-	paint.setColor(Color.BLACK);
+	if ((audio != null) && (audio.xa != null))
+	{
+	    // Calculate scale
 
-	// canvas.drawLine(0, 0, 0, height / 3, paint);
+	    float scale = (float) Math.log10(audio.xa.length) / (float) width;
 
-	// Draw ticks
+	    // Set up paint
 
-	for (int i = 0; i < width; i += MainActivity.SIZE)
-	    canvas.drawLine(i, 0, i, height / 4, paint);
+	    paint.setStrokeWidth(2);
+	    paint.setColor(Color.BLACK);
 
-	for (int i = 0; i < width; i += MainActivity.SIZE * 5)
-	    canvas.drawLine(i, 0, i, height / 3, paint);
+	    // Draw ticks
+
+	    int fa[] = {1, 2, 5};
+	    int ma[] = {1, 10, 100, 1000, 10000};
+	    for (int f: fa)
+	    {
+		for (int m: ma)
+		{
+		    float x = (float)Math.log10(((f * m) / audio.fps) / scale);
+		    canvas.drawLine(x, 0, x, height / 3, paint);
+		}
+	    }
+
+	    // for (int i = 0; i < width; i += MainActivity.SIZE)
+	    // 	canvas.drawLine(i, 0, i, height / 4, paint);
+
+	    // for (int i = 0; i < width; i += MainActivity.SIZE * 5)
+	    // 	canvas.drawLine(i, 0, i, height / 3, paint);
+	}
 
 	// Set up paint
 

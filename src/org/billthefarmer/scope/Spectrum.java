@@ -73,32 +73,6 @@ public class Spectrum extends View
 
 	width = w;
 	height = h;
-
-	// Create a bitmap for the graticule
-
-	graticule = Bitmap.createBitmap(width, height,
-					Bitmap.Config.ARGB_8888);
-	Canvas canvas = new Canvas(graticule);
-
-	// Black background
-
-	canvas.drawColor(Color.BLACK);
-
-	// Set up paint
-
-	paint.setStrokeWidth(2);
-	paint.setStyle(Paint.Style.STROKE);
-	paint.setColor(Color.argb(255, 0, 63, 0));
-
-	// Draw graticule
-
-	for (int i = 0; i < width; i += MainActivity.SIZE)
-	    canvas.drawLine(i, 0, i, height, paint);
-
-	for (int i = 0; i < height; i += MainActivity.SIZE)
-	{
-	    canvas.drawLine(0, i, width, i, paint);
-	}
     }
 
     // On draw
@@ -107,17 +81,65 @@ public class Spectrum extends View
     @Override
     protected void onDraw(Canvas canvas)
     {
+	// Check for data
+
+	if ((audio == null) || (audio.xa == null))
+	{
+	    canvas.drawColor(Color.BLACK);
+	    return;
+	}
+
+	// Calculate x scale
+
+	float xscale = (float)Math.log10(audio.xa.length) / width;
+
+	// Create graticule
+
+	if (graticule == null || graticule.getWidth() != width ||
+	    graticule.getHeight() != height)
+	{
+	    // Create a bitmap for the graticule
+
+	    graticule = Bitmap.createBitmap(width, height,
+					    Bitmap.Config.ARGB_8888);
+	    Canvas c = new Canvas(graticule);
+
+	    // Black background
+
+	    c.drawColor(Color.BLACK);
+
+	    // Set up paint
+
+	    paint.setStrokeWidth(2);
+	    paint.setStyle(Paint.Style.STROKE);
+	    paint.setColor(Color.argb(255, 0, 63, 0));
+
+	    // Draw graticule
+
+	    float fa[] = {1, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f,
+			  1.9f, 2, 2.2f, 2.5f, 3, 3.5f, 4, 4.5f, 5, 6, 7, 8, 9};
+	    float ma[] = {1, 10, 100, 1000, 10000};
+	    for (float m: ma)
+	    {
+		for (float f: fa)
+		{
+		    float x = (float) Math.log10((f * m) / audio.fps) / xscale;
+		    c.drawLine(x, 0, x, height, paint);
+		}
+	    }
+
+	    for (int i = 0; i < height; i += MainActivity.SIZE)
+	    {
+		c.drawLine(0, i, width, i, paint);
+	    }
+	}
+
 	canvas.translate(0, height);
 	canvas.scale(1, -1);
 
 	// Draw the graticule
 
 	canvas.drawBitmap(graticule, 0, 0, null);
-
-	// Check for data
-
-	if ((audio == null) || (audio.xa == null))
-	    return;
 
 	// Chack max value
 
@@ -135,30 +157,28 @@ public class Spectrum extends View
 	path.rewind();
 	path.moveTo(0, 0);
 
-	// Calculate x scale
-
-	float xscale = (float)audio.xa.length / (float)width;
-
 	// Create trace
 
+	int last = 1;
 	for (int x = 0; x < width; x++)
 	{
 	    float value = 0.0f;
 
-	    // Don't show DC component
-
-	    if (x > 0)
+	    int index = (int)Math.round(Math.pow(10, x * xscale));
+	    for (int i = last; i < index; i++)
 	    {
-		// Find max value for each vertex
+		// Don't show DC component and don't overflow
 
-		for (int j = 0; j < xscale; j++)
+		if (i > 0 && i < audio.xa.length)
 		{
-		    int n = (int)(x * xscale) + j;
-
-		    if (value < audio.xa[n])
-			value = (float)audio.xa[n];
+		    if (value < audio.xa[i])
+			value = (float)audio.xa[i];
 		}
 	    }
+
+	    // Update last index
+
+	    last = index;
 
 	    // Get max value
 
@@ -188,7 +208,7 @@ public class Spectrum extends View
 
 	    // Create line for frequency
 
-	    float x = (float)(audio.frequency / audio.fps / xscale);
+	    float x = (float)Math.log10(audio.frequency / audio.fps) / xscale;
 	    canvas.drawLine(x, 0, x, height / 4, paint);
 
 	    // Draw frequency value

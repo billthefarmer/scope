@@ -214,7 +214,7 @@ public class SpectrumActivity extends Activity
 
 	private static final int OVERSAMPLE = 16;
 	private static final int SAMPLES = 16384;
-	private static final int RANGE = SAMPLES * 7 / 16;
+	private static final int RANGE = SAMPLES / 2;
 	private static final int STEP = SAMPLES / OVERSAMPLE;
 	private static final int SIZE = 4096;
 
@@ -364,6 +364,11 @@ public class SpectrumActivity extends Activity
 	    // Calculate fps
 
 	    fps = (double)sample / SAMPLES;
+
+	    // Invalidate scale
+
+	    if (scale != null)
+		scale.postInvalidate();
 
 	    // Start recording
 

@@ -29,11 +29,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 public class FreqScale extends View
 {
     private static final int HEIGHT_FRACTION = 32;
+    static final private String TAG = "FreqScale";
 
     private int width;
     private int height;
@@ -92,34 +94,36 @@ public class FreqScale extends View
 
 	    paint.setStrokeWidth(2);
 	    paint.setColor(Color.BLACK);
+	    paint.setTextSize(height * 2 / 3);
+	    paint.setTextAlign(Paint.Align.CENTER);
 
 	    // Draw ticks
 
-	    int fa[] = {1, 2, 5};
-	    int ma[] = {1, 10, 100, 1000, 10000};
-	    for (int f: fa)
+	    canvas.drawLine(0, 0, 0, height / 3, paint);
+
+	    float fa[] = {1, 2, 5};
+	    float sa[] = {1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f,
+			  1.9f, 2.2f, 2.5f, 3, 3.5f, 4, 4.5f, 6, 7, 8, 9};
+	    float ma[] = {1, 10, 100, 1000, 10000};
+	    for (float m: ma)
 	    {
-		for (int m: ma)
+		for (float f: fa)
 		{
-		    float x = (float)Math.log10(((f * m) / audio.fps) / scale);
+		    float x = (float) Math.log10((f * m) / audio.fps) / scale;
 		    canvas.drawLine(x, 0, x, height / 3, paint);
+
+		    String s = String.format("%1.0f", f * m);
+		    canvas.drawText(s, x, height - (height / 6), paint);
+		}
+
+		for (float s: sa)
+		{
+		    float x = (float) Math.log10((s * m) / audio.fps) / scale;
+		    canvas.drawLine(x, 0, x, height / 4, paint);
 		}
 	    }
-
-	    // for (int i = 0; i < width; i += MainActivity.SIZE)
-	    // 	canvas.drawLine(i, 0, i, height / 4, paint);
-
-	    // for (int i = 0; i < width; i += MainActivity.SIZE * 5)
-	    // 	canvas.drawLine(i, 0, i, height / 3, paint);
 	}
 
-	// Set up paint
-
-	paint.setAntiAlias(true);
-	paint.setTextSize(height * 2 / 3);
-	paint.setTextAlign(Paint.Align.CENTER);
-
 	canvas.drawText("freq", 0, height - (height / 6), paint);
-
     }
 }

@@ -137,13 +137,13 @@
 
   <item
       android:id="@+id/action_spectrum"
-      android:showAsAction="never"
+      android:showAsAction="ifRoom"
       android:title="@string/action_spectrum"
       android:icon="@drawable/ic_action_end" />
 
   <item
       android:id="@+id/action_settings"
-      android:showAsAction="never"
+      android:showAsAction="ifRoom"
       android:title="@string/action_settings"
       android:icon="@drawable/ic_action_settings" />
 

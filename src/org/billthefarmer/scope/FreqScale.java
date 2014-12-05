@@ -112,7 +112,13 @@ public class FreqScale extends View
 		    float x = (float) Math.log10((f * m) / audio.fps) / scale;
 		    canvas.drawLine(x, 0, x, height / 3, paint);
 
-		    String s = String.format("%1.0f", f * m);
+		    String s;
+		    if (m >= 1000)
+			s = String.format("%1.0fK", f * m / 1000);
+
+		    else
+			s = String.format("%1.0f", f * m);
+
 		    canvas.drawText(s, x, height - (height / 6), paint);
 		}
 

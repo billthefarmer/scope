@@ -13,7 +13,6 @@ Android Oscilloscope
  *  Single shot
  *  Storage
  *  Index
-
  *  Spectrum
 
 ###Using

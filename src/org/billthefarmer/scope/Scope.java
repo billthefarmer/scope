@@ -208,6 +208,7 @@ public class Scope extends View
 	// Green trace
 
 	paint.setColor(Color.GREEN);
+	paint.setAntiAlias(true);
 	cb.drawPath(path, paint);
 
 	// Draw index
@@ -217,9 +218,13 @@ public class Scope extends View
 	    // Yellow index
 
 	    paint.setColor(Color.YELLOW);
+
+	    paint.setAntiAlias(false);
+	    cb.drawLine(index, -height / 2, index, height / 2, paint);
+
+	    paint.setAntiAlias(true);
 	    paint.setTextSize(height / 48);
 	    paint.setTextAlign(Paint.Align.LEFT);
-	    cb.drawLine(index, -height / 2, index, height / 2, paint);
 
 	    // Get value
 

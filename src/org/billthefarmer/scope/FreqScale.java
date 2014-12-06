@@ -91,7 +91,6 @@ public class FreqScale extends View
 
 	    paint.setStrokeWidth(2);
 	    paint.setColor(Color.BLACK);
-	    paint.setAntiAlias(true);
 	    paint.setTextSize(height * 2 / 3);
 	    paint.setTextAlign(Paint.Align.CENTER);
 
@@ -117,7 +116,9 @@ public class FreqScale extends View
 		    else
 			s = String.format("%1.0f", f * m);
 
+		    paint.setAntiAlias(true);
 		    canvas.drawText(s, x, height - (height / 6), paint);
+		    paint.setAntiAlias(false);
 		}
 
 		for (float s: sa)

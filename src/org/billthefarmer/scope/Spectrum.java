@@ -192,6 +192,7 @@ public class Spectrum extends View
 	// Color green
 
 	paint.setColor(Color.GREEN);
+	paint.setAntiAlias(true);
 
 	// Draw path
 
@@ -202,18 +203,20 @@ public class Spectrum extends View
 	    // Yellow pen for frequency trace
 
 	    paint.setColor(Color.YELLOW);
-	    paint.setTextSize(height / 48);
-	    paint.setTextAlign(Paint.Align.CENTER);
 
 	    // Create line for frequency
 
 	    float x = (float)Math.log10(audio.frequency / audio.fps) / xscale;
+	    paint.setAntiAlias(false);
 	    canvas.drawLine(x, 0, x, height / 4, paint);
 
 	    // Draw frequency value
 
 	    canvas.scale(1, -1);
 	    String s = String.format("%1.1fHz", audio.frequency);
+	    paint.setTextSize(height / 48);
+	    paint.setTextAlign(Paint.Align.CENTER);
+	    paint.setAntiAlias(true);
 	    canvas.drawText(s, x, 0, paint);
 	}
     }

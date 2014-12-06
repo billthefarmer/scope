@@ -39,16 +39,20 @@ import android.content.res.Resources;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class SpectrumActivity extends Activity
+    implements View.OnClickListener
 {
     private Spectrum spectrum;
     private FreqScale scale;
     private TextView text;
     private Toast toast;
     private Unit unit;
+
+    private MenuItem lockItem;
 
     private Audio audio;
 
@@ -66,6 +70,9 @@ public class SpectrumActivity extends Activity
 
 	if (unit != null)
 	    unit.scale = 0;
+
+	if (spectrum != null)
+	    spectrum.setOnClickListener(this);
 
 	// Enable back navigation on action bar
 
@@ -91,6 +98,9 @@ public class SpectrumActivity extends Activity
     {
 	// Inflate the menu; this adds items to the action bar if it is present.
 	getMenuInflater().inflate(R.menu.spectrum, menu);
+
+	lockItem = menu.findItem(R.id.action_lock);
+
 	return true;
     }
 
@@ -148,6 +158,28 @@ public class SpectrumActivity extends Activity
 	startActivity(intent);
 
 	return true;
+    }
+
+    // On click
+
+    @Override
+    public void onClick(View v)
+    {
+	// Get id
+
+	int id = v.getId();
+	switch (id)
+	{
+	    // Scope
+
+	case R.id.spectrum:
+	    audio.lock = !audio.lock;
+	    if (lockItem != null)
+		lockItem.setIcon(audio.lock? R.drawable.ic_action_lock_checked:
+				 R.drawable.ic_action_lock);
+	    showToast(audio.lock? R.string.lock_on: R.string.lock_off);
+	    break;
+	}
     }
 
     // Show toast.

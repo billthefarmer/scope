@@ -42,4 +42,4 @@ Touching the display will produce a vertical index line, which will show the val
 In single shot mode the timebase may be changed to zoom in and pan left and right using the right and left icons.
 
 ###Spectrum
-The spectrum display shows a spectrum with a logarithmic frequency scale. An index line shows the dominant frequency in the input. The frequency is also displayed in the toolbar. To lock the display, touch the lock icon in the toolbar. Touch it again to release the lock.
+The spectrum display shows a spectrum with a logarithmic frequency scale. An index line shows the dominant frequency in the input. The frequency is also displayed in the toolbar. To lock the display, touch spectrum display or the lock icon in the toolbar. Touch it again to release the lock.

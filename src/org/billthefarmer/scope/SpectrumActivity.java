@@ -35,15 +35,19 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SpectrumActivity extends Activity
 {
     private Spectrum spectrum;
     private FreqScale scale;
     private TextView text;
+    private Toast toast;
     private Unit unit;
 
     private Audio audio;
@@ -106,6 +110,13 @@ public class SpectrumActivity extends Activity
 	    onBackPressed();
 	    break;
 
+	case R.id.action_lock:
+	    audio.lock = !audio.lock;
+	    item.setIcon(audio.lock? R.drawable.ic_action_lock_checked:
+			 R.drawable.ic_action_lock);
+	    showToast(audio.lock? R.string.lock_on: R.string.lock_off);
+	    break;
+
 	    // Settings
 
 	case R.id.action_settings:
@@ -137,6 +148,30 @@ public class SpectrumActivity extends Activity
 	startActivity(intent);
 
 	return true;
+    }
+
+    // Show toast.
+
+    void showToast(int key)
+    {
+	Resources resources = getResources();
+	String text = resources.getString(key);
+
+	showToast(text);
+    }
+
+    void showToast(String text)
+    {
+	// Cancel the last one
+
+	if (toast != null)
+	    toast.cancel();
+
+	// Make a new one
+
+	toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+	toast.setGravity(Gravity.CENTER, 0, 0);
+	toast.show();
     }
 
     // On Resume
@@ -201,6 +236,7 @@ public class SpectrumActivity extends Activity
     {
 	protected int input;
 	protected int sample;
+	protected boolean lock;
 
 	// Data
 
@@ -482,6 +518,11 @@ public class SpectrumActivity extends Activity
 			frequency = xf[i];
 		    }
 		}
+
+		// Check display lock
+
+		if (lock)
+		    continue;
 
 		if (max > MIN)
 		{

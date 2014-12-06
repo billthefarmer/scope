@@ -30,6 +30,10 @@ Android Oscilloscope
  *  **Right** Moves the trace to the right
  *  **Start** Moves the trace to the start
  *  **End** Moves the trace to the end
+ *  **Menu** Shows the menu
+
+The menu shows two items:
+
  *  **Spectrum** Spectrum display
  *  **Settings** Just an **About** item
 
@@ -39,4 +43,4 @@ Touching the display will produce a vertical index line, which will show the val
 In single shot mode the timebase may be changed to zoom in and pan left and right using the right and left icons.
 
 ###Spectrum
-The spectrum display shows a spectrum with a logarithmic frequency scale. An index line shows the dominant frequency in the input. The frequency is also displayed in the toolbar.
+The spectrum display shows a spectrum with a logarithmic frequency scale. An index line shows the dominant frequency in the input. The frequency is also displayed in the toolbar. To lock the display, touch the lock icon in the toolbar. Touch it again to release the lock.

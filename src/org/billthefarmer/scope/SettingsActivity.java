@@ -48,7 +48,7 @@ public class SettingsActivity extends Activity
 
 	ActionBar actionBar = getActionBar();
 	actionBar.setDisplayHomeAsUpEnabled(true);
-
+	actionBar.setTitle(R.string.settings);
     }
 
     // On options item selected

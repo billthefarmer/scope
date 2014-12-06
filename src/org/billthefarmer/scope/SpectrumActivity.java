@@ -29,17 +29,14 @@ import android.media.AudioRecord;
 import android.media.AudioTrack;
 import android.os.Bundle;
 import android.os.Handler;
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
-import android.widget.Toast;
 import android.widget.TextView;
 
 public class SpectrumActivity extends Activity
@@ -216,8 +213,6 @@ public class SpectrumActivity extends Activity
 	private static final int SAMPLES = 16384;
 	private static final int RANGE = SAMPLES / 2;
 	private static final int STEP = SAMPLES / OVERSAMPLE;
-	private static final int SIZE = 4096;
-
 	private static final double MIN = 0.5;
 	private static final double expect = 2.0 * Math.PI * STEP / SAMPLES;
 
@@ -231,7 +226,7 @@ public class SpectrumActivity extends Activity
 
 	private double xp[];
 	private double xf[];
-	private double dx[];
+	
 
 	// Constructor
 
@@ -280,6 +275,7 @@ public class SpectrumActivity extends Activity
 
 	// Process Audio
 
+	@SuppressLint("DefaultLocale")
 	protected void processAudio()
 	{
 	    // Assume the output sample will work on the input as
@@ -364,11 +360,6 @@ public class SpectrumActivity extends Activity
 	    // Calculate fps
 
 	    fps = (double)sample / SAMPLES;
-
-	    // Invalidate scale
-
-	    if (scale != null)
-		scale.postInvalidate();
 
 	    // Start recording
 

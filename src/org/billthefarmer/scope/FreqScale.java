@@ -29,14 +29,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 public class FreqScale extends View
 {
     private static final int HEIGHT_FRACTION = 32;
-    static final private String TAG = "FreqScale";
-
     private int width;
     private int height;
 
@@ -94,6 +91,7 @@ public class FreqScale extends View
 
 	    paint.setStrokeWidth(2);
 	    paint.setColor(Color.BLACK);
+	    paint.setAntiAlias(true);
 	    paint.setTextSize(height * 2 / 3);
 	    paint.setTextAlign(Paint.Align.CENTER);
 

@@ -85,7 +85,7 @@ public class FreqScale extends View
 	{
 	    // Calculate scale
 
-	    float scale = (float) Math.log10(audio.xa.length) / (float) width;
+	    float scale = (float) Math.log(audio.xa.length) / (float) width;
 
 	    // Set up paint
 
@@ -106,7 +106,7 @@ public class FreqScale extends View
 	    {
 		for (float f: fa)
 		{
-		    float x = (float) Math.log10((f * m) / audio.fps) / scale;
+		    float x = (float) Math.log((f * m) / audio.fps) / scale;
 		    canvas.drawLine(x, 0, x, height / 3, paint);
 
 		    String s;
@@ -123,7 +123,7 @@ public class FreqScale extends View
 
 		for (float s: sa)
 		{
-		    float x = (float) Math.log10((s * m) / audio.fps) / scale;
+		    float x = (float) Math.log((s * m) / audio.fps) / scale;
 		    canvas.drawLine(x, 0, x, height / 4, paint);
 		}
 	    }

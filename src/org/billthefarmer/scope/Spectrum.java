@@ -90,7 +90,7 @@ public class Spectrum extends View
 
 	// Calculate x scale
 
-	float xscale = (float)Math.log10(audio.xa.length) / width;
+	float xscale = (float)Math.log(audio.xa.length) / width;
 
 	// Create graticule
 
@@ -122,7 +122,7 @@ public class Spectrum extends View
 	    {
 		for (float f: fa)
 		{
-		    float x = (float) Math.log10((f * m) / audio.fps) / xscale;
+		    float x = (float) Math.log((f * m) / audio.fps) / xscale;
 		    c.drawLine(x, 0, x, height, paint);
 		}
 	    }
@@ -163,7 +163,7 @@ public class Spectrum extends View
 	{
 	    float value = 0.0f;
 
-	    int index = (int)Math.round(Math.pow(10, x * xscale));
+	    int index = (int)Math.round(Math.pow(Math.E, x * xscale));
 	    for (int i = last; i < index; i++)
 	    {
 		// Don't show DC component and don't overflow
@@ -206,7 +206,7 @@ public class Spectrum extends View
 
 	    // Create line for frequency
 
-	    float x = (float)Math.log10(audio.frequency / audio.fps) / xscale;
+	    float x = (float)Math.log(audio.frequency / audio.fps) / xscale;
 	    paint.setAntiAlias(false);
 	    canvas.drawLine(x, 0, x, height / 4, paint);
 

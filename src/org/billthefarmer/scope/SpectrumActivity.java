@@ -284,6 +284,8 @@ public class SpectrumActivity extends Activity
 	private static final double MIN = 0.5;
 	private static final double expect = 2.0 * Math.PI * STEP / SAMPLES;
 
+	private long counter;
+
 	private Thread thread;
 	private short data[];
 	private double buffer[];
@@ -551,14 +553,35 @@ public class SpectrumActivity extends Activity
 		    }
 		}
 
+		// Level
+		
+		double level = 0.0;
+
+		for (int i = 0; i < STEP; i++)
+		    level += ((double)data[i] / 32768.0) *
+			((double)data[i] / 32768.0);
+
+		level = Math.sqrt(level / STEP) * 2.0;
+
+		double dB = Math.log10(level) * 20.0;
+
+		if (dB < -80.0)
+		    dB = -80.0;
+
 		// Check display lock
 
 		if (lock)
 		    continue;
 
+		spectrum.postInvalidate();
+
+		if (counter++ % 4 != 0)
+		    continue;
+
 		if (max > MIN)
 		{
-		    final String s = String.format("%1.1fHz", frequency);
+		    final String s = String.format("%1.1fHz  %1.1fdB",
+						   frequency, dB);
 		    Handler handler = text.getHandler();
 		    handler.post(new Runnable()
 			{
@@ -583,8 +606,6 @@ public class SpectrumActivity extends Activity
 			    }
 			});
 		}
-
-		spectrum.postInvalidate();
 	    }
 
 	    // Stop and release the audio recorder

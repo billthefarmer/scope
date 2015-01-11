@@ -4,6 +4,21 @@
     android:title="@string/action_settings">
 
   <PreferenceCategory
+      android:key="pref_input_category"
+      android:title="@string/pref_input_category">
+    <ListPreference
+	android:key="pref_input"
+	android:icon="@drawable/ic_pref_mic"
+	android:title="@string/pref_input"
+	android:summary="@string/pref_input_summ"
+	android:entries="@array/pref_input_entries"
+	android:entryValues="@array/pref_input_entry_values"
+	android:dialogIcon="@drawable/ic_pref_mic"
+	android:defaultValue="@integer/def_input" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
       android:key="pref_about_category"
       android:title="@string/pref_about">
 

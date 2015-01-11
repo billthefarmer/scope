@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+  xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <string-array name="pref_input_entries">
+    <item>Default audio source</item>
+    <item>Microphone audio source</item>
+    <item>Voice call uplink + downlink audio source</item>
+    <item>Voice call downlink (Rx) audio source</item>
+    <item>Voice call uplink (Tx) audio source</item>
+    <item>Microphone audio source with same orientation as camera if available, the main device microphone otherwise</item>
+  </string-array>
+
+  <string-array name="pref_input_entry_values">
+    <item>0</item>
+    <item>1</item>
+    <item>4</item>
+    <item>3</item>
+    <item>2</item>
+    <item>5</item>
+  </string-array>
+
+</resources>

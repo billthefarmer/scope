@@ -31,13 +31,16 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
 public class SettingsFragment extends PreferenceFragment
+    implements SharedPreferences.OnSharedPreferenceChangeListener
 {
+    private static final String KEY_PREF_INPUT = "pref_input";
     private static final String KEY_PREF_ABOUT = "pref_about";
 
     @Override
@@ -51,6 +54,12 @@ public class SettingsFragment extends PreferenceFragment
 
 	SharedPreferences preferences =
 	    PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+	preferences.registerOnSharedPreferenceChangeListener(this);
+
+	ListPreference preference =
+	    (ListPreference)findPreference(KEY_PREF_INPUT);
+	preference.setSummary(preference.getEntry());
 
 	// Get about summary
 
@@ -101,5 +110,21 @@ public class SettingsFragment extends PreferenceFragment
     	}
 
     	return result;
+    }
+
+    // On shared preference changed
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences preferences,
+					  String key)
+    {
+	if (key.equals(KEY_PREF_INPUT))
+	{
+	    Preference preference = findPreference(key);
+
+	    // Set summary to be the user-description for the selected value
+
+	    preference.setSummary(((ListPreference) preference).getEntry());
+	}
     }
 }

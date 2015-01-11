@@ -35,7 +35,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +48,8 @@ import android.widget.Toast;
 public class SpectrumActivity extends Activity
     implements View.OnClickListener
 {
+    private static final String PREF_INPUT = "pref_input";
+
     private Spectrum spectrum;
     private FreqScale scale;
     private TextView text;
@@ -213,6 +217,10 @@ public class SpectrumActivity extends Activity
     {
 	super.onResume();
 
+	// Get preferences
+
+	getPreferences();
+
 	// Start the audio thread
 
 	audio.start();
@@ -223,9 +231,43 @@ public class SpectrumActivity extends Activity
     {
 	super.onPause();
 
+	// Save preferences
+
+	savePreferences();
+
 	// Stop audio thread
 
 	audio.stop();
+    }
+
+    // Get preferences
+
+    void getPreferences()
+    {
+	// Load preferences
+
+	PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+	SharedPreferences preferences =
+	    PreferenceManager.getDefaultSharedPreferences(this);
+
+	// Set preferences
+
+	if (audio != null)
+	{
+	    audio.input =
+		Integer.parseInt(preferences.getString(PREF_INPUT, "0"));
+	}
+    }
+
+    // Save preferences
+
+    void savePreferences()
+    {
+	SharedPreferences preferences =
+	    PreferenceManager.getDefaultSharedPreferences(this);
+
+	// TODO
     }
 
     // Show alert
@@ -596,13 +638,14 @@ public class SpectrumActivity extends Activity
 		else
 		{
 		    frequency = 0.0;
+		    final String s = String.format("%1.1fdB", dB);
 		    Handler handler = text.getHandler();
 		    handler.post(new Runnable()
 			{
 			    @Override
 			    public void run()
 			    {
-				text.setText("");
+				text.setText(s);
 			    }
 			});
 		}

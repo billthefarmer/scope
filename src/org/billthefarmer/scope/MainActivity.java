@@ -32,7 +32,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,6 +43,8 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity
 {
+    private static final String PREF_INPUT = "pref_input";
+
     private static final float values[] =
     {0.1f, 0.2f, 0.5f, 1.0f,
      2.0f, 5.0f, 10.0f, 20.0f,
@@ -113,6 +117,19 @@ public class MainActivity extends Activity
     {
 	// Inflate the menu; this adds items to the action bar if it is present.
 	getMenuInflater().inflate(R.menu.main, menu);
+
+	// Check if items are visible
+
+	int ids[] =
+	    {R.id.left, R.id.right, R.id.start, R.id.end};
+	for (int id: ids)
+	{
+	    MenuItem item = menu.findItem(id);
+	    if (item != null)
+		if (!item.isVisible())
+		    item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+	}
+
 	return true;
     }
 
@@ -475,6 +492,10 @@ public class MainActivity extends Activity
     {
 	super.onResume();
 
+	// Get preferences
+
+	getPreferences();
+
 	// Start the audio thread
 
 	audio.start();
@@ -484,6 +505,10 @@ public class MainActivity extends Activity
     protected void onPause()
     {
 	super.onPause();
+
+	// Save preferences
+
+	savePreferences();
 
 	// Stop audio thread
 
@@ -496,6 +521,36 @@ public class MainActivity extends Activity
     protected void onStop()
     {
 	super.onStop();
+    }
+
+    // Get preferences
+
+    void getPreferences()
+    {
+	// Load preferences
+
+	PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+	SharedPreferences preferences =
+	    PreferenceManager.getDefaultSharedPreferences(this);
+
+	// Set preferences
+
+	if (audio != null)
+	{
+	    audio.input =
+		Integer.parseInt(preferences.getString(PREF_INPUT, "0"));
+	}
+    }
+
+    // Save preferences
+
+    void savePreferences()
+    {
+	SharedPreferences preferences =
+	    PreferenceManager.getDefaultSharedPreferences(this);
+
+	// TODO
     }
 
     // Show alert

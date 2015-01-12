@@ -113,37 +113,37 @@
 
   <item
       android:id="@+id/left"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_left"
       android:icon="@drawable/ic_action_left" />
 
   <item
       android:id="@+id/right"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_right"
       android:icon="@drawable/ic_action_right" />
 
   <item
       android:id="@+id/start"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_start"
       android:icon="@drawable/ic_action_start" />
 
   <item
       android:id="@+id/end"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_end"
       android:icon="@drawable/ic_action_end" />
 
   <item
       android:id="@+id/action_spectrum"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_spectrum"
       android:icon="@drawable/ic_action_spectrum" />
 
   <item
       android:id="@+id/action_settings"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_settings"
       android:icon="@drawable/ic_action_settings" />
 

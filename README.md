@@ -40,3 +40,8 @@ In single shot mode the timebase may be changed to zoom in and pan left and righ
 
 ###Spectrum
 The spectrum display shows a spectrum with a logarithmic frequency scale. An index line shows the dominant frequency in the input. The frequency is also displayed in the toolbar. To lock the display, touch spectrum display or the lock icon in the toolbar. Touch it again to release the lock.
+
+###Settings
+The input source may be selected. Some of the selections will not be
+available, depending on the device. The about item shows the version
+and copyright.

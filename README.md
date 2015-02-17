@@ -27,11 +27,10 @@ Android Oscilloscope
  *  **Right** Moves the trace to the right
  *  **Start** Moves the trace to the start
  *  **End** Moves the trace to the end
- *  **Menu** Shows the menu
  *  **Spectrum** Spectrum display
  *  **Settings** **Input source** and **About** items
 
-The last two or seven items may be on the menu, depending on the size
+The last two or six items may be on the menu, depending on the size
 of the device.
 
 ###Scope

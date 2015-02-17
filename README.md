@@ -28,11 +28,11 @@ Android Oscilloscope
  *  **Start** Moves the trace to the start
  *  **End** Moves the trace to the end
  *  **Menu** Shows the menu
-
-The menu shows two items:
-
  *  **Spectrum** Spectrum display
- *  **Settings** Just an **About** item
+ *  **Settings** **Input source** and **About** items
+
+The last two or seven items may be on the menu, depending on the size
+of the device.
 
 ###Scope
 Touching the display will produce a vertical index line, which will show the value at that point. The value is arbitrary, as there is automatic gain control on the input so the trace does not get clipped. The position of the index can be finely adjusted by rolling the finger tip. The index can be removed by swiping it off to the left, or touching the Start icon.

@@ -504,6 +504,8 @@ public class SpectrumActivity extends Activity
 		for (int i = 0; i < STEP; i++)
 		    buffer[(SAMPLES - STEP) + i] = data[i];
 
+		if (counter++ % 4 != 0)
+		    continue;
 
 		// Maximum value
 
@@ -616,9 +618,6 @@ public class SpectrumActivity extends Activity
 		    continue;
 
 		spectrum.postInvalidate();
-
-		if (counter++ % 4 != 0)
-		    continue;
 
 		if (max > MIN)
 		{

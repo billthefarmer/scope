@@ -140,7 +140,7 @@ public class Spectrum extends View
 
 	canvas.drawBitmap(graticule, 0, 0, null);
 
-	// Chack max value
+	// Check max value
 
 	if (max < 1.0f)
 	    max = 1.0f;
@@ -198,7 +198,7 @@ public class Spectrum extends View
 
 	canvas.drawPath(path, paint);
 
-	if (audio.frequency > 0)
+	if (audio.frequency > 0.0)
 	{
 	    // Yellow pen for frequency trace
 

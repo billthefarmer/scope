@@ -323,6 +323,8 @@ public class SpectrumActivity extends Activity
 	private static final int SAMPLES = 16384;
 	private static final int RANGE = SAMPLES / 2;
 	private static final int STEP = SAMPLES / OVERSAMPLE;
+
+	private static final int N = 4;
 	private static final double MIN = 0.5;
 	private static final double expect = 2.0 * Math.PI * STEP / SAMPLES;
 
@@ -504,9 +506,6 @@ public class SpectrumActivity extends Activity
 		for (int i = 0; i < STEP; i++)
 		    buffer[(SAMPLES - STEP) + i] = data[i];
 
-		if (counter++ % 4 != 0)
-		    continue;
-
 		// Maximum value
 
 		if (dmax < 4096.0)
@@ -581,6 +580,11 @@ public class SpectrumActivity extends Activity
 
 		    xf[i] = i * fps + df * fps;
 		}
+
+		// Do a full process run every N
+
+		if (counter++ % N != 0)
+		    continue;
 
 		// Maximum FFT output
 

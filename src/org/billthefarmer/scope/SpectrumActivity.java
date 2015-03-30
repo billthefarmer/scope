@@ -334,7 +334,8 @@ public class SpectrumActivity extends Activity
 	private short data[];
 	private double buffer[];
 
-	private Complex x;
+	private double xr[];
+	private double xi[];
 
 	protected double xa[];
 
@@ -349,7 +350,8 @@ public class SpectrumActivity extends Activity
 	    data = new short[STEP];
 	    buffer = new double[SAMPLES];
 	    
-	    x = new Complex(SAMPLES);
+	    xr = new double[SAMPLES];
+	    xi = new double[SAMPLES];
 
 	    xa = new double[RANGE];
 	    xp = new double[RANGE];
@@ -534,19 +536,19 @@ public class SpectrumActivity extends Activity
 
 		    // Normalise and window the input data
 
-		    x.r[i] = buffer[i] / norm * window;
+		    xr[i] = buffer[i] / norm * window;
 		}
 
 		// do FFT
 
-		fftr(x);
+		fftr(xr, xi);
 
 		// Process FFT output
 
 		for (int i = 1; i < RANGE; i++)
 		{
-		    double real = x.r[i];
-		    double imag = x.i[i];
+		    double real = xr[i];
+		    double imag = xi[i];
 
 		    xa[i] = Math.hypot(real, imag);
 
@@ -665,22 +667,22 @@ public class SpectrumActivity extends Activity
 
 	// Real to complex FFT, ignores imaginary values in input array
 
-	private void fftr(Complex a)
+	private void fftr(double ar[], double ai[])
 	{
-	    final int n = a.r.length;
+	    final int n = ar.length;
 	    final double norm = Math.sqrt(1.0 / n);
 
 	    for (int i = 0, j = 0; i < n; i++)
 	    {
 		if (j >= i)
 		{
-		    double tr = a.r[j] * norm;
+		    double tr = ar[j] * norm;
 
-		    a.r[j] = a.r[i] * norm;
-		    a.i[j] = 0.0;
+		    ar[j] = ar[i] * norm;
+		    ai[j] = 0.0;
 
-		    a.r[i] = tr;
-		    a.i[i] = 0.0;
+		    ar[i] = tr;
+		    ai[i] = 0.0;
 		}
 
 		int m = n / 2;
@@ -695,7 +697,7 @@ public class SpectrumActivity extends Activity
 	    for (int mmax = 1, istep = 2 * mmax; mmax < n;
 		 mmax = istep, istep = 2 * mmax)
 	    {
-		double delta = (Math.PI / mmax);
+		double delta = Math.PI / mmax;
 		for (int m = 0; m < mmax; m++)
 		{
 		    double w = m * delta;
@@ -705,32 +707,44 @@ public class SpectrumActivity extends Activity
 		    for (int i = m; i < n; i += istep)
 		    {
 			int j = i + mmax;
-			double tr = wr * a.r[j] - wi * a.i[j];
-			double ti = wr * a.i[j] + wi * a.r[j];
-			a.r[j] = a.r[i] - tr;
-			a.i[j] = a.i[i] - ti;
-			a.r[i] += tr;
-			a.i[i] += ti;
+			double tr = wr * ar[j] - wi * ai[j];
+			double ti = wr * ai[j] + wi * ar[j];
+			ar[j] = ar[i] - tr;
+			ai[j] = ai[i] - ti;
+			ar[i] += tr;
+			ai[i] += ti;
 		    }
 		}
 	    }
 	}
+
+	// Native midi method
+
+	// private native void fftr(double ar[], double ai[]);
+
     }
+
+    // Load fft library
+
+    // static
+    // {
+    // 	System.loadLibrary("fft");
+    // }
 
     // This object replaces arrays of structs in the C version because
     // initialising arrays of objects in Java is, IMHO, barmy
 
     // Complex
 
-    private class Complex
-    {
-	double r[];
-	double i[];
+    // private class Complex
+    // {
+    // 	double r[];
+    // 	double i[];
 
-	private Complex(int l)
-	{
-	    r = new double[l];
-	    i = new double[l];
-	}
-    }
+    // 	private Complex(int l)
+    // 	{
+    // 	    r = new double[l];
+    // 	    i = new double[l];
+    // 	}
+    // }
 }

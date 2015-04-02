@@ -319,8 +319,8 @@ public class SpectrumActivity extends Activity
 
 	private AudioRecord audioRecord;
 
-	private static final int OVERSAMPLE = 16;
-	private static final int SAMPLES = 16384;
+	private static final int OVERSAMPLE = 4;
+	private static final int SAMPLES = 4096;
 	private static final int RANGE = SAMPLES / 2;
 	private static final int STEP = SAMPLES / OVERSAMPLE;
 

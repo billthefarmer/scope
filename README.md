@@ -1,7 +1,8 @@
 Oscilloscope
 ============
 
-Android Oscilloscope
+Android Oscilloscope. The app is available on [F-Droid](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.scope)
+and [here](https://github.com/billthefarmer/scope/releases).
 
 ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Scope.png)
 

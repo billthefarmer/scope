@@ -61,7 +61,7 @@ public class SettingsActivity extends Activity
 	switch (item.getItemId())
 	{
 	case android.R.id.home:
-	    onBackPressed();
+	    finish();
 	    break;
 
 	default:
@@ -70,15 +70,5 @@ public class SettingsActivity extends Activity
 	}
 
 	return true;
-    }
-
-    // On back pressed
-
-    @Override
-    public void onBackPressed()
-    {
-	Intent intent = new Intent(this, MainActivity.class);
-	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	startActivity(intent);
     }
 }

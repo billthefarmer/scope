@@ -121,7 +121,7 @@ public class SpectrumActivity extends Activity
 	    // Home
 
 	case android.R.id.home:
-	    onBackPressed();
+	    finish();
 	    break;
 
 	case R.id.action_lock:
@@ -134,32 +134,14 @@ public class SpectrumActivity extends Activity
 	    // Settings
 
 	case R.id.action_settings:
-	    return onSettingsClick(item);
+	    Intent intent = new Intent(this, SettingsActivity.class);
+	    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	    startActivity(intent);
+	    break;
 
 	default:
 	    return false;
 	}
-
-	return true;
-    }
-
-    // On back pressed
-
-    @Override
-    public void onBackPressed()
-    {
-	Intent intent = new Intent(this, MainActivity.class);
-	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	startActivity(intent);
-    }
-
-    // On settings click
-
-    private boolean onSettingsClick(MenuItem item)
-    {
-	Intent intent = new Intent(this, SettingsActivity.class);
-	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	startActivity(intent);
 
 	return true;
     }

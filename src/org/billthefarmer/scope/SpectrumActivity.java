@@ -699,34 +699,5 @@ public class SpectrumActivity extends Activity
 		}
 	    }
 	}
-
-	// Native midi method
-
-	// private native void fftr(double ar[], double ai[]);
-
     }
-
-    // Load fft library
-
-    // static
-    // {
-    // 	System.loadLibrary("fft");
-    // }
-
-    // This object replaces arrays of structs in the C version because
-    // initialising arrays of objects in Java is, IMHO, barmy
-
-    // Complex
-
-    // private class Complex
-    // {
-    // 	double r[];
-    // 	double i[];
-
-    // 	private Complex(int l)
-    // 	{
-    // 	    r = new double[l];
-    // 	    i = new double[l];
-    // 	}
-    // }
 }

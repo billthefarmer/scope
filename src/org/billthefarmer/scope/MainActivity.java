@@ -35,6 +35,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,6 +45,19 @@ import android.widget.Toast;
 public class MainActivity extends Activity
 {
     private static final String PREF_INPUT = "pref_input";
+
+    private static final String TAG = "Scope";
+
+    private static final String STATE = "state";
+
+    private static final String BRIGHT = "bright";
+    private static final String SINGLE = "single";
+    private static final String POLARITY = "polarity";
+    private static final String TIMEBASE = "timebase";
+    private static final String STORAGE = "storage";
+
+    private static final String START = "start";
+    private static final String INDEX = "index";
 
     private static final float values[] =
     {0.1f, 0.2f, 0.5f, 1.0f,
@@ -62,6 +76,7 @@ public class MainActivity extends Activity
      65536, 131072, 262144, 524288};
 
     protected static final int SIZE = 20;
+    protected static final int DEFAULT_TIMEBASE = 3;
     protected static final float SMALL_SCALE = 200;
     protected static final float LARGE_SCALE = 200000;
 
@@ -99,7 +114,7 @@ public class MainActivity extends Activity
 
 	// Set timebase index
 
-	timebase = 3;
+	timebase = DEFAULT_TIMEBASE;
 
 	// Set up scale
 
@@ -115,11 +130,144 @@ public class MainActivity extends Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
+	MenuItem item;
+
 	// Inflate the menu; this adds items to the action bar if it
 	// is present.
 	getMenuInflater().inflate(R.menu.main, menu);
 
+	// Set menu state from restored state
+
+	// Bright
+
+	item = menu.findItem(R.id.bright);
+	item.setIcon(audio.bright? R.drawable.ic_action_bright_line_checked:
+		     R.drawable.ic_action_bright_line);
+
+	// Single
+
+	item = menu.findItem(R.id.single);
+	item.setIcon(audio.single? R.drawable.ic_action_single_shot_checked:
+		     R.drawable.ic_action_single_shot);
+
+	// Polarity
+
+	item = menu.findItem(R.id.polarity);
+	item.setIcon(audio.polarity? R.drawable.ic_action_polarity_checked:
+		     R.drawable.ic_action_polarity);
+
+	// Timebase
+
+	item = menu.findItem(R.id.timebase);
+	if (timebase != DEFAULT_TIMEBASE)
+	{
+	    if (item.hasSubMenu())
+	    {
+		submenu = item.getSubMenu();
+		clearLast(submenu, DEFAULT_TIMEBASE);
+		item = submenu.getItem(timebase);
+		    if (item != null)
+			item.setChecked(true);
+	    }
+	}
+
+	// Storage
+
+	item = menu.findItem(R.id.storage);
+	item.setIcon(scope.storage?
+		     R.drawable.ic_action_storage_checked:
+		     R.drawable.ic_action_storage);
+
 	return true;
+    }
+
+    // Restore state
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+	super.onRestoreInstanceState(savedInstanceState);
+
+	// Get saved state bundle
+
+	Bundle bundle = savedInstanceState.getBundle(STATE);
+
+	// Log.d(TAG, "Restore: " + bundle.toString());
+
+	// Bright
+
+	audio.bright = bundle.getBoolean(BRIGHT, false);
+
+	// Single
+
+	audio.single = bundle.getBoolean(SINGLE, false);
+
+	// Polarity
+
+	audio.polarity = bundle.getBoolean(POLARITY, false);
+
+	// Timebase
+
+	timebase = bundle.getInt(TIMEBASE, DEFAULT_TIMEBASE);
+	setTimebase(timebase, false);
+
+	// Storage
+
+	scope.storage = bundle.getBoolean(STORAGE, false);
+
+	// Start
+
+	scope.start = bundle.getFloat(START, 0);
+	xscale.start = scope.start;
+	xscale.postInvalidate();
+
+	// Index
+
+	scope.index = bundle.getFloat(INDEX, 0);
+    }
+
+    // Save state
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+	super.onSaveInstanceState(outState);
+
+	// State bundle
+
+	Bundle bundle = new Bundle();
+
+	// Bright
+
+	bundle.putBoolean(BRIGHT, audio.bright);
+
+	// Single
+
+	bundle.putBoolean(SINGLE, audio.single);
+
+	// Polarity
+
+	bundle.putBoolean(POLARITY, audio.polarity);
+
+	// Timebase
+
+	bundle.putInt(TIMEBASE, timebase);
+
+	// Storage
+
+	bundle.putBoolean(STORAGE, scope.storage);
+
+	// Start
+
+	bundle.putFloat(START, scope.start);
+
+	// Index
+
+	bundle.putFloat(INDEX, scope.index);
+
+	// Save bundle
+
+	outState.putBundle(STATE, bundle);
     }
 
     // On options item
@@ -179,7 +327,7 @@ public class MainActivity extends Activity
 	    clearLast(submenu, timebase);
 	    timebase = 0;
 	    item.setChecked(true);
-	    setTimebase(timebase);
+	    setTimebase(timebase, true);
 	    break;
 
 	    // 0.2 ms
@@ -188,7 +336,7 @@ public class MainActivity extends Activity
 	    clearLast(submenu, timebase);
 	    timebase = 1;
 	    item.setChecked(true);
-	    setTimebase(timebase);
+	    setTimebase(timebase, true);
 	    break;
 
 	    // 0.5 ms
@@ -197,7 +345,7 @@ public class MainActivity extends Activity
 	    clearLast(submenu, timebase);
 	    timebase = 2;
 	    item.setChecked(true);
-	    setTimebase(timebase);
+	    setTimebase(timebase, true);
 	    break;
 
 	    // 1.0 ms
@@ -206,7 +354,7 @@ public class MainActivity extends Activity
 	    clearLast(submenu, timebase);
 	    timebase = 3;
 	    item.setChecked(true);
-	    setTimebase(timebase);
+	    setTimebase(timebase, true);
 	    break;
 
 	    // 2.0 ms
@@ -215,7 +363,7 @@ public class MainActivity extends Activity
 	    clearLast(submenu, timebase);
 	    timebase = 4;
 	    item.setChecked(true);
-	    setTimebase(timebase);
+	    setTimebase(timebase, true);
 	    break;
 
 	    // 5.0 ms
@@ -224,7 +372,7 @@ public class MainActivity extends Activity
 	    clearLast(submenu, timebase);
 	    timebase = 5;
 	    item.setChecked(true);
-	    setTimebase(timebase);
+	    setTimebase(timebase, true);
 	    break;
 
 	    // 10 ms
@@ -233,7 +381,7 @@ public class MainActivity extends Activity
 	    clearLast(submenu, timebase);
 	    timebase = 6;
 	    item.setChecked(true);
-	    setTimebase(timebase);
+	    setTimebase(timebase, true);
 	    break;
 
 	    // 20 ms
@@ -242,7 +390,7 @@ public class MainActivity extends Activity
 	    clearLast(submenu, timebase);
 	    timebase = 7;
 	    item.setChecked(true);
-	    setTimebase(timebase);
+	    setTimebase(timebase, true);
 	    break;
 
 	    // 50 ms
@@ -251,7 +399,7 @@ public class MainActivity extends Activity
 	    clearLast(submenu, timebase);
 	    timebase = 8;
 	    item.setChecked(true);
-	    setTimebase(timebase);
+	    setTimebase(timebase, true);
 	    break;
 
 	    // 0.1 sec
@@ -260,7 +408,7 @@ public class MainActivity extends Activity
 	    clearLast(submenu, timebase);
 	    timebase = 9;
 	    item.setChecked(true);
-	    setTimebase(timebase);
+	    setTimebase(timebase, true);
 	    break;
 
 	    // 0.2 sec
@@ -269,7 +417,7 @@ public class MainActivity extends Activity
 	    clearLast(submenu, timebase);
 	    timebase = 10;
 	    item.setChecked(true);
-	    setTimebase(timebase);
+	    setTimebase(timebase, true);
 	    break;
 
 	    // 0.5 sec
@@ -278,7 +426,7 @@ public class MainActivity extends Activity
 	    clearLast(submenu, timebase);
 	    timebase = 11;
 	    item.setChecked(true);
-	    setTimebase(timebase);
+	    setTimebase(timebase, true);
 	    break;
 
 	    // Storage
@@ -409,7 +557,7 @@ public class MainActivity extends Activity
 
     // Set timebase
 
-    void setTimebase(int timebase)
+    void setTimebase(int timebase, boolean show)
     {
 	// Set up scale
 
@@ -430,7 +578,8 @@ public class MainActivity extends Activity
 
 	// Show timebase
 
-	showTimebase(timebase);
+	if (show)
+	    showTimebase(timebase);
     }
 
     // Show timebase

@@ -58,6 +58,7 @@ public class MainActivity extends Activity
 
     private static final String START = "start";
     private static final String INDEX = "index";
+    private static final String LEVEL = "level";
 
     private static final float values[] =
     {0.1f, 0.2f, 0.5f, 1.0f,
@@ -226,6 +227,10 @@ public class MainActivity extends Activity
 	// Index
 
 	scope.index = bundle.getFloat(INDEX, 0);
+
+	// Level
+
+	yscale.index = bundle.getFloat(LEVEL, 0);
     }
 
     // Save state
@@ -266,6 +271,10 @@ public class MainActivity extends Activity
 	// Index
 
 	bundle.putFloat(INDEX, scope.index);
+
+	// Level
+
+	bundle.putFloat(LEVEL, yscale.index);
 
 	// Save bundle
 

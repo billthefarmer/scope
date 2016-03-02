@@ -12,6 +12,7 @@ and documentation.
 ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Spectrum.png)
 
  *  Timebase 0.1 ms - 0.5 sec
+ *  Sync control
  *  Single shot
  *  Storage
  *  Index
@@ -39,6 +40,8 @@ of the device.
 
 ###Scope
 Touching the display will produce a vertical index line, which will show the value at that point. The value is arbitrary, as there is automatic gain control on the input so the trace does not get clipped. The position of the index can be finely adjusted by rolling the finger tip. The index can be removed by swiping it off to the left, or touching the Start icon.
+
+Touch the left edge Y scale to adjust the sync level. A pointer will appear which can be adjusted by sliding up and down. Touch the start icon to reset the level to zero.
 
 In single shot mode the timebase may be changed to zoom in and pan left and right using the right and left icons.
 

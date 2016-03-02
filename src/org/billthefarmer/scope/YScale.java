@@ -25,8 +25,11 @@ package org.billthefarmer.scope;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class YScale extends View
@@ -36,14 +39,19 @@ public class YScale extends View
     private int width;
     private int height;
 
+    protected float index;
+
+    private Matrix matrix;
     private Paint paint;
+    private Path thumb;
 
     public YScale(Context context, AttributeSet attrs)
     {
 	super(context, attrs);
 
-	// Create pain
+	// Create paint
 
+	matrix = new Matrix();
 	paint = new Paint();
     }
 
@@ -70,11 +78,31 @@ public class YScale extends View
 
 	width = w;
 	height = h;
+
+	// Create a path for the thumb
+
+	thumb = new Path();
+
+	thumb.moveTo(-1, -1);
+	thumb.lineTo(-1, 1);
+	thumb.lineTo(1, 1);
+	thumb.lineTo(2, 0);
+	thumb.lineTo(1, -1);
+	thumb.close();
+
+	// Create a matrix to scale the thumb
+
+	matrix.setScale(width / 4, width / 4);
+
+	// Scale the thumb
+
+	thumb.transform(matrix);
     }
 
     @Override
     protected void onDraw(Canvas canvas)
     {
+	paint.setStyle(Paint.Style.STROKE);
 	paint.setStrokeWidth(2);
 
 	canvas.translate(0, height / 2);
@@ -92,5 +120,41 @@ public class YScale extends View
 	    canvas.drawLine(width / 3, i, width, i, paint);
 	    canvas.drawLine(width / 3, -i, width, -i, paint);
 	}
+
+	if (index != 0)
+	{
+	    canvas.translate(width / 3, index);
+	    paint.setStyle(Paint.Style.FILL);
+	    canvas.drawPath(thumb, paint);
+	}
+    }
+
+    // On touch event
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+	float x = event.getX();
+	float y = event.getY();
+
+	// Set the index from the touch dimension
+
+	switch (event.getAction())
+	{
+	case MotionEvent.ACTION_DOWN:
+	    index = y - (height / 2);
+	    break;
+
+	case MotionEvent.ACTION_MOVE:
+	    index = y - (height / 2);
+	    break;
+
+	case MotionEvent.ACTION_UP:
+	    index = y - (height / 2);
+	    break;
+	}
+
+	invalidate();
+	return true;
     }
 }

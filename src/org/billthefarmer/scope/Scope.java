@@ -55,6 +55,8 @@ public class Scope extends View
     protected float start;
     protected float index;
 
+    protected float yscale;
+
     protected MainActivity main;
     protected MainActivity.Audio audio;
 
@@ -162,7 +164,7 @@ public class Scope extends View
 	if (max < 4096)
 	    max = 4096;
 
-	float yscale = (float)(max / (height / 2.0));
+	yscale = (float)(max / (height / 2.0));
 
 	max = 0;
 

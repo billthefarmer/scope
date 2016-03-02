@@ -84,6 +84,7 @@ public class MainActivity extends Activity
 
     private Scope scope;
     private XScale xscale;
+    private YScale yscale;
     private Unit unit;
 
     private Audio audio;
@@ -100,6 +101,7 @@ public class MainActivity extends Activity
 
 	scope = (Scope)findViewById(R.id.scope);
 	xscale = (XScale)findViewById(R.id.xscale);
+	yscale = (YScale)findViewById(R.id.yscale);
 	unit = (Unit)findViewById(R.id.unit);
 
 	// Create audio
@@ -487,6 +489,8 @@ public class MainActivity extends Activity
 		scope.index = 0;
 		xscale.start = 0;
 		xscale.postInvalidate();
+		yscale.index = 0;
+		yscale.postInvalidate();
 	    }
 	    break;
 
@@ -906,6 +910,10 @@ public class MainActivity extends Activity
 		    break;
 		}
 
+		// Calculate sync level
+
+		float level = -yscale.index * scope.yscale;
+
 		// State machine for sync and copying data to display buffer
 
 		switch (state)
@@ -936,7 +944,7 @@ public class MainActivity extends Activity
 			    {
 				dx = buffer[i] - last;
 
-				if (dx < 0 && last > 0 && buffer[i] < 0)
+				if (dx < 0 && last > level && buffer[i] < level)
 				{
 				    index = i;
 				    state++;
@@ -953,7 +961,7 @@ public class MainActivity extends Activity
 			    {
 				dx = buffer[i] - last;
 
-				if (dx > 0 && last < 0 && buffer[i] > 0)
+				if (dx > 0 && last < level && buffer[i] > level)
 				{
 				    index = i;
 				    state++;

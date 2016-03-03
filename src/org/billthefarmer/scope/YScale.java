@@ -121,6 +121,8 @@ public class YScale extends View
 	    canvas.drawLine(width / 3, -i, width, -i, paint);
 	}
 
+	// Draw sync level thumb if not zero
+
 	if (index != 0)
 	{
 	    canvas.translate(width / 3, index);

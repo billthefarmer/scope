@@ -231,6 +231,7 @@ public class MainActivity extends Activity
 	// Level
 
 	yscale.index = bundle.getFloat(LEVEL, 0);
+	yscale.postInvalidate();
     }
 
     // Save state

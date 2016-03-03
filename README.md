@@ -1,5 +1,4 @@
-Oscilloscope
-============
+# Oscilloscope [![Build Status](https://travis-ci.org/billthefarmer/scope.svg?branch=master)](https://travis-ci.org/billthefarmer/scope)
 
 Android Oscilloscope. The app is available on
 [F-Droid](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.scope)

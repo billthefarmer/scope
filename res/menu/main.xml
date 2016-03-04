@@ -17,13 +17,13 @@
       android:showAsAction="always"
       android:title="@string/action_trigger"
       android:icon="@drawable/ic_action_trigger" />
-
+  <!--
   <item
       android:id="@+id/polarity"
       android:showAsAction="always"
       android:title="@string/action_polarity"
       android:icon="@drawable/ic_action_polarity" />
-
+  -->
   <item
       android:id="@+id/timebase"
       android:showAsAction="always"

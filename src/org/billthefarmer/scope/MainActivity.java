@@ -52,7 +52,7 @@ public class MainActivity extends Activity
 
     private static final String BRIGHT = "bright";
     private static final String SINGLE = "single";
-    private static final String POLARITY = "polarity";
+    // private static final String POLARITY = "polarity";
     private static final String TIMEBASE = "timebase";
     private static final String STORAGE = "storage";
 
@@ -155,9 +155,9 @@ public class MainActivity extends Activity
 
 	// Polarity
 
-	item = menu.findItem(R.id.polarity);
-	item.setIcon(audio.polarity? R.drawable.ic_action_polarity_checked:
-		     R.drawable.ic_action_polarity);
+	// item = menu.findItem(R.id.polarity);
+	// item.setIcon(audio.polarity? R.drawable.ic_action_polarity_checked:
+	// 	     R.drawable.ic_action_polarity);
 
 	// Timebase
 
@@ -207,7 +207,7 @@ public class MainActivity extends Activity
 
 	// Polarity
 
-	audio.polarity = bundle.getBoolean(POLARITY, false);
+	// audio.polarity = bundle.getBoolean(POLARITY, false);
 
 	// Timebase
 
@@ -255,7 +255,7 @@ public class MainActivity extends Activity
 
 	// Polarity
 
-	bundle.putBoolean(POLARITY, audio.polarity);
+	// bundle.putBoolean(POLARITY, audio.polarity);
 
 	// Timebase
 
@@ -319,12 +319,12 @@ public class MainActivity extends Activity
 
 	    // Sync polarity
 
-	case R.id.polarity:
-	    audio.polarity = !audio.polarity;
-	    item.setIcon(audio.polarity? R.drawable.ic_action_polarity_checked:
-			 R.drawable.ic_action_polarity);
-	    showToast(!audio.polarity? R.string.sync_pos: R.string.sync_neg);
-	    break;
+	// case R.id.polarity:
+	//     audio.polarity = !audio.polarity;
+	//     item.setIcon(audio.polarity? R.drawable.ic_action_polarity_checked:
+	// 		 R.drawable.ic_action_polarity);
+	//     showToast(!audio.polarity? R.string.sync_pos: R.string.sync_neg);
+	//     break;
 
 	    // Timebase
 
@@ -748,7 +748,7 @@ public class MainActivity extends Activity
 	protected boolean bright;
 	protected boolean single;
 	protected boolean trigger;
-	protected boolean polarity;
+	// protected boolean polarity;
 
 	protected int input;
 	protected int sample;
@@ -923,6 +923,10 @@ public class MainActivity extends Activity
 		// Calculate sync level
 
 		float level = -yscale.index * scope.yscale;
+
+		// Sync polarity
+
+		boolean polarity = (level < 0);
 
 		// State machine for sync and copying data to display buffer
 

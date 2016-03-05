@@ -113,13 +113,13 @@
 
   <item
       android:id="@+id/left"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_left"
       android:icon="@drawable/ic_action_left" />
 
   <item
       android:id="@+id/right"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_right"
       android:icon="@drawable/ic_action_right" />
 

@@ -28,6 +28,7 @@ import android.media.AudioManager;
 import android.media.AudioRecord;
 import android.media.AudioTrack;
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -104,6 +105,15 @@ public class MainActivity extends Activity
 	xscale = (XScale)findViewById(R.id.xscale);
 	yscale = (YScale)findViewById(R.id.yscale);
 	unit = (Unit)findViewById(R.id.unit);
+
+	// Get action bar
+
+	ActionBar actionBar = getActionBar();
+
+	// Set short title
+
+	if (actionBar != null)
+	    actionBar.setTitle(R.string.short_name);
 
 	// Create audio
 

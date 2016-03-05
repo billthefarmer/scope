@@ -930,14 +930,6 @@ public class MainActivity extends Activity
 		    break;
 		}
 
-		// Calculate sync level
-
-		float level = -yscale.index * scope.yscale;
-
-		// Sync polarity
-
-		boolean polarity = (level < 0);
-
 		// State machine for sync and copying data to display buffer
 
 		switch (state)
@@ -956,13 +948,17 @@ public class MainActivity extends Activity
 			if (single && !trigger)
 			    break;
 
+			// Calculate sync level
+
+			float level = -yscale.index * scope.yscale;
+
 			// Initialise sync
 
 			int dx = 0;
 
 			// Sync polarity
 
-			if (polarity)
+			if (level < 0)
 			{
 			    for (int i = 0; i < size; i++)
 			    {

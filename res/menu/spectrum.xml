@@ -7,7 +7,7 @@
       android:icon="@drawable/ic_action_lock" />
 
   <item
-      android:id="@+id/action_settings"
+      android:id="@id/action_settings"
       android:showAsAction="always"
       android:title="@string/action_settings"
       android:icon="@drawable/ic_action_settings" />

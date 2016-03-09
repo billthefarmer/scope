@@ -135,7 +135,6 @@ public class SpectrumActivity extends Activity
 
 	case R.id.action_settings:
 	    Intent intent = new Intent(this, SettingsActivity.class);
-	    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	    startActivity(intent);
 	    break;
 

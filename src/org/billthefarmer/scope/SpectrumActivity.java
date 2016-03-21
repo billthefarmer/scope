@@ -42,6 +42,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +51,7 @@ public class SpectrumActivity extends Activity
     implements View.OnClickListener
 {
     private static final String PREF_INPUT = "pref_input";
+    private static final String PREF_SCREEN = "pref_screen";
 
     private Spectrum spectrum;
     private FreqScale scale;
@@ -59,6 +62,8 @@ public class SpectrumActivity extends Activity
     private MenuItem lockItem;
 
     private Audio audio;
+
+    private boolean screen;
 
     // On create
 
@@ -238,6 +243,22 @@ public class SpectrumActivity extends Activity
 	{
 	    audio.input =
 		Integer.parseInt(preferences.getString(PREF_INPUT, "0"));
+	}
+
+	screen = preferences.getBoolean(PREF_SCREEN, false);
+
+	// Check screen
+
+	if (screen)
+	{
+	    Window window = getWindow();
+	    window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+	}
+
+	else
+	{
+	    Window window = getWindow();
+	    window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
     }
 

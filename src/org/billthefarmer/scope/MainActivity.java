@@ -41,11 +41,14 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 public class MainActivity extends Activity
 {
     private static final String PREF_INPUT = "pref_input";
+    private static final String PREF_SCREEN = "pref_screen";
 
     private static final String TAG = "Scope";
 
@@ -92,6 +95,8 @@ public class MainActivity extends Activity
     private Audio audio;
     private Toast toast;
     private SubMenu submenu;
+
+    private boolean screen;
 
     // On create
 
@@ -702,6 +707,22 @@ public class MainActivity extends Activity
 	{
 	    audio.input =
 		Integer.parseInt(preferences.getString(PREF_INPUT, "0"));
+	}
+
+	screen = preferences.getBoolean(PREF_SCREEN, false);
+
+	// Check screen
+
+	if (screen)
+	{
+	    Window window = getWindow();
+	    window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+	}
+
+	else
+	{
+	    Window window = getWindow();
+	    window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
     }
 

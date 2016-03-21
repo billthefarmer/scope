@@ -6,6 +6,7 @@
   <PreferenceCategory
       android:key="pref_input_category"
       android:title="@string/pref_input_category">
+
     <ListPreference
 	android:key="pref_input"
 	android:icon="@drawable/ic_pref_mic"
@@ -15,6 +16,20 @@
 	android:entryValues="@array/pref_input_entry_values"
 	android:dialogIcon="@drawable/ic_pref_mic"
 	android:defaultValue="@integer/def_input" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+      android:key="pref_display_category"
+      android:title="@string/pref_display">
+
+    <CheckBoxPreference
+	android:key="pref_screen"
+	android:icon="@drawable/ic_pref_screen"
+	android:title="@string/pref_screen"
+	android:summary="@string/pref_screen_summ"
+	android:persistent="true"
+	android:defaultValue="false" />
 
   </PreferenceCategory>
 

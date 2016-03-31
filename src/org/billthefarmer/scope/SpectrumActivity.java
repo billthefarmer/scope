@@ -118,6 +118,8 @@ public class SpectrumActivity extends Activity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
+	Intent intent;
+
 	// Get id
 
 	int id = item.getItemId();
@@ -129,6 +131,8 @@ public class SpectrumActivity extends Activity
 	    finish();
 	    break;
 
+	    // Lock
+
 	case R.id.action_lock:
 	    audio.lock = !audio.lock;
 	    item.setIcon(audio.lock? R.drawable.ic_action_lock_checked:
@@ -136,10 +140,17 @@ public class SpectrumActivity extends Activity
 	    showToast(audio.lock? R.string.lock_on: R.string.lock_off);
 	    break;
 
+	    // Help
+
+	case R.id.action_help:
+	    intent = new Intent(this, HelpActivity.class);
+	    startActivity(intent);
+	    break;
+
 	    // Settings
 
 	case R.id.action_settings:
-	    Intent intent = new Intent(this, SettingsActivity.class);
+	    intent = new Intent(this, SettingsActivity.class);
 	    startActivity(intent);
 	    break;
 

@@ -96,7 +96,7 @@ public class FreqScale extends View
 
 	    // Draw ticks
 
-	    canvas.drawLine(0, 0, 0, height / 3, paint);
+	    // canvas.drawLine(0, 0, 0, height / 3, paint);
 
 	    float fa[] = {1, 2, 5};
 	    float sa[] = {1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f,

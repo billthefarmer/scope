@@ -53,12 +53,12 @@ public class Spectrum extends View
 
     public Spectrum(Context context, AttributeSet attrs)
     {
-	super(context, attrs);
+        super(context, attrs);
 
-	// Create path and paint
+        // Create path and paint
 
-	path = new Path();
-	paint = new Paint();
+        path = new Path();
+        paint = new Paint();
     }
 
     // On size changed
@@ -66,12 +66,12 @@ public class Spectrum extends View
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
-	super.onSizeChanged(w, h, oldw, oldh);
+        super.onSizeChanged(w, h, oldw, oldh);
 
-	// Get dimensions
+        // Get dimensions
 
-	width = w;
-	height = h;
+        width = w;
+        height = h;
     }
 
     // On draw
@@ -80,144 +80,145 @@ public class Spectrum extends View
     @Override
     protected void onDraw(Canvas canvas)
     {
-	// Check for data
+        // Check for data
 
-	if ((audio == null) || (audio.xa == null))
-	{
-	    canvas.drawColor(Color.BLACK);
-	    return;
-	}
+        if ((audio == null) || (audio.xa == null))
+        {
+            canvas.drawColor(Color.BLACK);
+            return;
+        }
 
-	// Calculate x scale
+        // Calculate x scale
 
-	float xscale = (float)Math.log(audio.xa.length) / width;
+        float xscale = (float)Math.log(audio.xa.length) / width;
 
-	// Create graticule
+        // Create graticule
 
-	if (graticule == null || graticule.getWidth() != width ||
-	    graticule.getHeight() != height)
-	{
-	    // Create a bitmap for the graticule
+        if (graticule == null || graticule.getWidth() != width ||
+                graticule.getHeight() != height)
+        {
+            // Create a bitmap for the graticule
 
-	    graticule = Bitmap.createBitmap(width, height,
-					    Bitmap.Config.ARGB_8888);
-	    Canvas c = new Canvas(graticule);
+            graticule = Bitmap.createBitmap(width, height,
+                                            Bitmap.Config.ARGB_8888);
+            Canvas c = new Canvas(graticule);
 
-	    // Black background
+            // Black background
 
-	    c.drawColor(Color.BLACK);
+            c.drawColor(Color.BLACK);
 
-	    // Set up paint
+            // Set up paint
 
-	    paint.setStrokeWidth(2);
-	    paint.setStyle(Paint.Style.STROKE);
-	    paint.setColor(Color.argb(255, 0, 63, 0));
+            paint.setStrokeWidth(2);
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setColor(Color.argb(255, 0, 63, 0));
 
-	    // Draw graticule
+            // Draw graticule
 
-	    float fa[] = {1, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f,
-			  1.9f, 2, 2.2f, 2.5f, 3, 3.5f, 4, 4.5f, 5, 6, 7, 8, 9};
-	    float ma[] = {1, 10, 100, 1000, 10000};
-	    for (float m: ma)
-	    {
-		for (float f: fa)
-		{
-		    float x = (float) Math.log((f * m) / audio.fps) / xscale;
-		    c.drawLine(x, 0, x, height, paint);
-		}
-	    }
+            float fa[] = {1, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f,
+                          1.9f, 2, 2.2f, 2.5f, 3, 3.5f, 4, 4.5f, 5, 6, 7, 8, 9
+                         };
+            float ma[] = {1, 10, 100, 1000, 10000};
+            for (float m : ma)
+            {
+                for (float f : fa)
+                {
+                    float x = (float) Math.log((f * m) / audio.fps) / xscale;
+                    c.drawLine(x, 0, x, height, paint);
+                }
+            }
 
-	    for (int i = 0; i < height; i += MainActivity.SIZE)
-	    {
-		c.drawLine(0, i, width, i, paint);
-	    }
-	}
+            for (int i = 0; i < height; i += MainActivity.SIZE)
+            {
+                c.drawLine(0, i, width, i, paint);
+            }
+        }
 
-	canvas.translate(0, height);
-	canvas.scale(1, -1);
+        canvas.translate(0, height);
+        canvas.scale(1, -1);
 
-	// Draw the graticule
+        // Draw the graticule
 
-	canvas.drawBitmap(graticule, 0, 0, null);
+        canvas.drawBitmap(graticule, 0, 0, null);
 
-	// Check max value
+        // Check max value
 
-	if (max < 1.0f)
-	    max = 1.0f;
+        if (max < 1.0f)
+            max = 1.0f;
 
-	// Calculate the scaling
+        // Calculate the scaling
 
-	float yscale = (height / max);
+        float yscale = (height / max);
 
-	max = 0.0f;
+        max = 0.0f;
 
-	// Rewind path
+        // Rewind path
 
-	path.rewind();
-	path.moveTo(0, 0);
+        path.rewind();
+        path.moveTo(0, 0);
 
-	// Create trace
+        // Create trace
 
-	int last = 1;
-	for (int x = 0; x < width; x++)
-	{
-	    float value = 0.0f;
+        int last = 1;
+        for (int x = 0; x < width; x++)
+        {
+            float value = 0.0f;
 
-	    int index = (int)Math.round(Math.pow(Math.E, x * xscale));
-	    for (int i = last; i <= index; i++)
-	    {
-		// Don't show DC component and don't overflow
+            int index = (int)Math.round(Math.pow(Math.E, x * xscale));
+            for (int i = last; i <= index; i++)
+            {
+                // Don't show DC component and don't overflow
 
-		if (i > 0 && i < audio.xa.length)
-		{
-		    if (value < audio.xa[i])
-			value = (float)audio.xa[i];
-		}
-	    }
+                if (i > 0 && i < audio.xa.length)
+                {
+                    if (value < audio.xa[i])
+                        value = (float)audio.xa[i];
+                }
+            }
 
-	    // Update last index
+            // Update last index
 
-	    last = index + 1;
+            last = index + 1;
 
-	    // Get max value
+            // Get max value
 
-	    if (max < value)
-		max = value;
+            if (max < value)
+                max = value;
 
-	    float y = value * yscale;
+            float y = value * yscale;
 
-	    path.lineTo(x, y);
-	}
+            path.lineTo(x, y);
+        }
 
-	// Color green
+        // Color green
 
-	paint.setColor(Color.GREEN);
-	paint.setAntiAlias(true);
+        paint.setColor(Color.GREEN);
+        paint.setAntiAlias(true);
 
-	// Draw path
+        // Draw path
 
-	canvas.drawPath(path, paint);
+        canvas.drawPath(path, paint);
 
-	if (audio.frequency > 0.0)
-	{
-	    // Yellow pen for frequency trace
+        if (audio.frequency > 0.0)
+        {
+            // Yellow pen for frequency trace
 
-	    paint.setColor(Color.YELLOW);
+            paint.setColor(Color.YELLOW);
 
-	    // Create line for frequency
+            // Create line for frequency
 
-	    float x = (float)Math.log(audio.frequency / audio.fps) / xscale;
-	    paint.setAntiAlias(false);
-	    canvas.drawLine(x, 0, x, height / 4, paint);
+            float x = (float)Math.log(audio.frequency / audio.fps) / xscale;
+            paint.setAntiAlias(false);
+            canvas.drawLine(x, 0, x, height / 4, paint);
 
-	    // Draw frequency value
+            // Draw frequency value
 
-	    canvas.scale(1, -1);
-	    String s = String.format("%1.1fHz", audio.frequency);
-	    paint.setTextSize(height / 48);
-	    paint.setTextAlign(Paint.Align.CENTER);
-	    paint.setAntiAlias(true);
-	    canvas.drawText(s, x, 0, paint);
-	}
+            canvas.scale(1, -1);
+            String s = String.format("%1.1fHz", audio.frequency);
+            paint.setTextSize(height / 48);
+            paint.setTextAlign(Paint.Align.CENTER);
+            paint.setAntiAlias(true);
+            canvas.drawText(s, x, 0, paint);
+        }
     }
 }

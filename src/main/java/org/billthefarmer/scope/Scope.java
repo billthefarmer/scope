@@ -64,12 +64,12 @@ public class Scope extends View
 
     public Scope(Context context, AttributeSet attrs)
     {
-	super(context, attrs);
+        super(context, attrs);
 
-	// Create path and paint
+        // Create path and paint
 
-	path = new Path();
-	paint = new Paint();
+        path = new Path();
+        paint = new Paint();
     }
 
     // On size changed
@@ -77,52 +77,52 @@ public class Scope extends View
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
-	super.onSizeChanged(w, h, oldw, oldh);
+        super.onSizeChanged(w, h, oldw, oldh);
 
-	// Get dimensions
+        // Get dimensions
 
-	width = w;
-	height = h;
+        width = w;
+        height = h;
 
-	// Create a bitmap for trace storage
+        // Create a bitmap for trace storage
 
-	bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-	cb = new Canvas(bitmap);
+        bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        cb = new Canvas(bitmap);
 
-	// Create a bitmap for the graticule
+        // Create a bitmap for the graticule
 
-	graticule = Bitmap.createBitmap(width, height,
-					Bitmap.Config.ARGB_8888);
-	Canvas canvas = new Canvas(graticule);
+        graticule = Bitmap.createBitmap(width, height,
+                                        Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(graticule);
 
-	// Black background
+        // Black background
 
-	canvas.drawColor(Color.BLACK);
+        canvas.drawColor(Color.BLACK);
 
-	// Set up paint
+        // Set up paint
 
-	paint.setStrokeWidth(2);
-	paint.setStyle(Paint.Style.STROKE);
-	paint.setColor(Color.argb(255, 0, 63, 0));
+        paint.setStrokeWidth(2);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.argb(255, 0, 63, 0));
 
-	// Draw graticule
+        // Draw graticule
 
-	for (int i = 0; i < width; i += MainActivity.SIZE)
-	    canvas.drawLine(i, 0, i, height, paint);
+        for (int i = 0; i < width; i += MainActivity.SIZE)
+            canvas.drawLine(i, 0, i, height, paint);
 
-	canvas.translate(0, height / 2);
+        canvas.translate(0, height / 2);
 
-	for (int i = 0; i < height / 2; i += MainActivity.SIZE)
-	{
-	    canvas.drawLine(0, i, width, i, paint);
-	    canvas.drawLine(0, -i, width, -i, paint);
-	}
+        for (int i = 0; i < height / 2; i += MainActivity.SIZE)
+        {
+            canvas.drawLine(0, i, width, i, paint);
+            canvas.drawLine(0, -i, width, -i, paint);
+        }
 
-	// Draw the graticule on the bitmap
+        // Draw the graticule on the bitmap
 
-	cb.drawBitmap(graticule, 0, 0, null);
+        cb.drawBitmap(graticule, 0, 0, null);
 
-	cb.translate(0, height / 2);
+        cb.translate(0, height / 2);
     }
 
     private int max;
@@ -133,137 +133,137 @@ public class Scope extends View
     @Override
     protected void onDraw(Canvas canvas)
     {
-	// Check for data
+        // Check for data
 
-	if ((audio == null) || (audio.data == null))
-	{
-	    canvas.drawBitmap(graticule, 0, 0, null);
-	    return;
-	}
+        if ((audio == null) || (audio.data == null))
+        {
+            canvas.drawBitmap(graticule, 0, 0, null);
+            return;
+        }
 
-	// Draw the graticule on the bitmap
+        // Draw the graticule on the bitmap
 
-	if (!storage || clear)
-	{
-	    cb.drawBitmap(graticule, 0, -height / 2, null);
-	    clear = false;
-	}
+        if (!storage || clear)
+        {
+            cb.drawBitmap(graticule, 0, -height / 2, null);
+            clear = false;
+        }
 
-	// Calculate x scale etc
+        // Calculate x scale etc
 
-	float xscale = (float)(2.0 / ((audio.sample / 100000.0) * scale));
-	int xstart = Math.round(start);
-	int xstep = Math.round((float)1.0 / xscale);
-	int xstop = Math.round(xstart + ((float)width / xscale));
+        float xscale = (float)(2.0 / ((audio.sample / 100000.0) * scale));
+        int xstart = Math.round(start);
+        int xstep = Math.round((float)1.0 / xscale);
+        int xstop = Math.round(xstart + ((float)width / xscale));
 
-	if (xstop > audio.length)
-	    xstop = (int)audio.length;
+        if (xstop > audio.length)
+            xstop = (int)audio.length;
 
-	// Calculate y scale
+        // Calculate y scale
 
-	if (max < 4096)
-	    max = 4096;
+        if (max < 4096)
+            max = 4096;
 
-	yscale = (float)(max / (height / 2.0));
+        yscale = (float)(max / (height / 2.0));
 
-	max = 0;
+        max = 0;
 
-	// Draw the trace
+        // Draw the trace
 
-	path.rewind();
-	path.moveTo(0, 0);
+        path.rewind();
+        path.moveTo(0, 0);
 
-	if (xscale < 1.0)
-	{
-	    for (int i = 0; i < xstop - xstart; i += xstep)
-	    {
-		if (max < Math.abs(audio.data[i + xstart]))
-		    max = Math.abs(audio.data[i + xstart]);
+        if (xscale < 1.0)
+        {
+            for (int i = 0; i < xstop - xstart; i += xstep)
+            {
+                if (max < Math.abs(audio.data[i + xstart]))
+                    max = Math.abs(audio.data[i + xstart]);
 
-		float x = (float)i * xscale;
-		float y = -(float)audio.data[i + xstart] / yscale;
-		path.lineTo(x, y);
-	    }
-	}
+                float x = (float)i * xscale;
+                float y = -(float)audio.data[i + xstart] / yscale;
+                path.lineTo(x, y);
+            }
+        }
 
-	else
-	{
-	    for (int i = 0; i < xstop - xstart; i++)
-	    {
-		if (max < Math.abs(audio.data[i + xstart]))
-		    max = Math.abs(audio.data[i + xstart]);
+        else
+        {
+            for (int i = 0; i < xstop - xstart; i++)
+            {
+                if (max < Math.abs(audio.data[i + xstart]))
+                    max = Math.abs(audio.data[i + xstart]);
 
-		float x = (float)i * xscale;
-		float y = -(float)audio.data[i + xstart] / yscale;
-		path.lineTo(x, y);
+                float x = (float)i * xscale;
+                float y = -(float)audio.data[i + xstart] / yscale;
+                path.lineTo(x, y);
 
-		// Draw points at max resolution
+                // Draw points at max resolution
 
-		if (main.timebase == 0)
-		{
-		    path.addRect(x - 2, y - 2, x + 2, y + 2, Path.Direction.CW);
-		    path.moveTo(x, y);
-		}
-	    }
-	}
+                if (main.timebase == 0)
+                {
+                    path.addRect(x - 2, y - 2, x + 2, y + 2, Path.Direction.CW);
+                    path.moveTo(x, y);
+                }
+            }
+        }
 
-	// Green trace
+        // Green trace
 
-	paint.setColor(Color.GREEN);
-	paint.setAntiAlias(true);
-	cb.drawPath(path, paint);
+        paint.setColor(Color.GREEN);
+        paint.setAntiAlias(true);
+        cb.drawPath(path, paint);
 
-	// Draw index
+        // Draw index
 
-	if (index > 0 && index < width)
-	{
-	    // Yellow index
+        if (index > 0 && index < width)
+        {
+            // Yellow index
 
-	    paint.setColor(Color.YELLOW);
+            paint.setColor(Color.YELLOW);
 
-	    paint.setAntiAlias(false);
-	    cb.drawLine(index, -height / 2, index, height / 2, paint);
+            paint.setAntiAlias(false);
+            cb.drawLine(index, -height / 2, index, height / 2, paint);
 
-	    paint.setAntiAlias(true);
-	    paint.setTextSize(height / 48);
-	    paint.setTextAlign(Paint.Align.LEFT);
+            paint.setAntiAlias(true);
+            paint.setTextSize(height / 48);
+            paint.setTextAlign(Paint.Align.LEFT);
 
-	    // Get value
+            // Get value
 
-	    int i = Math.round(index / xscale);
-	    if (i + xstart < audio.length)
-	    {
-		float y = -audio.data[i + xstart] / yscale;
+            int i = Math.round(index / xscale);
+            if (i + xstart < audio.length)
+            {
+                float y = -audio.data[i + xstart] / yscale;
 
-		// Draw value
+                // Draw value
 
-		String s = String.format("%3.2f",
-					 audio.data[i + xstart] / 32768.0);
-		cb.drawText(s, index, y, paint);
-	    }
+                String s = String.format("%3.2f",
+                                         audio.data[i + xstart] / 32768.0);
+                cb.drawText(s, index, y, paint);
+            }
 
-	    paint.setTextAlign(Paint.Align.CENTER);
+            paint.setTextAlign(Paint.Align.CENTER);
 
-	    // Draw time value
+            // Draw time value
 
-	    if (scale < 100.0)
-	    {
-		String s = String.format((scale < 1.0)? "%3.3f": 
-					 (scale < 10.0)? "%3.2f": "%3.1f",
-					 (start + (index * scale)) /
-					 MainActivity.SMALL_SCALE);
-		cb.drawText(s, index, height / 2, paint);
-	    }
+            if (scale < 100.0)
+            {
+                String s = String.format((scale < 1.0) ? "%3.3f" :
+                                         (scale < 10.0) ? "%3.2f" : "%3.1f",
+                                         (start + (index * scale)) /
+                                         MainActivity.SMALL_SCALE);
+                cb.drawText(s, index, height / 2, paint);
+            }
 
-	    else
-	    {
-		String s = String.format("%3.3f", (start + (index * scale)) /
-				  MainActivity.LARGE_SCALE);
-		cb.drawText(s, index, height / 2, paint);
-	    }
-	}
+            else
+            {
+                String s = String.format("%3.3f", (start + (index * scale)) /
+                                         MainActivity.LARGE_SCALE);
+                cb.drawText(s, index, height / 2, paint);
+            }
+        }
 
-	canvas.drawBitmap(bitmap, 0, 0, null);
+        canvas.drawBitmap(bitmap, 0, 0, null);
     }
 
     // On touch event
@@ -271,26 +271,26 @@ public class Scope extends View
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-	float x = event.getX();
-	float y = event.getY();
+        float x = event.getX();
+        float y = event.getY();
 
-	// Set the index from the touch dimension
+        // Set the index from the touch dimension
 
-	switch (event.getAction())
-	{
-	case MotionEvent.ACTION_DOWN:
-	    index = x;
-	    break;
+        switch (event.getAction())
+        {
+        case MotionEvent.ACTION_DOWN:
+            index = x;
+            break;
 
-	case MotionEvent.ACTION_MOVE:
-	    index = x;
-	    break;
+        case MotionEvent.ACTION_MOVE:
+            index = x;
+            break;
 
-	case MotionEvent.ACTION_UP:
-	    index = x;
-	    break;
-	}
+        case MotionEvent.ACTION_UP:
+            index = x;
+            break;
+        }
 
-	return true;
+        return true;
     }
 }

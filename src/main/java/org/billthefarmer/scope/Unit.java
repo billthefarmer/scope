@@ -41,55 +41,55 @@ public class Unit extends View
 
     public Unit(Context context, AttributeSet attrs)
     {
-	super(context, attrs);
+        super(context, attrs);
 
-	// Create paint
+        // Create paint
 
-	paint = new Paint();
+        paint = new Paint();
 
-	// Set initial scale
+        // Set initial scale
 
-	scale = 1;
+        scale = 1;
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
-	super.onSizeChanged(w, h, oldw, oldh);
+        super.onSizeChanged(w, h, oldw, oldh);
 
-	// Get dinemsions
+        // Get dinemsions
 
-	width = w;
-	height = h;
+        width = w;
+        height = h;
     }
 
     @Override
     protected void onDraw(Canvas canvas)
     {
-	paint.setStrokeWidth(2);
+        paint.setStrokeWidth(2);
 
-	// Draw half a tick
+        // Draw half a tick
 
-	canvas.drawLine(width, 0, width, height / 3, paint);
+        canvas.drawLine(width, 0, width, height / 3, paint);
 
-	// Set up paint
+        // Set up paint
 
-	paint.setAntiAlias(true);
-	paint.setTextSize(height * 2 / 3);
-	paint.setTextAlign(Align.CENTER);
+        paint.setAntiAlias(true);
+        paint.setTextSize(height * 2 / 3);
+        paint.setTextAlign(Align.CENTER);
 
-	// Draw half of the units
+        // Draw half of the units
 
-	if (scale == 0)
-	{
-	    canvas.drawLine(width / 3, 0, width, 0, paint);
-	    canvas.drawText("freq", width, height - (height / 6), paint);
-	}
+        if (scale == 0)
+        {
+            canvas.drawLine(width / 3, 0, width, 0, paint);
+            canvas.drawText("freq", width, height - (height / 6), paint);
+        }
 
-	else if (scale < 100.0)
-	    canvas.drawText("ms", width, height - (height / 6), paint);
+        else if (scale < 100.0)
+            canvas.drawText("ms", width, height - (height / 6), paint);
 
-	else
-	    canvas.drawText("sec", width, height - (height / 6), paint);
+        else
+            canvas.drawText("sec", width, height - (height / 6), paint);
     }
 }

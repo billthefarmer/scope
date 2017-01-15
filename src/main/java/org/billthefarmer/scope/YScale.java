@@ -47,88 +47,88 @@ public class YScale extends View
 
     public YScale(Context context, AttributeSet attrs)
     {
-	super(context, attrs);
+        super(context, attrs);
 
-	// Create paint
+        // Create paint
 
-	matrix = new Matrix();
-	paint = new Paint();
+        matrix = new Matrix();
+        paint = new Paint();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
-	super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-	// Get offered dimension
+        // Get offered dimension
 
-	int h = MeasureSpec.getSize(heightMeasureSpec);
+        int h = MeasureSpec.getSize(heightMeasureSpec);
 
-	// Set wanted dimensions
+        // Set wanted dimensions
 
-	setMeasuredDimension(h / WIDTH_FRACTION, h);
+        setMeasuredDimension(h / WIDTH_FRACTION, h);
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
-	super.onSizeChanged(w, h, oldw, oldh);
+        super.onSizeChanged(w, h, oldw, oldh);
 
-	// Get actual dimensions
+        // Get actual dimensions
 
-	width = w;
-	height = h;
+        width = w;
+        height = h;
 
-	// Create a path for the thumb
+        // Create a path for the thumb
 
-	thumb = new Path();
+        thumb = new Path();
 
-	thumb.moveTo(-1, -1);
-	thumb.lineTo(-1, 1);
-	thumb.lineTo(1, 1);
-	thumb.lineTo(2, 0);
-	thumb.lineTo(1, -1);
-	thumb.close();
+        thumb.moveTo(-1, -1);
+        thumb.lineTo(-1, 1);
+        thumb.lineTo(1, 1);
+        thumb.lineTo(2, 0);
+        thumb.lineTo(1, -1);
+        thumb.close();
 
-	// Create a matrix to scale the thumb
+        // Create a matrix to scale the thumb
 
-	matrix.setScale(width / 4, width / 4);
+        matrix.setScale(width / 4, width / 4);
 
-	// Scale the thumb
+        // Scale the thumb
 
-	thumb.transform(matrix);
+        thumb.transform(matrix);
     }
 
     @Override
     protected void onDraw(Canvas canvas)
     {
-	paint.setStyle(Paint.Style.STROKE);
-	paint.setStrokeWidth(2);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(2);
 
-	canvas.translate(0, height / 2);
+        canvas.translate(0, height / 2);
 
-	// Draw scale ticks
+        // Draw scale ticks
 
-	for (int i = 0; i < height / 2; i += MainActivity.SIZE)
-	{
-	    canvas.drawLine(width * 2 / 3, i, width, i, paint);
-	    canvas.drawLine(width * 2 / 3, -i, width, -i, paint);
-	}
+        for (int i = 0; i < height / 2; i += MainActivity.SIZE)
+        {
+            canvas.drawLine(width * 2 / 3, i, width, i, paint);
+            canvas.drawLine(width * 2 / 3, -i, width, -i, paint);
+        }
 
-	for (int i = 0; i < height / 2; i += MainActivity.SIZE * 5)
-	{
-	    canvas.drawLine(width / 3, i, width, i, paint);
-	    canvas.drawLine(width / 3, -i, width, -i, paint);
-	}
+        for (int i = 0; i < height / 2; i += MainActivity.SIZE * 5)
+        {
+            canvas.drawLine(width / 3, i, width, i, paint);
+            canvas.drawLine(width / 3, -i, width, -i, paint);
+        }
 
-	// Draw sync level thumb if not zero
+        // Draw sync level thumb if not zero
 
-	if (index != 0)
-	{
-	    canvas.translate(width / 3, index);
-	    paint.setStyle(Paint.Style.FILL);
-	    canvas.drawPath(thumb, paint);
-	}
+        if (index != 0)
+        {
+            canvas.translate(width / 3, index);
+            paint.setStyle(Paint.Style.FILL);
+            canvas.drawPath(thumb, paint);
+        }
     }
 
     // On touch event
@@ -136,27 +136,27 @@ public class YScale extends View
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-	float x = event.getX();
-	float y = event.getY();
+        float x = event.getX();
+        float y = event.getY();
 
-	// Set the index from the touch dimension
+        // Set the index from the touch dimension
 
-	switch (event.getAction())
-	{
-	case MotionEvent.ACTION_DOWN:
-	    index = y - (height / 2);
-	    break;
+        switch (event.getAction())
+        {
+        case MotionEvent.ACTION_DOWN:
+            index = y - (height / 2);
+            break;
 
-	case MotionEvent.ACTION_MOVE:
-	    index = y - (height / 2);
-	    break;
+        case MotionEvent.ACTION_MOVE:
+            index = y - (height / 2);
+            break;
 
-	case MotionEvent.ACTION_UP:
-	    index = y - (height / 2);
-	    break;
-	}
+        case MotionEvent.ACTION_UP:
+            index = y - (height / 2);
+            break;
+        }
 
-	invalidate();
-	return true;
+        invalidate();
+        return true;
     }
 }

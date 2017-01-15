@@ -65,20 +65,26 @@ public class MainActivity extends Activity
     private static final String LEVEL = "level";
 
     private static final float values[] =
-    {0.1f, 0.2f, 0.5f, 1.0f,
-     2.0f, 5.0f, 10.0f, 20.0f,
-     50.0f, 100.0f, 200.0f, 500.0f};
-	
+    {
+        0.1f, 0.2f, 0.5f, 1.0f,
+        2.0f, 5.0f, 10.0f, 20.0f,
+        50.0f, 100.0f, 200.0f, 500.0f
+    };
+
     private static final String strings[] =
-    {"0.1 ms", "0.2 ms", "0.5 ms",
-     "1.0 ms", "2.0 ms", "5.0 ms",
-     "10 ms", "20 ms", "50 ms",
-     "0.1 sec", "0.2 sec", "0.5 sec"};
+    {
+        "0.1 ms", "0.2 ms", "0.5 ms",
+        "1.0 ms", "2.0 ms", "5.0 ms",
+        "10 ms", "20 ms", "50 ms",
+        "0.1 sec", "0.2 sec", "0.5 sec"
+    };
 
     private static final int counts[] =
-    {256, 512, 1024, 2048,
-     4096, 8192, 16384, 32768,
-     65536, 131072, 262144, 524288};
+    {
+        256, 512, 1024, 2048,
+        4096, 8192, 16384, 32768,
+        65536, 131072, 262144, 524288
+    };
 
     protected static final int SIZE = 20;
     protected static final int DEFAULT_TIMEBASE = 3;
@@ -103,100 +109,100 @@ public class MainActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-	super.onCreate(savedInstanceState);
-	setContentView(R.layout.activity_main);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-	scope = (Scope)findViewById(R.id.scope);
-	xscale = (XScale)findViewById(R.id.xscale);
-	yscale = (YScale)findViewById(R.id.yscale);
-	unit = (Unit)findViewById(R.id.unit);
+        scope = (Scope)findViewById(R.id.scope);
+        xscale = (XScale)findViewById(R.id.xscale);
+        yscale = (YScale)findViewById(R.id.yscale);
+        unit = (Unit)findViewById(R.id.unit);
 
-	// Get action bar
+        // Get action bar
 
-	ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getActionBar();
 
-	// Set short title
+        // Set short title
 
-	if (actionBar != null)
-	    actionBar.setTitle(R.string.short_name);
+        if (actionBar != null)
+            actionBar.setTitle(R.string.short_name);
 
-	// Create audio
+        // Create audio
 
-	audio = new Audio();
+        audio = new Audio();
 
-	if (scope != null)
-	{
-	    scope.main = this;
-	    scope.audio = audio;
-	}
+        if (scope != null)
+        {
+            scope.main = this;
+            scope.audio = audio;
+        }
 
-	// Set timebase index
+        // Set timebase index
 
-	timebase = DEFAULT_TIMEBASE;
+        timebase = DEFAULT_TIMEBASE;
 
-	// Set up scale
+        // Set up scale
 
-	if (scope != null && xscale != null && unit != null)
-	{
-	    scope.scale = values[timebase];
-	    xscale.scale = scope.scale;
-	    xscale.step = 1000 * xscale.scale;
-	    unit.scale = scope.scale;
-	}
+        if (scope != null && xscale != null && unit != null)
+        {
+            scope.scale = values[timebase];
+            xscale.scale = scope.scale;
+            xscale.step = 1000 * xscale.scale;
+            unit.scale = scope.scale;
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-	MenuItem item;
+        MenuItem item;
 
-	// Inflate the menu; this adds items to the action bar if it
-	// is present.
-	getMenuInflater().inflate(R.menu.main, menu);
+        // Inflate the menu; this adds items to the action bar if it
+        // is present.
+        getMenuInflater().inflate(R.menu.main, menu);
 
-	// Set menu state from restored state
+        // Set menu state from restored state
 
-	// Bright
+        // Bright
 
-	item = menu.findItem(R.id.bright);
-	item.setIcon(audio.bright? R.drawable.ic_action_bright_line_checked:
-		     R.drawable.ic_action_bright_line);
+        item = menu.findItem(R.id.bright);
+        item.setIcon(audio.bright ? R.drawable.ic_action_bright_line_checked :
+                     R.drawable.ic_action_bright_line);
 
-	// Single
+        // Single
 
-	item = menu.findItem(R.id.single);
-	item.setIcon(audio.single? R.drawable.ic_action_single_shot_checked:
-		     R.drawable.ic_action_single_shot);
+        item = menu.findItem(R.id.single);
+        item.setIcon(audio.single ? R.drawable.ic_action_single_shot_checked :
+                     R.drawable.ic_action_single_shot);
 
-	// Polarity
+        // Polarity
 
-	// item = menu.findItem(R.id.polarity);
-	// item.setIcon(audio.polarity? R.drawable.ic_action_polarity_checked:
-	// 	     R.drawable.ic_action_polarity);
+        // item = menu.findItem(R.id.polarity);
+        // item.setIcon(audio.polarity? R.drawable.ic_action_polarity_checked:
+        // 	     R.drawable.ic_action_polarity);
 
-	// Timebase
+        // Timebase
 
-	item = menu.findItem(R.id.timebase);
-	if (timebase != DEFAULT_TIMEBASE)
-	{
-	    if (item.hasSubMenu())
-	    {
-		submenu = item.getSubMenu();
-		clearLast(submenu, DEFAULT_TIMEBASE);
-		item = submenu.getItem(timebase);
-		    if (item != null)
-			item.setChecked(true);
-	    }
-	}
+        item = menu.findItem(R.id.timebase);
+        if (timebase != DEFAULT_TIMEBASE)
+        {
+            if (item.hasSubMenu())
+            {
+                submenu = item.getSubMenu();
+                clearLast(submenu, DEFAULT_TIMEBASE);
+                item = submenu.getItem(timebase);
+                if (item != null)
+                    item.setChecked(true);
+            }
+        }
 
-	// Storage
+        // Storage
 
-	item = menu.findItem(R.id.storage);
-	item.setIcon(scope.storage?
-		     R.drawable.ic_action_storage_checked:
-		     R.drawable.ic_action_storage);
+        item = menu.findItem(R.id.storage);
+        item.setIcon(scope.storage ?
+                     R.drawable.ic_action_storage_checked :
+                     R.drawable.ic_action_storage);
 
-	return true;
+        return true;
     }
 
     // Restore state
@@ -204,49 +210,49 @@ public class MainActivity extends Activity
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState)
     {
-	super.onRestoreInstanceState(savedInstanceState);
+        super.onRestoreInstanceState(savedInstanceState);
 
-	// Get saved state bundle
+        // Get saved state bundle
 
-	Bundle bundle = savedInstanceState.getBundle(STATE);
+        Bundle bundle = savedInstanceState.getBundle(STATE);
 
-	// Log.d(TAG, "Restore: " + bundle.toString());
+        // Log.d(TAG, "Restore: " + bundle.toString());
 
-	// Bright
+        // Bright
 
-	audio.bright = bundle.getBoolean(BRIGHT, false);
+        audio.bright = bundle.getBoolean(BRIGHT, false);
 
-	// Single
+        // Single
 
-	audio.single = bundle.getBoolean(SINGLE, false);
+        audio.single = bundle.getBoolean(SINGLE, false);
 
-	// Polarity
+        // Polarity
 
-	// audio.polarity = bundle.getBoolean(POLARITY, false);
+        // audio.polarity = bundle.getBoolean(POLARITY, false);
 
-	// Timebase
+        // Timebase
 
-	timebase = bundle.getInt(TIMEBASE, DEFAULT_TIMEBASE);
-	setTimebase(timebase, false);
+        timebase = bundle.getInt(TIMEBASE, DEFAULT_TIMEBASE);
+        setTimebase(timebase, false);
 
-	// Storage
+        // Storage
 
-	scope.storage = bundle.getBoolean(STORAGE, false);
+        scope.storage = bundle.getBoolean(STORAGE, false);
 
-	// Start
+        // Start
 
-	scope.start = bundle.getFloat(START, 0);
-	xscale.start = scope.start;
-	xscale.postInvalidate();
+        scope.start = bundle.getFloat(START, 0);
+        xscale.start = scope.start;
+        xscale.postInvalidate();
 
-	// Index
+        // Index
 
-	scope.index = bundle.getFloat(INDEX, 0);
+        scope.index = bundle.getFloat(INDEX, 0);
 
-	// Level
+        // Level
 
-	yscale.index = bundle.getFloat(LEVEL, 0);
-	yscale.postInvalidate();
+        yscale.index = bundle.getFloat(LEVEL, 0);
+        yscale.postInvalidate();
     }
 
     // Save state
@@ -254,47 +260,47 @@ public class MainActivity extends Activity
     @Override
     protected void onSaveInstanceState(Bundle outState)
     {
-	super.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
 
-	// State bundle
+        // State bundle
 
-	Bundle bundle = new Bundle();
+        Bundle bundle = new Bundle();
 
-	// Bright
+        // Bright
 
-	bundle.putBoolean(BRIGHT, audio.bright);
+        bundle.putBoolean(BRIGHT, audio.bright);
 
-	// Single
+        // Single
 
-	bundle.putBoolean(SINGLE, audio.single);
+        bundle.putBoolean(SINGLE, audio.single);
 
-	// Polarity
+        // Polarity
 
-	// bundle.putBoolean(POLARITY, audio.polarity);
+        // bundle.putBoolean(POLARITY, audio.polarity);
 
-	// Timebase
+        // Timebase
 
-	bundle.putInt(TIMEBASE, timebase);
+        bundle.putInt(TIMEBASE, timebase);
 
-	// Storage
+        // Storage
 
-	bundle.putBoolean(STORAGE, scope.storage);
+        bundle.putBoolean(STORAGE, scope.storage);
 
-	// Start
+        // Start
 
-	bundle.putFloat(START, scope.start);
+        bundle.putFloat(START, scope.start);
 
-	// Index
+        // Index
 
-	bundle.putFloat(INDEX, scope.index);
+        bundle.putFloat(INDEX, scope.index);
 
-	// Level
+        // Level
 
-	bundle.putFloat(LEVEL, yscale.index);
+        bundle.putFloat(LEVEL, yscale.index);
 
-	// Save bundle
+        // Save bundle
 
-	outState.putBundle(STATE, bundle);
+        outState.putBundle(STATE, bundle);
     }
 
     // On options item
@@ -302,346 +308,346 @@ public class MainActivity extends Activity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-	// Get id
+        // Get id
 
-	int id = item.getItemId();
-	switch (id)
-	{
-	    // Bright line
+        int id = item.getItemId();
+        switch (id)
+        {
+        // Bright line
 
-	case R.id.bright:
-	    audio.bright = !audio.bright;
-	    item.setIcon(audio.bright? R.drawable.ic_action_bright_line_checked:
-			 R.drawable.ic_action_bright_line);
-	    showToast(audio.bright? R.string.bright_on: R.string.bright_off);
-	    break;
+        case R.id.bright:
+            audio.bright = !audio.bright;
+            item.setIcon(audio.bright ? R.drawable.ic_action_bright_line_checked :
+                         R.drawable.ic_action_bright_line);
+            showToast(audio.bright ? R.string.bright_on : R.string.bright_off);
+            break;
 
-	    // Single shot
+        // Single shot
 
-	case R.id.single:
-	    audio.single = !audio.single;
-	    item.setIcon(audio.single? R.drawable.ic_action_single_shot_checked:
-			 R.drawable.ic_action_single_shot);
-	    showToast(audio.single? R.string.single_on: R.string.single_off);
-	    break;
+        case R.id.single:
+            audio.single = !audio.single;
+            item.setIcon(audio.single ? R.drawable.ic_action_single_shot_checked :
+                         R.drawable.ic_action_single_shot);
+            showToast(audio.single ? R.string.single_on : R.string.single_off);
+            break;
 
-	    // Trigger
+        // Trigger
 
-	case R.id.trigger:
-	    if (audio.single)
-		audio.trigger = true;
-	    break;
+        case R.id.trigger:
+            if (audio.single)
+                audio.trigger = true;
+            break;
 
-	    // Sync polarity
+        // Sync polarity
 
-	// case R.id.polarity:
-	//     audio.polarity = !audio.polarity;
-	//     item.setIcon(audio.polarity? R.drawable.ic_action_polarity_checked:
-	// 		 R.drawable.ic_action_polarity);
-	//     showToast(!audio.polarity? R.string.sync_pos: R.string.sync_neg);
-	//     break;
+        // case R.id.polarity:
+        //     audio.polarity = !audio.polarity;
+        //     item.setIcon(audio.polarity? R.drawable.ic_action_polarity_checked:
+        // 		 R.drawable.ic_action_polarity);
+        //     showToast(!audio.polarity? R.string.sync_pos: R.string.sync_neg);
+        //     break;
 
-	    // Timebase
+        // Timebase
 
-	case R.id.timebase:
-	    if (item.hasSubMenu())
-		submenu = item.getSubMenu();
-	    break;
+        case R.id.timebase:
+            if (item.hasSubMenu())
+                submenu = item.getSubMenu();
+            break;
 
-	    // 0.1 ms
+        // 0.1 ms
 
-	case R.id.tb0_1ms:
-	    clearLast(submenu, timebase);
-	    timebase = 0;
-	    item.setChecked(true);
-	    setTimebase(timebase, true);
-	    break;
+        case R.id.tb0_1ms:
+            clearLast(submenu, timebase);
+            timebase = 0;
+            item.setChecked(true);
+            setTimebase(timebase, true);
+            break;
 
-	    // 0.2 ms
+        // 0.2 ms
 
-	case R.id.tb0_2ms:
-	    clearLast(submenu, timebase);
-	    timebase = 1;
-	    item.setChecked(true);
-	    setTimebase(timebase, true);
-	    break;
+        case R.id.tb0_2ms:
+            clearLast(submenu, timebase);
+            timebase = 1;
+            item.setChecked(true);
+            setTimebase(timebase, true);
+            break;
 
-	    // 0.5 ms
+        // 0.5 ms
 
-	case R.id.tb0_5ms:
-	    clearLast(submenu, timebase);
-	    timebase = 2;
-	    item.setChecked(true);
-	    setTimebase(timebase, true);
-	    break;
+        case R.id.tb0_5ms:
+            clearLast(submenu, timebase);
+            timebase = 2;
+            item.setChecked(true);
+            setTimebase(timebase, true);
+            break;
 
-	    // 1.0 ms
+        // 1.0 ms
 
-	case R.id.tb1_0ms:
-	    clearLast(submenu, timebase);
-	    timebase = 3;
-	    item.setChecked(true);
-	    setTimebase(timebase, true);
-	    break;
+        case R.id.tb1_0ms:
+            clearLast(submenu, timebase);
+            timebase = 3;
+            item.setChecked(true);
+            setTimebase(timebase, true);
+            break;
 
-	    // 2.0 ms
+        // 2.0 ms
 
-	case R.id.tb2_0ms:
-	    clearLast(submenu, timebase);
-	    timebase = 4;
-	    item.setChecked(true);
-	    setTimebase(timebase, true);
-	    break;
+        case R.id.tb2_0ms:
+            clearLast(submenu, timebase);
+            timebase = 4;
+            item.setChecked(true);
+            setTimebase(timebase, true);
+            break;
 
-	    // 5.0 ms
+        // 5.0 ms
 
-	case R.id.tb5_0ms:
-	    clearLast(submenu, timebase);
-	    timebase = 5;
-	    item.setChecked(true);
-	    setTimebase(timebase, true);
-	    break;
+        case R.id.tb5_0ms:
+            clearLast(submenu, timebase);
+            timebase = 5;
+            item.setChecked(true);
+            setTimebase(timebase, true);
+            break;
 
-	    // 10 ms
+        // 10 ms
 
-	case R.id.tb10ms:
-	    clearLast(submenu, timebase);
-	    timebase = 6;
-	    item.setChecked(true);
-	    setTimebase(timebase, true);
-	    break;
+        case R.id.tb10ms:
+            clearLast(submenu, timebase);
+            timebase = 6;
+            item.setChecked(true);
+            setTimebase(timebase, true);
+            break;
 
-	    // 20 ms
+        // 20 ms
 
-	case R.id.tb20ms:
-	    clearLast(submenu, timebase);
-	    timebase = 7;
-	    item.setChecked(true);
-	    setTimebase(timebase, true);
-	    break;
+        case R.id.tb20ms:
+            clearLast(submenu, timebase);
+            timebase = 7;
+            item.setChecked(true);
+            setTimebase(timebase, true);
+            break;
 
-	    // 50 ms
+        // 50 ms
 
-	case R.id.tb50ms:
-	    clearLast(submenu, timebase);
-	    timebase = 8;
-	    item.setChecked(true);
-	    setTimebase(timebase, true);
-	    break;
+        case R.id.tb50ms:
+            clearLast(submenu, timebase);
+            timebase = 8;
+            item.setChecked(true);
+            setTimebase(timebase, true);
+            break;
 
-	    // 0.1 sec
+        // 0.1 sec
 
-	case R.id.tb0_1sec:
-	    clearLast(submenu, timebase);
-	    timebase = 9;
-	    item.setChecked(true);
-	    setTimebase(timebase, true);
-	    break;
+        case R.id.tb0_1sec:
+            clearLast(submenu, timebase);
+            timebase = 9;
+            item.setChecked(true);
+            setTimebase(timebase, true);
+            break;
 
-	    // 0.2 sec
+        // 0.2 sec
 
-	case R.id.tb0_2sec:
-	    clearLast(submenu, timebase);
-	    timebase = 10;
-	    item.setChecked(true);
-	    setTimebase(timebase, true);
-	    break;
+        case R.id.tb0_2sec:
+            clearLast(submenu, timebase);
+            timebase = 10;
+            item.setChecked(true);
+            setTimebase(timebase, true);
+            break;
 
-	    // 0.5 sec
+        // 0.5 sec
 
-	case R.id.tb0_5sec:
-	    clearLast(submenu, timebase);
-	    timebase = 11;
-	    item.setChecked(true);
-	    setTimebase(timebase, true);
-	    break;
+        case R.id.tb0_5sec:
+            clearLast(submenu, timebase);
+            timebase = 11;
+            item.setChecked(true);
+            setTimebase(timebase, true);
+            break;
 
-	    // Storage
+        // Storage
 
-	case R.id.storage:
-	    if (scope != null)
-	    {
-		scope.storage = !scope.storage;
-		item.setIcon(scope.storage?
-			     R.drawable.ic_action_storage_checked:
-			     R.drawable.ic_action_storage);
-		showToast(scope.storage?
-			  R.string.storage_on: R.string.storage_off);
-	    }
-	    break;
+        case R.id.storage:
+            if (scope != null)
+            {
+                scope.storage = !scope.storage;
+                item.setIcon(scope.storage ?
+                             R.drawable.ic_action_storage_checked :
+                             R.drawable.ic_action_storage);
+                showToast(scope.storage ?
+                          R.string.storage_on : R.string.storage_off);
+            }
+            break;
 
-	    // Clear
+        // Clear
 
-	case R.id.clear:
-	    if ((scope != null) && scope.storage)
-		scope.clear = true;
-	    break;
+        case R.id.clear:
+            if ((scope != null) && scope.storage)
+                scope.clear = true;
+            break;
 
-	    // Left
+        // Left
 
-	case R.id.left:
-	    if (scope != null && xscale != null)
-	    {
-		scope.start -= xscale.step;
-		if (scope.start < 0)
-		    scope.start = 0;
+        case R.id.left:
+            if (scope != null && xscale != null)
+            {
+                scope.start -= xscale.step;
+                if (scope.start < 0)
+                    scope.start = 0;
 
-		xscale.start = scope.start;
-		xscale.postInvalidate();
-	    }
-	    break;
+                xscale.start = scope.start;
+                xscale.postInvalidate();
+            }
+            break;
 
-	    // Right
+        // Right
 
-	case R.id.right:
-	    if (scope != null && xscale != null)
-	    {
-		scope.start += xscale.step;
-		if (scope.start >= audio.length)
-		    scope.start -= xscale.step;
+        case R.id.right:
+            if (scope != null && xscale != null)
+            {
+                scope.start += xscale.step;
+                if (scope.start >= audio.length)
+                    scope.start -= xscale.step;
 
-		xscale.start = scope.start;
-		xscale.postInvalidate();
-	    }
-	    break;
+                xscale.start = scope.start;
+                xscale.postInvalidate();
+            }
+            break;
 
-	    // Start
+        // Start
 
-	case R.id.start:
-	    if (scope != null && xscale != null)
-	    {
-		scope.start = 0;
-		scope.index = 0;
-		xscale.start = 0;
-		xscale.postInvalidate();
-		yscale.index = 0;
-		yscale.postInvalidate();
-	    }
-	    break;
+        case R.id.start:
+            if (scope != null && xscale != null)
+            {
+                scope.start = 0;
+                scope.index = 0;
+                xscale.start = 0;
+                xscale.postInvalidate();
+                yscale.index = 0;
+                yscale.postInvalidate();
+            }
+            break;
 
-	    // End
+        // End
 
-	case R.id.end:
-	    if (scope != null && xscale != null)
-	    {
-		while (scope.start < audio.length)
-		    scope.start += xscale.step;
-		scope.start -= xscale.step;
-		xscale.start = scope.start;
-		xscale.postInvalidate();
-	    }
-	    break;
+        case R.id.end:
+            if (scope != null && xscale != null)
+            {
+                while (scope.start < audio.length)
+                    scope.start += xscale.step;
+                scope.start -= xscale.step;
+                xscale.start = scope.start;
+                xscale.postInvalidate();
+            }
+            break;
 
-	    // Spectrum
+        // Spectrum
 
-	case R.id.action_spectrum:
-	    return onSpectrumClick(item);
+        case R.id.action_spectrum:
+            return onSpectrumClick(item);
 
-	    // Settings
+        // Settings
 
-	case R.id.action_settings:
-	    return onSettingsClick(item);
+        case R.id.action_settings:
+            return onSettingsClick(item);
 
-	default:
-	    return false;
-	}
+        default:
+            return false;
+        }
 
-	return true;
+        return true;
     }
 
     // On settings click
 
     private boolean onSettingsClick(MenuItem item)
     {
-	Intent intent = new Intent(this, SettingsActivity.class);
-	startActivity(intent);
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
 
-	return true;
+        return true;
     }
 
     // On spectrum click
 
     private boolean onSpectrumClick(MenuItem item)
     {
-	Intent intent = new Intent(this, SpectrumActivity.class);
-	startActivity(intent);
+        Intent intent = new Intent(this, SpectrumActivity.class);
+        startActivity(intent);
 
-	return true;
+        return true;
     }
 
     // Clear last
 
     void clearLast(SubMenu submenu, int timebase)
     {
-	// Clear last submenu item tickbox
+        // Clear last submenu item tickbox
 
-	if (submenu != null)
-	{
-	    MenuItem last =  submenu.getItem(timebase);
+        if (submenu != null)
+        {
+            MenuItem last =  submenu.getItem(timebase);
 
-	    if (last != null)
-		last.setChecked(false);
-	}
+            if (last != null)
+                last.setChecked(false);
+        }
     }
 
     // Set timebase
 
     void setTimebase(int timebase, boolean show)
     {
-	// Set up scale
+        // Set up scale
 
-	scope.scale = values[timebase];
-	xscale.scale = scope.scale;
-	xscale.step = 1000 * xscale.scale;
-	unit.scale = scope.scale;
+        scope.scale = values[timebase];
+        xscale.scale = scope.scale;
+        xscale.step = 1000 * xscale.scale;
+        unit.scale = scope.scale;
 
-	// Reset start
+        // Reset start
 
-	scope.start = 0;
-	xscale.start = 0;
+        scope.start = 0;
+        xscale.start = 0;
 
-	// Update display
+        // Update display
 
-	xscale.postInvalidate();
-	unit.postInvalidate();
+        xscale.postInvalidate();
+        unit.postInvalidate();
 
-	// Show timebase
+        // Show timebase
 
-	if (show)
-	    showTimebase(timebase);
+        if (show)
+            showTimebase(timebase);
     }
 
     // Show timebase
 
     void showTimebase(int timebase)
     {
-	String text = "Timebase: " + strings[timebase];
+        String text = "Timebase: " + strings[timebase];
 
-	showToast(text);
+        showToast(text);
     }
 
     // Show toast.
 
     void showToast(int key)
     {
-	Resources resources = getResources();
-	String text = resources.getString(key);
+        Resources resources = getResources();
+        String text = resources.getString(key);
 
-	showToast(text);
+        showToast(text);
     }
 
     void showToast(String text)
     {
-	// Cancel the last one
+        // Cancel the last one
 
-	if (toast != null)
-	    toast.cancel();
+        if (toast != null)
+            toast.cancel();
 
-	// Make a new one
+        // Make a new one
 
-	toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-	toast.setGravity(Gravity.CENTER, 0, 0);
-	toast.show();
+        toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
     // On start
@@ -649,7 +655,7 @@ public class MainActivity extends Activity
     @Override
     protected void onStart()
     {
-	super.onStart();
+        super.onStart();
     }
 
     // On Resume
@@ -657,29 +663,29 @@ public class MainActivity extends Activity
     @Override
     protected void onResume()
     {
-	super.onResume();
+        super.onResume();
 
-	// Get preferences
+        // Get preferences
 
-	getPreferences();
+        getPreferences();
 
-	// Start the audio thread
+        // Start the audio thread
 
-	audio.start();
+        audio.start();
     }
 
     @Override
     protected void onPause()
     {
-	super.onPause();
+        super.onPause();
 
-	// Save preferences
+        // Save preferences
 
-	savePreferences();
+        savePreferences();
 
-	// Stop audio thread
+        // Stop audio thread
 
-	audio.stop();
+        audio.stop();
     }
 
     // On stop
@@ -687,414 +693,414 @@ public class MainActivity extends Activity
     @Override
     protected void onStop()
     {
-	super.onStop();
+        super.onStop();
     }
 
     // Get preferences
 
     void getPreferences()
     {
-	// Load preferences
+        // Load preferences
 
-	PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
-	SharedPreferences preferences =
-	    PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
 
-	// Set preferences
+        // Set preferences
 
-	if (audio != null)
-	{
-	    audio.input =
-		Integer.parseInt(preferences.getString(PREF_INPUT, "0"));
-	}
+        if (audio != null)
+        {
+            audio.input =
+                Integer.parseInt(preferences.getString(PREF_INPUT, "0"));
+        }
 
-	screen = preferences.getBoolean(PREF_SCREEN, false);
+        screen = preferences.getBoolean(PREF_SCREEN, false);
 
-	// Check screen
+        // Check screen
 
-	if (screen)
-	{
-	    Window window = getWindow();
-	    window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-	}
+        if (screen)
+        {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
 
-	else
-	{
-	    Window window = getWindow();
-	    window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-	}
+        else
+        {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
     }
 
     // Save preferences
 
     void savePreferences()
     {
-	SharedPreferences preferences =
-	    PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
 
-	// TODO
+        // TODO
     }
 
     // Show alert
 
     void showAlert(int appName, int errorBuffer)
     {
-	// Create an alert dialog builder
+        // Create an alert dialog builder
 
-	AlertDialog.Builder builder =
-	    new AlertDialog.Builder(this);
+        AlertDialog.Builder builder =
+            new AlertDialog.Builder(this);
 
-	// Set the title, message and button
+        // Set the title, message and button
 
-	builder.setTitle(appName);
-	builder.setMessage(errorBuffer);
-	builder.setNeutralButton(android.R.string.ok,
-				 new DialogInterface.OnClickListener()
-				 {				
-				     @Override
-				     public void onClick(DialogInterface dialog,
-							 int which)
-				     {
-					 // Dismiss dialog
+        builder.setTitle(appName);
+        builder.setMessage(errorBuffer);
+        builder.setNeutralButton(android.R.string.ok,
+                                 new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog,
+                                int which)
+            {
+                // Dismiss dialog
 
-					 dialog.dismiss();	
-				     }
-				 });
-	// Create the dialog
+                dialog.dismiss();
+            }
+        });
+        // Create the dialog
 
-	AlertDialog dialog = builder.create();
+        AlertDialog dialog = builder.create();
 
-	// Show it
+        // Show it
 
-	dialog.show();
+        dialog.show();
     }
 
     // Audio
 
     protected class Audio implements Runnable
     {
-	// Preferences
+        // Preferences
 
-	protected boolean bright;
-	protected boolean single;
-	protected boolean trigger;
-	// protected boolean polarity;
+        protected boolean bright;
+        protected boolean single;
+        protected boolean trigger;
+        // protected boolean polarity;
 
-	protected int input;
-	protected int sample;
+        protected int input;
+        protected int sample;
 
-	// Data
+        // Data
 
-	protected Thread thread;
-	protected short data[];
-	protected long length;
+        protected Thread thread;
+        protected short data[];
+        protected long length;
 
-	// Private data
+        // Private data
 
-	private static final int SAMPLES = 524288;
-	private static final int FRAMES = 4096;
+        private static final int SAMPLES = 524288;
+        private static final int FRAMES = 4096;
 
-	private static final int INIT  = 0;
-	private static final int FIRST = 1;
-	private static final int NEXT  = 2;
-	private static final int LAST  = 3;
-
-	private AudioRecord audioRecord;
-	private short buffer[];
-
-	// Constructor
-
-	protected Audio()
-	{
-	    buffer = new short[FRAMES];
-	    data = new short[SAMPLES];
-	}
+        private static final int INIT  = 0;
+        private static final int FIRST = 1;
+        private static final int NEXT  = 2;
+        private static final int LAST  = 3;
+
+        private AudioRecord audioRecord;
+        private short buffer[];
+
+        // Constructor
+
+        protected Audio()
+        {
+            buffer = new short[FRAMES];
+            data = new short[SAMPLES];
+        }
 
-	// Start audio
-
-	protected void start()
-	{
-	    // Start the thread
-
-	    thread = new Thread(this, "Audio");
-	    thread.start();
-	}
-
-	// Run
-
-	@Override
-	public void run()
-	{
-	    processAudio();
-	}
-
-	// Stop
-
-	protected void stop()
-	{
-	    Thread t = thread;
-	    thread = null;
-
-	    // Wait for the thread to exit
+        // Start audio
+
+        protected void start()
+        {
+            // Start the thread
+
+            thread = new Thread(this, "Audio");
+            thread.start();
+        }
+
+        // Run
+
+        @Override
+        public void run()
+        {
+            processAudio();
+        }
+
+        // Stop
+
+        protected void stop()
+        {
+            Thread t = thread;
+            thread = null;
+
+            // Wait for the thread to exit
 
-	    while (t != null && t.isAlive())
-		Thread.yield();
-	}
+            while (t != null && t.isAlive())
+                Thread.yield();
+        }
 
-	// Process Audio
+        // Process Audio
 
-	protected void processAudio()
-	{
-	    // Assume the output sample will work on the input as
-	    // there isn't an AudioRecord.getNativeInputSampleRate()
+        protected void processAudio()
+        {
+            // Assume the output sample will work on the input as
+            // there isn't an AudioRecord.getNativeInputSampleRate()
 
-	    sample =
-		AudioTrack.getNativeOutputSampleRate(AudioManager.STREAM_MUSIC);
+            sample =
+                AudioTrack.getNativeOutputSampleRate(AudioManager.STREAM_MUSIC);
 
-	    // Get buffer size
+            // Get buffer size
 
-	    int size =
-		AudioRecord.getMinBufferSize(sample,
-					     AudioFormat.CHANNEL_IN_MONO,
-					     AudioFormat.ENCODING_PCM_16BIT);
-	    // Give up if it doesn't work
+            int size =
+                AudioRecord.getMinBufferSize(sample,
+                                             AudioFormat.CHANNEL_IN_MONO,
+                                             AudioFormat.ENCODING_PCM_16BIT);
+            // Give up if it doesn't work
 
-	    if (size == AudioRecord.ERROR_BAD_VALUE ||
-		size == AudioRecord.ERROR ||
-		size <= 0)
-	    {
-		runOnUiThread(new Runnable()
-		    {
-			@Override
-			public void run()
-			{
-			    showAlert(R.string.app_name,
-				      R.string.error_buffer);
-			}
-		    });
+            if (size == AudioRecord.ERROR_BAD_VALUE ||
+                    size == AudioRecord.ERROR ||
+                    size <= 0)
+            {
+                runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        showAlert(R.string.app_name,
+                                  R.string.error_buffer);
+                    }
+                });
 
-		thread = null;
-		return;
-	    }
+                thread = null;
+                return;
+            }
 
-	    // Create the AudioRecord object
+            // Create the AudioRecord object
 
-	    audioRecord =
-		new AudioRecord(input, sample,
-				AudioFormat.CHANNEL_IN_MONO,
-				AudioFormat.ENCODING_PCM_16BIT,
-				size);
+            audioRecord =
+                new AudioRecord(input, sample,
+                                AudioFormat.CHANNEL_IN_MONO,
+                                AudioFormat.ENCODING_PCM_16BIT,
+                                size);
 
-	    // Check audiorecord
+            // Check audiorecord
 
-	    if (audioRecord == null)
-	    {
-		runOnUiThread(new Runnable()
-		    {
-			@Override
-			public void run()
-			{
-			    showAlert(R.string.app_name,
-				      R.string.error_init);
-			}
-		    });
+            if (audioRecord == null)
+            {
+                runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        showAlert(R.string.app_name,
+                                  R.string.error_init);
+                    }
+                });
 
-		thread = null;
-		return;
-	    }
+                thread = null;
+                return;
+            }
 
-	    // Check state
+            // Check state
 
-	    int state = audioRecord.getState(); 
+            int state = audioRecord.getState();
 
-	    if (state != AudioRecord.STATE_INITIALIZED)
-	    {
-		runOnUiThread(new Runnable()
-		    {
-			@Override
-			public void run()
-			{
-			    showAlert(R.string.app_name,
-				      R.string.error_init);
-			}
-		    });
+            if (state != AudioRecord.STATE_INITIALIZED)
+            {
+                runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        showAlert(R.string.app_name,
+                                  R.string.error_init);
+                    }
+                });
 
-		audioRecord.release();
-		thread = null;
-		return;
-	    }
+                audioRecord.release();
+                thread = null;
+                return;
+            }
 
-	    // Start recording
+            // Start recording
 
-	    audioRecord.startRecording();
+            audioRecord.startRecording();
 
-	    int index = 0;
-	    int count = 0;
+            int index = 0;
+            int count = 0;
 
-	    state = INIT;
-	    short last = 0;
+            state = INIT;
+            short last = 0;
 
-	    // Continue until the thread is stopped
+            // Continue until the thread is stopped
 
-	    while (thread != null)
-	    {
-		// Read a buffer of data
+            while (thread != null)
+            {
+                // Read a buffer of data
 
-		size = audioRecord.read(buffer, 0, FRAMES);
+                size = audioRecord.read(buffer, 0, FRAMES);
 
-		// Stop the thread if no data
+                // Stop the thread if no data
 
-		if (size == 0)
-		{
-		    thread = null;
-		    break;
-		}
+                if (size == 0)
+                {
+                    thread = null;
+                    break;
+                }
 
-		// State machine for sync and copying data to display buffer
+                // State machine for sync and copying data to display buffer
 
-		switch (state)
-		{
-		    // INIT: waiting for sync
+                switch (state)
+                {
+                // INIT: waiting for sync
 
-		case INIT:
+                case INIT:
 
-		    index = 0;
+                    index = 0;
 
-		    if (bright)
-			state++;
+                    if (bright)
+                        state++;
 
-		    else
-		    {
-			if (single && !trigger)
-			    break;
+                    else
+                    {
+                        if (single && !trigger)
+                            break;
 
-			// Calculate sync level
+                        // Calculate sync level
 
-			float level = -yscale.index * scope.yscale;
+                        float level = -yscale.index * scope.yscale;
 
-			// Initialise sync
+                        // Initialise sync
 
-			int dx = 0;
+                        int dx = 0;
 
-			// Sync polarity
+                        // Sync polarity
 
-			if (level < 0)
-			{
-			    for (int i = 0; i < size; i++)
-			    {
-				dx = buffer[i] - last;
+                        if (level < 0)
+                        {
+                            for (int i = 0; i < size; i++)
+                            {
+                                dx = buffer[i] - last;
 
-				if (dx < 0 && last > level && buffer[i] < level)
-				{
-				    index = i;
-				    state++;
-				    break;
-				}
+                                if (dx < 0 && last > level && buffer[i] < level)
+                                {
+                                    index = i;
+                                    state++;
+                                    break;
+                                }
 
-				last = buffer[i];
-			    }
-			}
+                                last = buffer[i];
+                            }
+                        }
 
-			else
-			{
-			    for (int i = 0; i < size; i++)
-			    {
-				dx = buffer[i] - last;
+                        else
+                        {
+                            for (int i = 0; i < size; i++)
+                            {
+                                dx = buffer[i] - last;
 
-				if (dx > 0 && last < level && buffer[i] > level)
-				{
-				    index = i;
-				    state++;
-				    break;
-				}
+                                if (dx > 0 && last < level && buffer[i] > level)
+                                {
+                                    index = i;
+                                    state++;
+                                    break;
+                                }
 
-				last = buffer[i];
-			    }
-			}
-		    }
+                                last = buffer[i];
+                            }
+                        }
+                    }
 
-		    // No sync, try next time
+                    // No sync, try next time
 
-		    if (state == INIT)
-			break;
+                    if (state == INIT)
+                        break;
 
-		    // Reset trigger
+                    // Reset trigger
 
-		    if (single && trigger)
-			trigger = false;
+                    if (single && trigger)
+                        trigger = false;
 
-		    // FIRST: First chunk of data
+                // FIRST: First chunk of data
 
-		case FIRST:
+                case FIRST:
 
-		    // Update count
+                    // Update count
 
-		    count = counts[timebase];
-		    length = count;
+                    count = counts[timebase];
+                    length = count;
 
-		    // Copy data
+                    // Copy data
 
-		    System.arraycopy(buffer, index, data, 0, size - index);
-		    index = size - index;
+                    System.arraycopy(buffer, index, data, 0, size - index);
+                    index = size - index;
 
-		    // If done, wait for sync again
+                    // If done, wait for sync again
 
-		    if (index >= count)
-			state = INIT;
+                    if (index >= count)
+                        state = INIT;
 
-		    // Else get some more data next time
+                    // Else get some more data next time
 
-		    else
-			state++;
-		    break;
+                    else
+                        state++;
+                    break;
 
-		    // NEXT: Subsequent chunks of data
+                // NEXT: Subsequent chunks of data
 
-		case NEXT:
+                case NEXT:
 
-		    // Copy data
+                    // Copy data
 
-		    System.arraycopy(buffer, 0, data, index, size);
-		    index += size;
+                    System.arraycopy(buffer, 0, data, index, size);
+                    index += size;
 
-		    // Done, wait for sync again
+                    // Done, wait for sync again
 
-		    if (index >= count)
-			state = INIT;
+                    if (index >= count)
+                        state = INIT;
 
-		    // Else if last but one chunk, get last chunk next time
+                    // Else if last but one chunk, get last chunk next time
 
-		    else if (index + size >= count)
-			state++;
-		    break;
+                    else if (index + size >= count)
+                        state++;
+                    break;
 
-		    // LAST: Last chunk of data
+                // LAST: Last chunk of data
 
-		case LAST:
+                case LAST:
 
-		    // Copy data
+                    // Copy data
 
-		    System.arraycopy(buffer, 0, data, index, count - index);
+                    System.arraycopy(buffer, 0, data, index, count - index);
 
-		    // Wait for sync next time
+                    // Wait for sync next time
 
-		    state = INIT;
-		    break;
-		}
+                    state = INIT;
+                    break;
+                }
 
-		// Update display
+                // Update display
 
-		scope.postInvalidate();
-	    }
+                scope.postInvalidate();
+            }
 
-	    // Stop and release the audio recorder
+            // Stop and release the audio recorder
 
-	    if (audioRecord != null)
-	    {
-		audioRecord.stop();
-		audioRecord.release();
-	    }
-	}
+            if (audioRecord != null)
+            {
+                audioRecord.stop();
+                audioRecord.release();
+            }
+        }
     }
 }

@@ -15,6 +15,6 @@ android {
 
     lintOptions {
 	disable 'IconDensities', 'ClickableViewAccessibility', "Wakelock"
-	// abortOnError false
+	abortOnError false
     }
 }

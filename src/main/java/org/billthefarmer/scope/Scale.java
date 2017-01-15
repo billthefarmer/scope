@@ -40,56 +40,56 @@ public class Scale extends View
 
     public Scale(Context context, AttributeSet attrs)
     {
-	super(context, attrs);
+        super(context, attrs);
 
-	// Create pain
+        // Create pain
 
-	paint = new Paint();
+        paint = new Paint();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
-	super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-	// Get offered dimension
+        // Get offered dimension
 
-	int h = MeasureSpec.getSize(heightMeasureSpec);
+        int h = MeasureSpec.getSize(heightMeasureSpec);
 
-	// Set wanted dimensions
+        // Set wanted dimensions
 
-	setMeasuredDimension(h / WIDTH_FRACTION, h);
+        setMeasuredDimension(h / WIDTH_FRACTION, h);
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
-	super.onSizeChanged(w, h, oldw, oldh);
+        super.onSizeChanged(w, h, oldw, oldh);
 
-	// Get actual dimensions
+        // Get actual dimensions
 
-	width = w;
-	height = h;
+        width = w;
+        height = h;
     }
 
     @Override
     protected void onDraw(Canvas canvas)
     {
-	paint.setStrokeWidth(2);
+        paint.setStrokeWidth(2);
 
-	canvas.translate(0, height);
-	canvas.scale(1, -1);
+        canvas.translate(0, height);
+        canvas.scale(1, -1);
 
-	// Draw scale ticks
+        // Draw scale ticks
 
-	for (int i = 0; i < height; i += MainActivity.SIZE)
-	{
-	    canvas.drawLine(width * 2 / 3, i, width, i, paint);
-	}
+        for (int i = 0; i < height; i += MainActivity.SIZE)
+        {
+            canvas.drawLine(width * 2 / 3, i, width, i, paint);
+        }
 
-	for (int i = 0; i < height; i += MainActivity.SIZE * 5)
-	{
-	    canvas.drawLine(width / 3, i, width, i, paint);
-	}
+        for (int i = 0; i < height; i += MainActivity.SIZE * 5)
+        {
+            canvas.drawLine(width / 3, i, width, i, paint);
+        }
     }
 }

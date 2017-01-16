@@ -56,7 +56,7 @@ public class Scope extends View
 
     protected float yscale;
 
-    protected MainActivity main;
+    protected boolean points;
     protected MainActivity.Audio audio;
 
     // Scope
@@ -182,7 +182,7 @@ public class Scope extends View
                 path.lineTo(x, y);
 
                 // Draw points at max resolution
-                if (main.timebase == 0)
+                if (points)
                 {
                     path.addRect(x - 2, y - 2, x + 2, y + 2, Path.Direction.CW);
                     path.moveTo(x, y);

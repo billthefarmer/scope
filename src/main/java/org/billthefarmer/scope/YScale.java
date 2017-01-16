@@ -32,6 +32,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+// YScale
 public class YScale extends View
 {
     private static final int WIDTH_FRACTION = 24;
@@ -45,42 +46,40 @@ public class YScale extends View
     private Paint paint;
     private Path thumb;
 
+    // YScale
     public YScale(Context context, AttributeSet attrs)
     {
         super(context, attrs);
 
         // Create paint
-
         matrix = new Matrix();
         paint = new Paint();
     }
 
+    // onMeasure
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         // Get offered dimension
-
         int h = MeasureSpec.getSize(heightMeasureSpec);
 
         // Set wanted dimensions
-
         setMeasuredDimension(h / WIDTH_FRACTION, h);
     }
 
+    // onSizeChanged
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
         super.onSizeChanged(w, h, oldw, oldh);
 
         // Get actual dimensions
-
         width = w;
         height = h;
 
         // Create a path for the thumb
-
         thumb = new Path();
 
         thumb.moveTo(-1, -1);
@@ -91,14 +90,13 @@ public class YScale extends View
         thumb.close();
 
         // Create a matrix to scale the thumb
-
         matrix.setScale(width / 4, width / 4);
 
         // Scale the thumb
-
         thumb.transform(matrix);
     }
 
+    // onDraw
     @Override
     protected void onDraw(Canvas canvas)
     {
@@ -108,7 +106,6 @@ public class YScale extends View
         canvas.translate(0, height / 2);
 
         // Draw scale ticks
-
         for (int i = 0; i < height / 2; i += MainActivity.SIZE)
         {
             canvas.drawLine(width * 2 / 3, i, width, i, paint);
@@ -122,7 +119,6 @@ public class YScale extends View
         }
 
         // Draw sync level thumb if not zero
-
         if (index != 0)
         {
             canvas.translate(width / 3, index);
@@ -132,7 +128,6 @@ public class YScale extends View
     }
 
     // On touch event
-
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
@@ -140,7 +135,6 @@ public class YScale extends View
         float y = event.getY();
 
         // Set the index from the touch dimension
-
         switch (event.getAction())
         {
         case MotionEvent.ACTION_DOWN:

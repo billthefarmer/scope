@@ -112,10 +112,12 @@ public class FreqScale extends View
 
                     String s;
                     if (m >= 1000)
-                        s = String.format("%1.0fK", f * m / 1000);
+                        s = String.format(Locale.getDefault(),
+                                          "%1.0fK", f * m / 1000);
 
                     else
-                        s = String.format(Locale.getDefault(), "%1.0f", f * m);
+                        s = String.format(Locale.getDefault(),
+                                          "%1.0f", f * m);
 
                     paint.setAntiAlias(true);
                     canvas.drawText(s, x, height - (height / 6), paint);

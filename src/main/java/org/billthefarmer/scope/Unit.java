@@ -30,6 +30,7 @@ import android.graphics.Paint.Align;
 import android.util.AttributeSet;
 import android.view.View;
 
+// Unit
 public class Unit extends View
 {
     protected float scale;
@@ -39,47 +40,44 @@ public class Unit extends View
 
     private Paint paint;
 
+    // Unit
     public Unit(Context context, AttributeSet attrs)
     {
         super(context, attrs);
 
         // Create paint
-
         paint = new Paint();
 
         // Set initial scale
-
         scale = 1;
     }
 
+    // onSizeChanged
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
         super.onSizeChanged(w, h, oldw, oldh);
 
         // Get dinemsions
-
         width = w;
         height = h;
     }
 
+    // onDraw
     @Override
     protected void onDraw(Canvas canvas)
     {
         paint.setStrokeWidth(2);
 
         // Draw half a tick
-
         canvas.drawLine(width, 0, width, height / 3, paint);
 
         // Set up paint
-
         paint.setAntiAlias(true);
         paint.setTextSize(height * 2 / 3);
         paint.setTextAlign(Align.CENTER);
 
         // Draw half of the units
-
         if (scale == 0)
         {
             canvas.drawLine(width / 3, 0, width, 0, paint);

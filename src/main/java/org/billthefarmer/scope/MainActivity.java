@@ -128,10 +128,7 @@ public class MainActivity extends Activity
         audio = new Audio();
 
         if (scope != null)
-        {
-            scope.main = this;
             scope.audio = audio;
-        }
 
         // Set timebase index
         timebase = DEFAULT_TIMEBASE;
@@ -514,19 +511,29 @@ public class MainActivity extends Activity
     // Set timebase
     void setTimebase(int timebase, boolean show)
     {
-        // Set up scale
-        scope.scale = values[timebase];
-        xscale.scale = scope.scale;
-        xscale.step = 1000 * xscale.scale;
-        unit.scale = scope.scale;
+        if (scope != null && xscale != null && unit != null)
+        {
+            // Set up scale
+            scope.scale = values[timebase];
+            xscale.scale = scope.scale;
+            xscale.step = 1000 * xscale.scale;
+            unit.scale = scope.scale;
 
-        // Reset start
-        scope.start = 0;
-        xscale.start = 0;
+            // Set up scope points
+            if (timebase == 0)
+                scope.points = true;
 
-        // Update display
-        xscale.postInvalidate();
-        unit.postInvalidate();
+            else
+                scope.points = false;
+
+            // Reset start
+            scope.start = 0;
+            xscale.start = 0;
+
+            // Update display
+            xscale.postInvalidate();
+            unit.postInvalidate();
+        }
 
         // Show timebase
         if (show)

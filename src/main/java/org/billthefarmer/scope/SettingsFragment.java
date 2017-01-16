@@ -27,9 +27,6 @@ import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -37,19 +34,20 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
+// SettingsFragment
 public class SettingsFragment extends PreferenceFragment
     implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private static final String KEY_PREF_INPUT = "pref_input";
     private static final String KEY_PREF_ABOUT = "pref_about";
 
+    // onCreate
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
         // Load the preferences from an XML resource
-
         addPreferencesFromResource(R.xml.preferences);
 
         SharedPreferences preferences =
@@ -62,39 +60,19 @@ public class SettingsFragment extends PreferenceFragment
         preference.setSummary(preference.getEntry());
 
         // Get about summary
-
         Preference about = findPreference(KEY_PREF_ABOUT);
-        String sum = (String) about.getSummary();
 
-        // Get context and package manager
-
-        Context context = getActivity();
-        PackageManager manager = context.getPackageManager();
-
-        // Get info
-
-        PackageInfo info = null;
-        try
+        if (about != null)
         {
-            info = manager.getPackageInfo("org.billthefarmer.scope", 0);
-        }
+            String sum = (String) about.getSummary();
 
-        catch (NameNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-
-        // Set version in text view
-
-        if (info != null)
-        {
-            String s = String.format(sum, info.versionName);
+            // Set version in text view
+            String s = String.format(sum, BuildConfig.VERSION_NAME);
             about.setSummary(s);
         }
     }
 
     // On preference tree click
-
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
                                          Preference preference)
@@ -113,7 +91,6 @@ public class SettingsFragment extends PreferenceFragment
     }
 
     // On shared preference changed
-
     @Override
     public void onSharedPreferenceChanged(SharedPreferences preferences,
                                           String key)
@@ -122,8 +99,8 @@ public class SettingsFragment extends PreferenceFragment
         {
             Preference preference = findPreference(key);
 
-            // Set summary to be the user-description for the selected value
-
+            // Set summary to be the user-description for the selected
+            // value
             preference.setSummary(((ListPreference) preference).getEntry());
         }
     }

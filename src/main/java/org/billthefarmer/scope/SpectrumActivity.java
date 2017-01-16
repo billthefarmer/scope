@@ -29,7 +29,6 @@ import android.media.AudioRecord;
 import android.media.AudioTrack;
 import android.os.Bundle;
 import android.os.Handler;
-import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -47,6 +46,9 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+
+// SpectrumActivity
 public class SpectrumActivity extends Activity
     implements View.OnClickListener
 {
@@ -66,7 +68,6 @@ public class SpectrumActivity extends Activity
     private boolean screen;
 
     // On create
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -84,7 +85,6 @@ public class SpectrumActivity extends Activity
             spectrum.setOnClickListener(this);
 
         // Enable back navigation on action bar
-
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(R.string.spectrum);
@@ -114,25 +114,21 @@ public class SpectrumActivity extends Activity
     }
 
     // On options item selected
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
         Intent intent;
 
         // Get id
-
         int id = item.getItemId();
         switch (id)
         {
         // Home
-
         case android.R.id.home:
             finish();
             break;
 
         // Lock
-
         case R.id.action_lock:
             audio.lock = !audio.lock;
             item.setIcon(audio.lock ? R.drawable.ic_action_lock_checked :
@@ -141,14 +137,12 @@ public class SpectrumActivity extends Activity
             break;
 
         // Help
-
         case R.id.action_help:
             intent = new Intent(this, HelpActivity.class);
             startActivity(intent);
             break;
 
         // Settings
-
         case R.id.action_settings:
             intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
@@ -162,21 +156,19 @@ public class SpectrumActivity extends Activity
     }
 
     // On click
-
     @Override
     public void onClick(View v)
     {
         // Get id
-
         int id = v.getId();
         switch (id)
         {
-        // Scope
-
+        // Spectrum
         case R.id.spectrum:
             audio.lock = !audio.lock;
             if (lockItem != null)
-                lockItem.setIcon(audio.lock ? R.drawable.ic_action_lock_checked :
+                lockItem.setIcon(audio.lock ?
+                                 R.drawable.ic_action_lock_checked :
                                  R.drawable.ic_action_lock);
             showToast(audio.lock ? R.string.lock_on : R.string.lock_off);
             break;
@@ -184,7 +176,6 @@ public class SpectrumActivity extends Activity
     }
 
     // Show toast.
-
     void showToast(int key)
     {
         Resources resources = getResources();
@@ -196,30 +187,25 @@ public class SpectrumActivity extends Activity
     void showToast(String text)
     {
         // Cancel the last one
-
         if (toast != null)
             toast.cancel();
 
         // Make a new one
-
         toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }
 
     // On Resume
-
     @Override
     protected void onResume()
     {
         super.onResume();
 
         // Get preferences
-
         getPreferences();
 
         // Start the audio thread
-
         audio.start();
     }
 
@@ -229,27 +215,22 @@ public class SpectrumActivity extends Activity
         super.onPause();
 
         // Save preferences
-
         savePreferences();
 
         // Stop audio thread
-
         audio.stop();
     }
 
     // Get preferences
-
     void getPreferences()
     {
         // Load preferences
-
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
 
         // Set preferences
-
         if (audio != null)
         {
             audio.input =
@@ -259,7 +240,6 @@ public class SpectrumActivity extends Activity
         screen = preferences.getBoolean(PREF_SCREEN, false);
 
         // Check screen
-
         if (screen)
         {
             Window window = getWindow();
@@ -274,7 +254,6 @@ public class SpectrumActivity extends Activity
     }
 
     // Save preferences
-
     void savePreferences()
     {
         SharedPreferences preferences =
@@ -284,16 +263,13 @@ public class SpectrumActivity extends Activity
     }
 
     // Show alert
-
     void showAlert(int appName, int errorBuffer)
     {
         // Create an alert dialog builder
-
         AlertDialog.Builder builder =
             new AlertDialog.Builder(this);
 
         // Set the title, message and button
-
         builder.setTitle(appName);
         builder.setMessage(errorBuffer);
         builder.setNeutralButton(android.R.string.ok,
@@ -304,21 +280,18 @@ public class SpectrumActivity extends Activity
                                 int which)
             {
                 // Dismiss dialog
-
                 dialog.dismiss();
             }
         });
-        // Create the dialog
 
+        // Create the dialog
         AlertDialog dialog = builder.create();
 
         // Show it
-
         dialog.show();
     }
 
     // Audio
-
     protected class Audio implements Runnable
     {
         protected int input;
@@ -326,7 +299,6 @@ public class SpectrumActivity extends Activity
         protected boolean lock;
 
         // Data
-
         protected double frequency;
         protected double fps;
 
@@ -357,7 +329,6 @@ public class SpectrumActivity extends Activity
 
 
         // Constructor
-
         protected Audio()
         {
             data = new short[STEP];
@@ -372,17 +343,14 @@ public class SpectrumActivity extends Activity
         }
 
         // Start audio
-
         protected void start()
         {
             // Start the thread
-
             thread = new Thread(this, "Audio");
             thread.start();
         }
 
         // Run
-
         @Override
         public void run()
         {
@@ -390,37 +358,30 @@ public class SpectrumActivity extends Activity
         }
 
         // Stop
-
         protected void stop()
         {
             Thread t = thread;
             thread = null;
 
             // Wait for the thread to exit
-
             while (t != null && t.isAlive())
                 Thread.yield();
         }
 
         // Process Audio
-
-        @SuppressLint("DefaultLocale")
         protected void processAudio()
         {
             // Assume the output sample will work on the input as
             // there isn't an AudioRecord.getNativeInputSampleRate()
-
             sample =
                 AudioTrack.getNativeOutputSampleRate(AudioManager.STREAM_MUSIC);
 
             // Get buffer size
-
             int size =
                 AudioRecord.getMinBufferSize(sample,
                                              AudioFormat.CHANNEL_IN_MONO,
                                              AudioFormat.ENCODING_PCM_16BIT);
             // Give up if it doesn't work
-
             if (size == AudioRecord.ERROR_BAD_VALUE ||
                     size == AudioRecord.ERROR ||
                     size <= 0)
@@ -440,7 +401,6 @@ public class SpectrumActivity extends Activity
             }
 
             // Create the AudioRecord object
-
             audioRecord =
                 new AudioRecord(input, sample,
                                 AudioFormat.CHANNEL_IN_MONO,
@@ -448,7 +408,6 @@ public class SpectrumActivity extends Activity
                                 size);
 
             // Check audiorecord
-
             if (audioRecord == null)
             {
                 runOnUiThread(new Runnable()
@@ -466,7 +425,6 @@ public class SpectrumActivity extends Activity
             }
 
             // Check state
-
             int state = audioRecord.getState();
 
             if (state != AudioRecord.STATE_INITIALIZED)
@@ -487,27 +445,21 @@ public class SpectrumActivity extends Activity
             }
 
             // Calculate fps
-
             fps = (double)sample / SAMPLES;
 
             // Start recording
-
             audioRecord.startRecording();
 
             // Max data
-
             double dmax = 0.0;
 
             // Continue until the thread is stopped
-
             while (thread != null)
             {
                 // Read a buffer of data
-
                 size = audioRecord.read(data, 0, STEP);
 
                 // Stop the thread if no data
-
                 if (size == 0)
                 {
                     thread = null;
@@ -515,49 +467,40 @@ public class SpectrumActivity extends Activity
                 }
 
                 // Move the main data buffer up
-
                 System.arraycopy(buffer, STEP, buffer, 0, SAMPLES - STEP);
 
                 for (int i = 0; i < STEP; i++)
                     buffer[(SAMPLES - STEP) + i] = data[i];
 
                 // Maximum value
-
                 if (dmax < 4096.0)
                     dmax = 4096.0;
 
                 // Calculate normalising value
-
                 double norm = dmax;
 
                 dmax = 0.0;
 
                 // Copy data to FFT input arrays
-
                 for (int i = 0; i < SAMPLES; i++)
                 {
                     // Find the magnitude
-
                     if (dmax < Math.abs(buffer[i]))
                         dmax = Math.abs(buffer[i]);
 
                     // Calculate the window
-
                     double window =
                         0.5 - 0.5 * Math.cos(2.0 * Math.PI *
                                              i / SAMPLES);
 
                     // Normalise and window the input data
-
                     xr[i] = buffer[i] / norm * window;
                 }
 
                 // do FFT
-
                 fftr(xr, xi);
 
                 // Process FFT output
-
                 for (int i = 1; i < RANGE; i++)
                 {
                     double real = xr[i];
@@ -566,14 +509,12 @@ public class SpectrumActivity extends Activity
                     xa[i] = Math.hypot(real, imag);
 
                     // Do frequency calculation
-
                     double p = Math.atan2(imag, real);
                     double dp = xp[i] - p;
 
                     xp[i] = p;
 
                     // Calculate phase difference
-
                     dp -= i * expect;
 
                     int qpd = (int)(dp / Math.PI);
@@ -587,26 +528,21 @@ public class SpectrumActivity extends Activity
                     dp -=  Math.PI * qpd;
 
                     // Calculate frequency difference
-
                     double df = OVERSAMPLE * dp / (2.0 * Math.PI);
 
                     // Calculate actual frequency from slot frequency plus
                     // frequency difference and correction value
-
                     xf[i] = i * fps + df * fps;
                 }
 
                 // Do a full process run every N
-
                 if (counter++ % N != 0)
                     continue;
 
                 // Maximum FFT output
-
                 double max = 0.0;
 
                 // Find maximum value
-
                 for (int i = 1; i < RANGE; i++)
                 {
                     if (xa[i] > max)
@@ -617,7 +553,6 @@ public class SpectrumActivity extends Activity
                 }
 
                 // Level
-
                 double level = 0.0;
 
                 for (int i = 0; i < STEP; i++)
@@ -632,7 +567,6 @@ public class SpectrumActivity extends Activity
                     dB = -80.0;
 
                 // Check display lock
-
                 if (lock)
                     continue;
 
@@ -640,7 +574,8 @@ public class SpectrumActivity extends Activity
 
                 if (max > MIN)
                 {
-                    final String s = String.format("%1.1fHz  %1.1fdB",
+                    final String s = String.format(Locale.getDefault(),
+                                                   "%1.1fHz  %1.1fdB",
                                                    frequency, dB);
                     Handler handler = text.getHandler();
                     handler.post(new Runnable()
@@ -656,7 +591,8 @@ public class SpectrumActivity extends Activity
                 else
                 {
                     frequency = 0.0;
-                    final String s = String.format("%1.1fdB", dB);
+                    final String s = String.format(Locale.getDefault(),
+                                                   "%1.1fdB", dB);
                     Handler handler = text.getHandler();
                     handler.post(new Runnable()
                     {
@@ -670,7 +606,6 @@ public class SpectrumActivity extends Activity
             }
 
             // Stop and release the audio recorder
-
             if (audioRecord != null)
             {
                 audioRecord.stop();
@@ -679,7 +614,6 @@ public class SpectrumActivity extends Activity
         }
 
         // Real to complex FFT, ignores imaginary values in input array
-
         private void fftr(double ar[], double ai[])
         {
             final int n = ar.length;

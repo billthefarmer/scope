@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/text"
     android:gravity="center"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_marginRight="8dp"
     android:layout_gravity="right"
+    tools:ignore="RtlHardcoded"
     android:textAppearance="?android:attr/textAppearanceMedium" >
 </TextView>

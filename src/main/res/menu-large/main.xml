@@ -1,4 +1,8 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AlwaysShowAction">
 
   <item
       android:id="@+id/bright"
@@ -17,13 +21,7 @@
       android:showAsAction="always"
       android:title="@string/action_trigger"
       android:icon="@drawable/ic_action_trigger" />
-  <!--
-  <item
-      android:id="@+id/polarity"
-      android:showAsAction="always"
-      android:title="@string/action_polarity"
-      android:icon="@drawable/ic_action_polarity" />
-  -->
+
   <item
       android:id="@+id/timebase"
       android:showAsAction="always"

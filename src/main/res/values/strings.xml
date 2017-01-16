@@ -14,7 +14,6 @@
   <string name="action_bright_line">Bright Line</string>
   <string name="action_single_shot">Single Shot</string>
   <string name="action_trigger">Trigger</string>
-  <string name="action_polarity">Sync Polarity</string>
   <string name="action_timebase">Timebase</string>
   <string name="action_storage">Storage</string>
   <string name="action_clear">Clear</string>
@@ -44,8 +43,6 @@
   <string name="bright_off">Bright line off</string>
   <string name="single_on">Single shot on</string>
   <string name="single_off">Single shot off</string>
-  <string name="sync_pos">Sync positive</string>
-  <string name="sync_neg">Sync negative</string>
   <string name="storage_on">Storage on</string>
   <string name="storage_off">Storage off</string>
   <string name="lock_on">Display lock on</string>

@@ -29,6 +29,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
+// Scale
 public class Scale extends View
 {
     private static final int WIDTH_FRACTION = 24;
@@ -38,36 +39,35 @@ public class Scale extends View
 
     private Paint paint;
 
+    // Constructor
     public Scale(Context context, AttributeSet attrs)
     {
         super(context, attrs);
 
-        // Create pain
-
+        // Create paint
         paint = new Paint();
     }
 
+    // onMeasure
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         // Get offered dimension
-
         int h = MeasureSpec.getSize(heightMeasureSpec);
 
         // Set wanted dimensions
-
         setMeasuredDimension(h / WIDTH_FRACTION, h);
     }
 
+    // onSizeChanged
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
         super.onSizeChanged(w, h, oldw, oldh);
 
         // Get actual dimensions
-
         width = w;
         height = h;
     }
@@ -81,7 +81,6 @@ public class Scale extends View
         canvas.scale(1, -1);
 
         // Draw scale ticks
-
         for (int i = 0; i < height; i += MainActivity.SIZE)
         {
             canvas.drawLine(width * 2 / 3, i, width, i, paint);

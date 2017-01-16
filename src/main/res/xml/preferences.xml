@@ -9,12 +9,12 @@
 
     <ListPreference
 	android:key="pref_input"
-	android:icon="@drawable/ic_pref_mic"
+	android:icon="@drawable/ic_action_mic"
+	android:dialogIcon="@drawable/ic_action_mic"
 	android:title="@string/pref_input"
 	android:summary="@string/pref_input_summ"
 	android:entries="@array/pref_input_entries"
 	android:entryValues="@array/pref_input_entry_values"
-	android:dialogIcon="@drawable/ic_pref_mic"
 	android:defaultValue="@integer/def_input" />
 
   </PreferenceCategory>
@@ -25,7 +25,7 @@
 
     <CheckBoxPreference
 	android:key="pref_screen"
-	android:icon="@drawable/ic_pref_screen"
+	android:icon="@drawable/ic_action_brightness_low"
 	android:title="@string/pref_screen"
 	android:summary="@string/pref_screen_summ"
 	android:persistent="true"
@@ -39,8 +39,8 @@
 
     <org.billthefarmer.scope.AboutPreference
 	android:key="pref_about"
-	android:icon="@drawable/ic_about"
-	android:dialogIcon="@drawable/ic_about"
+	android:icon="@drawable/ic_action_about"
+	android:dialogIcon="@drawable/ic_action_about"
 	android:negativeButtonText=""
 	android:title="@string/pref_about"
 	android:summary="@string/pref_about_summ"

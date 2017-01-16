@@ -35,7 +35,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 // Scope
-
 public class Scope extends View
 {
     private int width;
@@ -61,52 +60,43 @@ public class Scope extends View
     protected MainActivity.Audio audio;
 
     // Scope
-
     public Scope(Context context, AttributeSet attrs)
     {
         super(context, attrs);
 
         // Create path and paint
-
         path = new Path();
         paint = new Paint();
     }
 
     // On size changed
-
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
         super.onSizeChanged(w, h, oldw, oldh);
 
         // Get dimensions
-
         width = w;
         height = h;
 
         // Create a bitmap for trace storage
-
         bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         cb = new Canvas(bitmap);
 
         // Create a bitmap for the graticule
-
         graticule = Bitmap.createBitmap(width, height,
                                         Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(graticule);
 
         // Black background
-
         canvas.drawColor(Color.BLACK);
 
         // Set up paint
-
         paint.setStrokeWidth(2);
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.argb(255, 0, 63, 0));
 
         // Draw graticule
-
         for (int i = 0; i < width; i += MainActivity.SIZE)
             canvas.drawLine(i, 0, i, height, paint);
 
@@ -119,7 +109,6 @@ public class Scope extends View
         }
 
         // Draw the graticule on the bitmap
-
         cb.drawBitmap(graticule, 0, 0, null);
 
         cb.translate(0, height / 2);
@@ -128,13 +117,11 @@ public class Scope extends View
     private int max;
 
     // On draw
-
     @SuppressLint("DefaultLocale")
     @Override
     protected void onDraw(Canvas canvas)
     {
         // Check for data
-
         if ((audio == null) || (audio.data == null))
         {
             canvas.drawBitmap(graticule, 0, 0, null);
@@ -142,7 +129,6 @@ public class Scope extends View
         }
 
         // Draw the graticule on the bitmap
-
         if (!storage || clear)
         {
             cb.drawBitmap(graticule, 0, -height / 2, null);
@@ -150,7 +136,6 @@ public class Scope extends View
         }
 
         // Calculate x scale etc
-
         float xscale = (float)(2.0 / ((audio.sample / 100000.0) * scale));
         int xstart = Math.round(start);
         int xstep = Math.round((float)1.0 / xscale);
@@ -169,7 +154,6 @@ public class Scope extends View
         max = 0;
 
         // Draw the trace
-
         path.rewind();
         path.moveTo(0, 0);
 
@@ -198,7 +182,6 @@ public class Scope extends View
                 path.lineTo(x, y);
 
                 // Draw points at max resolution
-
                 if (main.timebase == 0)
                 {
                     path.addRect(x - 2, y - 2, x + 2, y + 2, Path.Direction.CW);
@@ -208,17 +191,14 @@ public class Scope extends View
         }
 
         // Green trace
-
         paint.setColor(Color.GREEN);
         paint.setAntiAlias(true);
         cb.drawPath(path, paint);
 
         // Draw index
-
         if (index > 0 && index < width)
         {
             // Yellow index
-
             paint.setColor(Color.YELLOW);
 
             paint.setAntiAlias(false);
@@ -229,7 +209,6 @@ public class Scope extends View
             paint.setTextAlign(Paint.Align.LEFT);
 
             // Get value
-
             int i = Math.round(index / xscale);
             if (i + xstart < audio.length)
             {
@@ -245,7 +224,6 @@ public class Scope extends View
             paint.setTextAlign(Paint.Align.CENTER);
 
             // Draw time value
-
             if (scale < 100.0)
             {
                 String s = String.format((scale < 1.0) ? "%3.3f" :
@@ -267,7 +245,6 @@ public class Scope extends View
     }
 
     // On touch event
-
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
@@ -275,7 +252,6 @@ public class Scope extends View
         float y = event.getY();
 
         // Set the index from the touch dimension
-
         switch (event.getAction())
         {
         case MotionEvent.ACTION_DOWN:

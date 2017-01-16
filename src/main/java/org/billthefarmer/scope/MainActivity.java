@@ -41,10 +41,12 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+// MainActivity
 public class MainActivity extends Activity
 {
     private static final String PREF_INPUT = "pref_input";
@@ -56,7 +58,6 @@ public class MainActivity extends Activity
 
     private static final String BRIGHT = "bright";
     private static final String SINGLE = "single";
-    // private static final String POLARITY = "polarity";
     private static final String TIMEBASE = "timebase";
     private static final String STORAGE = "storage";
 
@@ -105,7 +106,6 @@ public class MainActivity extends Activity
     private boolean screen;
 
     // On create
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -118,16 +118,13 @@ public class MainActivity extends Activity
         unit = (Unit)findViewById(R.id.unit);
 
         // Get action bar
-
         ActionBar actionBar = getActionBar();
 
         // Set short title
-
         if (actionBar != null)
             actionBar.setTitle(R.string.short_name);
 
         // Create audio
-
         audio = new Audio();
 
         if (scope != null)
@@ -137,11 +134,9 @@ public class MainActivity extends Activity
         }
 
         // Set timebase index
-
         timebase = DEFAULT_TIMEBASE;
 
         // Set up scale
-
         if (scope != null && xscale != null && unit != null)
         {
             scope.scale = values[timebase];
@@ -151,6 +146,7 @@ public class MainActivity extends Activity
         }
     }
 
+    // onCreateOptionsMenu
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -163,25 +159,16 @@ public class MainActivity extends Activity
         // Set menu state from restored state
 
         // Bright
-
         item = menu.findItem(R.id.bright);
         item.setIcon(audio.bright ? R.drawable.ic_action_bright_line_checked :
                      R.drawable.ic_action_bright_line);
 
         // Single
-
         item = menu.findItem(R.id.single);
         item.setIcon(audio.single ? R.drawable.ic_action_single_shot_checked :
                      R.drawable.ic_action_single_shot);
 
-        // Polarity
-
-        // item = menu.findItem(R.id.polarity);
-        // item.setIcon(audio.polarity? R.drawable.ic_action_polarity_checked:
-        // 	     R.drawable.ic_action_polarity);
-
         // Timebase
-
         item = menu.findItem(R.id.timebase);
         if (timebase != DEFAULT_TIMEBASE)
         {
@@ -196,7 +183,6 @@ public class MainActivity extends Activity
         }
 
         // Storage
-
         item = menu.findItem(R.id.storage);
         item.setIcon(scope.storage ?
                      R.drawable.ic_action_storage_checked :
@@ -206,100 +192,71 @@ public class MainActivity extends Activity
     }
 
     // Restore state
-
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState)
     {
         super.onRestoreInstanceState(savedInstanceState);
 
         // Get saved state bundle
-
         Bundle bundle = savedInstanceState.getBundle(STATE);
 
-        // Log.d(TAG, "Restore: " + bundle.toString());
-
         // Bright
-
         audio.bright = bundle.getBoolean(BRIGHT, false);
 
         // Single
-
         audio.single = bundle.getBoolean(SINGLE, false);
 
-        // Polarity
-
-        // audio.polarity = bundle.getBoolean(POLARITY, false);
-
         // Timebase
-
         timebase = bundle.getInt(TIMEBASE, DEFAULT_TIMEBASE);
         setTimebase(timebase, false);
 
         // Storage
-
         scope.storage = bundle.getBoolean(STORAGE, false);
 
         // Start
-
         scope.start = bundle.getFloat(START, 0);
         xscale.start = scope.start;
         xscale.postInvalidate();
 
         // Index
-
         scope.index = bundle.getFloat(INDEX, 0);
 
         // Level
-
         yscale.index = bundle.getFloat(LEVEL, 0);
         yscale.postInvalidate();
     }
 
     // Save state
-
     @Override
     protected void onSaveInstanceState(Bundle outState)
     {
         super.onSaveInstanceState(outState);
 
         // State bundle
-
         Bundle bundle = new Bundle();
 
         // Bright
-
         bundle.putBoolean(BRIGHT, audio.bright);
 
         // Single
-
         bundle.putBoolean(SINGLE, audio.single);
 
-        // Polarity
-
-        // bundle.putBoolean(POLARITY, audio.polarity);
-
         // Timebase
-
         bundle.putInt(TIMEBASE, timebase);
 
         // Storage
-
         bundle.putBoolean(STORAGE, scope.storage);
 
         // Start
-
         bundle.putFloat(START, scope.start);
 
         // Index
-
         bundle.putFloat(INDEX, scope.index);
 
         // Level
-
         bundle.putFloat(LEVEL, yscale.index);
 
         // Save bundle
-
         outState.putBundle(STATE, bundle);
     }
 
@@ -309,12 +266,10 @@ public class MainActivity extends Activity
     public boolean onOptionsItemSelected(MenuItem item)
     {
         // Get id
-
         int id = item.getItemId();
         switch (id)
         {
         // Bright line
-
         case R.id.bright:
             audio.bright = !audio.bright;
             item.setIcon(audio.bright ? R.drawable.ic_action_bright_line_checked :
@@ -323,7 +278,6 @@ public class MainActivity extends Activity
             break;
 
         // Single shot
-
         case R.id.single:
             audio.single = !audio.single;
             item.setIcon(audio.single ? R.drawable.ic_action_single_shot_checked :
@@ -332,30 +286,18 @@ public class MainActivity extends Activity
             break;
 
         // Trigger
-
         case R.id.trigger:
             if (audio.single)
                 audio.trigger = true;
             break;
 
-        // Sync polarity
-
-        // case R.id.polarity:
-        //     audio.polarity = !audio.polarity;
-        //     item.setIcon(audio.polarity? R.drawable.ic_action_polarity_checked:
-        // 		 R.drawable.ic_action_polarity);
-        //     showToast(!audio.polarity? R.string.sync_pos: R.string.sync_neg);
-        //     break;
-
         // Timebase
-
         case R.id.timebase:
             if (item.hasSubMenu())
                 submenu = item.getSubMenu();
             break;
 
         // 0.1 ms
-
         case R.id.tb0_1ms:
             clearLast(submenu, timebase);
             timebase = 0;
@@ -364,7 +306,6 @@ public class MainActivity extends Activity
             break;
 
         // 0.2 ms
-
         case R.id.tb0_2ms:
             clearLast(submenu, timebase);
             timebase = 1;
@@ -373,7 +314,6 @@ public class MainActivity extends Activity
             break;
 
         // 0.5 ms
-
         case R.id.tb0_5ms:
             clearLast(submenu, timebase);
             timebase = 2;
@@ -382,7 +322,6 @@ public class MainActivity extends Activity
             break;
 
         // 1.0 ms
-
         case R.id.tb1_0ms:
             clearLast(submenu, timebase);
             timebase = 3;
@@ -391,7 +330,6 @@ public class MainActivity extends Activity
             break;
 
         // 2.0 ms
-
         case R.id.tb2_0ms:
             clearLast(submenu, timebase);
             timebase = 4;
@@ -400,7 +338,6 @@ public class MainActivity extends Activity
             break;
 
         // 5.0 ms
-
         case R.id.tb5_0ms:
             clearLast(submenu, timebase);
             timebase = 5;
@@ -409,7 +346,6 @@ public class MainActivity extends Activity
             break;
 
         // 10 ms
-
         case R.id.tb10ms:
             clearLast(submenu, timebase);
             timebase = 6;
@@ -418,7 +354,6 @@ public class MainActivity extends Activity
             break;
 
         // 20 ms
-
         case R.id.tb20ms:
             clearLast(submenu, timebase);
             timebase = 7;
@@ -436,7 +371,6 @@ public class MainActivity extends Activity
             break;
 
         // 0.1 sec
-
         case R.id.tb0_1sec:
             clearLast(submenu, timebase);
             timebase = 9;
@@ -445,7 +379,6 @@ public class MainActivity extends Activity
             break;
 
         // 0.2 sec
-
         case R.id.tb0_2sec:
             clearLast(submenu, timebase);
             timebase = 10;
@@ -454,7 +387,6 @@ public class MainActivity extends Activity
             break;
 
         // 0.5 sec
-
         case R.id.tb0_5sec:
             clearLast(submenu, timebase);
             timebase = 11;
@@ -463,7 +395,6 @@ public class MainActivity extends Activity
             break;
 
         // Storage
-
         case R.id.storage:
             if (scope != null)
             {
@@ -477,14 +408,12 @@ public class MainActivity extends Activity
             break;
 
         // Clear
-
         case R.id.clear:
             if ((scope != null) && scope.storage)
                 scope.clear = true;
             break;
 
         // Left
-
         case R.id.left:
             if (scope != null && xscale != null)
             {
@@ -498,7 +427,6 @@ public class MainActivity extends Activity
             break;
 
         // Right
-
         case R.id.right:
             if (scope != null && xscale != null)
             {
@@ -512,7 +440,6 @@ public class MainActivity extends Activity
             break;
 
         // Start
-
         case R.id.start:
             if (scope != null && xscale != null)
             {
@@ -526,7 +453,6 @@ public class MainActivity extends Activity
             break;
 
         // End
-
         case R.id.end:
             if (scope != null && xscale != null)
             {
@@ -539,12 +465,10 @@ public class MainActivity extends Activity
             break;
 
         // Spectrum
-
         case R.id.action_spectrum:
             return onSpectrumClick(item);
 
         // Settings
-
         case R.id.action_settings:
             return onSettingsClick(item);
 
@@ -556,7 +480,6 @@ public class MainActivity extends Activity
     }
 
     // On settings click
-
     private boolean onSettingsClick(MenuItem item)
     {
         Intent intent = new Intent(this, SettingsActivity.class);
@@ -566,7 +489,6 @@ public class MainActivity extends Activity
     }
 
     // On spectrum click
-
     private boolean onSpectrumClick(MenuItem item)
     {
         Intent intent = new Intent(this, SpectrumActivity.class);
@@ -576,7 +498,6 @@ public class MainActivity extends Activity
     }
 
     // Clear last
-
     void clearLast(SubMenu submenu, int timebase)
     {
         // Clear last submenu item tickbox
@@ -591,34 +512,28 @@ public class MainActivity extends Activity
     }
 
     // Set timebase
-
     void setTimebase(int timebase, boolean show)
     {
         // Set up scale
-
         scope.scale = values[timebase];
         xscale.scale = scope.scale;
         xscale.step = 1000 * xscale.scale;
         unit.scale = scope.scale;
 
         // Reset start
-
         scope.start = 0;
         xscale.start = 0;
 
         // Update display
-
         xscale.postInvalidate();
         unit.postInvalidate();
 
         // Show timebase
-
         if (show)
             showTimebase(timebase);
     }
 
     // Show timebase
-
     void showTimebase(int timebase)
     {
         String text = "Timebase: " + strings[timebase];
@@ -626,8 +541,7 @@ public class MainActivity extends Activity
         showToast(text);
     }
 
-    // Show toast.
-
+    // Show toast
     void showToast(int key)
     {
         Resources resources = getResources();
@@ -636,22 +550,20 @@ public class MainActivity extends Activity
         showToast(text);
     }
 
+    // Show toast
     void showToast(String text)
     {
         // Cancel the last one
-
         if (toast != null)
             toast.cancel();
 
         // Make a new one
-
         toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }
 
     // On start
-
     @Override
     protected void onStart()
     {
@@ -659,37 +571,32 @@ public class MainActivity extends Activity
     }
 
     // On Resume
-
     @Override
     protected void onResume()
     {
         super.onResume();
 
         // Get preferences
-
         getPreferences();
 
         // Start the audio thread
-
         audio.start();
     }
 
+    // On pause
     @Override
     protected void onPause()
     {
         super.onPause();
 
         // Save preferences
-
         savePreferences();
 
         // Stop audio thread
-
         audio.stop();
     }
 
     // On stop
-
     @Override
     protected void onStop()
     {
@@ -697,18 +604,15 @@ public class MainActivity extends Activity
     }
 
     // Get preferences
-
     void getPreferences()
     {
         // Load preferences
-
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
 
         // Set preferences
-
         if (audio != null)
         {
             audio.input =
@@ -718,7 +622,6 @@ public class MainActivity extends Activity
         screen = preferences.getBoolean(PREF_SCREEN, false);
 
         // Check screen
-
         if (screen)
         {
             Window window = getWindow();
@@ -733,7 +636,6 @@ public class MainActivity extends Activity
     }
 
     // Save preferences
-
     void savePreferences()
     {
         SharedPreferences preferences =
@@ -743,16 +645,13 @@ public class MainActivity extends Activity
     }
 
     // Show alert
-
     void showAlert(int appName, int errorBuffer)
     {
         // Create an alert dialog builder
-
         AlertDialog.Builder builder =
             new AlertDialog.Builder(this);
 
         // Set the title, message and button
-
         builder.setTitle(appName);
         builder.setMessage(errorBuffer);
         builder.setNeutralButton(android.R.string.ok,
@@ -763,41 +662,34 @@ public class MainActivity extends Activity
                                 int which)
             {
                 // Dismiss dialog
-
                 dialog.dismiss();
             }
         });
-        // Create the dialog
 
+        // Create the dialog
         AlertDialog dialog = builder.create();
 
         // Show it
-
         dialog.show();
     }
 
     // Audio
-
     protected class Audio implements Runnable
     {
         // Preferences
-
         protected boolean bright;
         protected boolean single;
         protected boolean trigger;
-        // protected boolean polarity;
 
         protected int input;
         protected int sample;
 
         // Data
-
         protected Thread thread;
         protected short data[];
         protected long length;
 
         // Private data
-
         private static final int SAMPLES = 524288;
         private static final int FRAMES = 4096;
 
@@ -810,7 +702,6 @@ public class MainActivity extends Activity
         private short buffer[];
 
         // Constructor
-
         protected Audio()
         {
             buffer = new short[FRAMES];
@@ -818,17 +709,14 @@ public class MainActivity extends Activity
         }
 
         // Start audio
-
         protected void start()
         {
             // Start the thread
-
             thread = new Thread(this, "Audio");
             thread.start();
         }
 
         // Run
-
         @Override
         public void run()
         {
@@ -836,36 +724,30 @@ public class MainActivity extends Activity
         }
 
         // Stop
-
         protected void stop()
         {
             Thread t = thread;
             thread = null;
 
             // Wait for the thread to exit
-
             while (t != null && t.isAlive())
                 Thread.yield();
         }
 
         // Process Audio
-
         protected void processAudio()
         {
             // Assume the output sample will work on the input as
             // there isn't an AudioRecord.getNativeInputSampleRate()
-
             sample =
                 AudioTrack.getNativeOutputSampleRate(AudioManager.STREAM_MUSIC);
 
             // Get buffer size
-
             int size =
                 AudioRecord.getMinBufferSize(sample,
                                              AudioFormat.CHANNEL_IN_MONO,
                                              AudioFormat.ENCODING_PCM_16BIT);
             // Give up if it doesn't work
-
             if (size == AudioRecord.ERROR_BAD_VALUE ||
                     size == AudioRecord.ERROR ||
                     size <= 0)
@@ -885,7 +767,6 @@ public class MainActivity extends Activity
             }
 
             // Create the AudioRecord object
-
             audioRecord =
                 new AudioRecord(input, sample,
                                 AudioFormat.CHANNEL_IN_MONO,
@@ -893,7 +774,6 @@ public class MainActivity extends Activity
                                 size);
 
             // Check audiorecord
-
             if (audioRecord == null)
             {
                 runOnUiThread(new Runnable()
@@ -911,7 +791,6 @@ public class MainActivity extends Activity
             }
 
             // Check state
-
             int state = audioRecord.getState();
 
             if (state != AudioRecord.STATE_INITIALIZED)
@@ -932,7 +811,6 @@ public class MainActivity extends Activity
             }
 
             // Start recording
-
             audioRecord.startRecording();
 
             int index = 0;
@@ -941,16 +819,13 @@ public class MainActivity extends Activity
             state = INIT;
             short last = 0;
 
-            // Continue until the thread is stopped
-
+            // Continue until he thread is stopped
             while (thread != null)
             {
                 // Read a buffer of data
-
                 size = audioRecord.read(buffer, 0, FRAMES);
 
                 // Stop the thread if no data
-
                 if (size == 0)
                 {
                     thread = null;
@@ -958,11 +833,9 @@ public class MainActivity extends Activity
                 }
 
                 // State machine for sync and copying data to display buffer
-
                 switch (state)
                 {
                 // INIT: waiting for sync
-
                 case INIT:
 
                     index = 0;
@@ -976,15 +849,12 @@ public class MainActivity extends Activity
                             break;
 
                         // Calculate sync level
-
                         float level = -yscale.index * scope.yscale;
 
                         // Initialise sync
-
                         int dx = 0;
 
                         // Sync polarity
-
                         if (level < 0)
                         {
                             for (int i = 0; i < size; i++)
@@ -1021,81 +891,65 @@ public class MainActivity extends Activity
                     }
 
                     // No sync, try next time
-
                     if (state == INIT)
                         break;
 
                     // Reset trigger
-
                     if (single && trigger)
                         trigger = false;
 
                 // FIRST: First chunk of data
-
                 case FIRST:
 
                     // Update count
-
                     count = counts[timebase];
                     length = count;
 
                     // Copy data
-
                     System.arraycopy(buffer, index, data, 0, size - index);
                     index = size - index;
 
                     // If done, wait for sync again
-
                     if (index >= count)
                         state = INIT;
 
                     // Else get some more data next time
-
                     else
                         state++;
                     break;
 
                 // NEXT: Subsequent chunks of data
-
                 case NEXT:
 
                     // Copy data
-
                     System.arraycopy(buffer, 0, data, index, size);
                     index += size;
 
                     // Done, wait for sync again
-
                     if (index >= count)
                         state = INIT;
 
                     // Else if last but one chunk, get last chunk next time
-
                     else if (index + size >= count)
                         state++;
                     break;
 
                 // LAST: Last chunk of data
-
                 case LAST:
 
                     // Copy data
-
                     System.arraycopy(buffer, 0, data, index, count - index);
 
                     // Wait for sync next time
-
                     state = INIT;
                     break;
                 }
 
                 // Update display
-
                 scope.postInvalidate();
             }
 
             // Stop and release the audio recorder
-
             if (audioRecord != null)
             {
                 audioRecord.stop();

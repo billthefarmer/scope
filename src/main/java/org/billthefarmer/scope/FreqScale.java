@@ -31,6 +31,9 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.util.Locale;
+
+// FreqScale
 public class FreqScale extends View
 {
     private static final int HEIGHT_FRACTION = 32;
@@ -41,26 +44,25 @@ public class FreqScale extends View
 
     protected SpectrumActivity.Audio audio;
 
+    // Constructor
     public FreqScale(Context context, AttributeSet attrs)
     {
         super(context, attrs);
 
         // Create paint
-
         paint = new Paint();
     }
 
+    // onMeasure
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         // Get offered dimension
-
         int w = MeasureSpec.getSize(widthMeasureSpec);
 
         // Set wanted dimensions
-
         setMeasuredDimension(w, w / HEIGHT_FRACTION);
     }
 
@@ -70,32 +72,27 @@ public class FreqScale extends View
         super.onSizeChanged(w, h, oldw, oldh);
 
         // Get actual dimensions
-
         width = w;
         height = h;
     }
 
-    @SuppressLint("DefaultLocale")
+    // onDraw
     @Override
     protected void onDraw(Canvas canvas)
     {
         // Check for data
-
         if ((audio != null) && (audio.xa != null))
         {
             // Calculate scale
-
             float scale = (float) Math.log(audio.xa.length) / (float) width;
 
             // Set up paint
-
             paint.setStrokeWidth(2);
             paint.setColor(Color.BLACK);
             paint.setTextSize(height * 2 / 3);
             paint.setTextAlign(Paint.Align.CENTER);
 
             // Draw ticks
-
             canvas.drawLine(0, 0, 0, height / 3, paint);
 
             float fa[] = {1, 2, 5};
@@ -118,7 +115,7 @@ public class FreqScale extends View
                         s = String.format("%1.0fK", f * m / 1000);
 
                     else
-                        s = String.format("%1.0f", f * m);
+                        s = String.format(Locale.getDefault(), "%1.0f", f * m);
 
                     paint.setAntiAlias(true);
                     canvas.drawText(s, x, height - (height / 6), paint);

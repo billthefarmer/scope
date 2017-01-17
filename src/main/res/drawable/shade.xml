@@ -3,16 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle" >
 
+  <gradient
+      android:startColor="#0000"
+      android:endColor="#7fffffff"
+      android:angle="270" />
+
   <corners
       android:radius="8dp" />
-
-  <gradient
-      android:angle="180"
-      android:centerX="0.0"
-      android:centerY="0.0"
-      android:centerColor="#0000"
-      android:endColor="#7fffffff"
-      android:startColor="#0000"
-      android:type="linear" />
 
 </shape>

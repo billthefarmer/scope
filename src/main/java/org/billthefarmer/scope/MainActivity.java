@@ -157,13 +157,13 @@ public class MainActivity extends Activity
 
         // Bright
         item = menu.findItem(R.id.bright);
-        item.setIcon(audio.bright ? R.drawable.ic_action_bright_line_checked :
-                     R.drawable.ic_action_bright_line);
+        item.setIcon(audio.bright ? R.drawable.bright_checked :
+                     R.drawable.action_bright);
 
         // Single
         item = menu.findItem(R.id.single);
-        item.setIcon(audio.single ? R.drawable.ic_action_single_shot_checked :
-                     R.drawable.ic_action_single_shot);
+        item.setIcon(audio.single ? R.drawable.single_checked :
+                     R.drawable.action_single);
 
         // Timebase
         item = menu.findItem(R.id.timebase);
@@ -182,8 +182,8 @@ public class MainActivity extends Activity
         // Storage
         item = menu.findItem(R.id.storage);
         item.setIcon(scope.storage ?
-                     R.drawable.ic_action_storage_checked :
-                     R.drawable.ic_action_storage);
+                     R.drawable.storage_checked :
+                     R.drawable.action_storage);
 
         return true;
     }
@@ -269,16 +269,18 @@ public class MainActivity extends Activity
         // Bright line
         case R.id.bright:
             audio.bright = !audio.bright;
-            item.setIcon(audio.bright ? R.drawable.ic_action_bright_line_checked :
-                         R.drawable.ic_action_bright_line);
+            item.setIcon(audio.bright ?
+                         R.drawable.bright_checked :
+                         R.drawable.action_bright);
             showToast(audio.bright ? R.string.bright_on : R.string.bright_off);
             break;
 
         // Single shot
         case R.id.single:
             audio.single = !audio.single;
-            item.setIcon(audio.single ? R.drawable.ic_action_single_shot_checked :
-                         R.drawable.ic_action_single_shot);
+            item.setIcon(audio.single ?
+                         R.drawable.single_checked :
+                         R.drawable.action_single);
             showToast(audio.single ? R.string.single_on : R.string.single_off);
             break;
 
@@ -397,8 +399,8 @@ public class MainActivity extends Activity
             {
                 scope.storage = !scope.storage;
                 item.setIcon(scope.storage ?
-                             R.drawable.ic_action_storage_checked :
-                             R.drawable.ic_action_storage);
+                             R.drawable.storage_checked :
+                             R.drawable.action_storage);
                 showToast(scope.storage ?
                           R.string.storage_on : R.string.storage_off);
             }

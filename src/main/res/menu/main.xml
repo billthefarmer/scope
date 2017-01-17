@@ -7,9 +7,9 @@
   <item
       android:id="@+id/bright"
       android:showAsAction="always"
-       android:checkable="true"
-     android:title="@string/action_bright_line"
-      android:icon="@drawable/ic_action_bright_line" />
+      android:checkable="true"
+      android:title="@string/action_bright_line"
+      android:icon="@drawable/action_bright" />
 
   <item
       android:id="@+id/single"

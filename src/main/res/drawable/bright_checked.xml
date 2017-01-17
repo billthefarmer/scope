@@ -1,0 +1,9 @@
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+  <item
+      android:drawable="@drawable/ic_action_important" />
+  <item
+      android:drawable="@drawable/shade" />
+  
+</layer-list>

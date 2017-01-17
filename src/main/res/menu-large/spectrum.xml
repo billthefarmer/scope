@@ -4,7 +4,7 @@
       android:id="@+id/action_lock"
       android:showAsAction="always"
       android:title="@string/action_lock"
-      android:icon="@drawable/ic_action_lock" />
+      android:icon="@drawable/action_lock" />
 
   <item
       android:id="@+id/action_help"

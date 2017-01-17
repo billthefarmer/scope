@@ -131,8 +131,8 @@ public class SpectrumActivity extends Activity
         // Lock
         case R.id.action_lock:
             audio.lock = !audio.lock;
-            item.setIcon(audio.lock ? R.drawable.ic_action_lock_checked :
-                         R.drawable.ic_action_lock);
+            item.setIcon(audio.lock ? R.drawable.lock_checked :
+                         R.drawable.ic_action_secure);
             showToast(audio.lock ? R.string.lock_on : R.string.lock_off);
             break;
 
@@ -168,8 +168,8 @@ public class SpectrumActivity extends Activity
             audio.lock = !audio.lock;
             if (lockItem != null)
                 lockItem.setIcon(audio.lock ?
-                                 R.drawable.ic_action_lock_checked :
-                                 R.drawable.ic_action_lock);
+                                 R.drawable.lock_checked :
+                                 R.drawable.ic_action_secure);
             showToast(audio.lock ? R.string.lock_on : R.string.lock_off);
             break;
         }

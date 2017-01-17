@@ -6,7 +6,4 @@
       android:drawable="@drawable/ic_action_flash_on"
       android:state_checked="false" />
 
-  <item
-      android:drawable="@drawable/single_checked"
-      android:state_checked="true" />
 </selector>

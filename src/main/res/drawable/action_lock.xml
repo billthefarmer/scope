@@ -6,7 +6,4 @@
       android:drawable="@drawable/ic_action_secure"
       android:state_checked="false" />
 
-  <item
-      android:drawable="@drawable/lock_checked"
-      android:state_checked="true" />
 </selector>

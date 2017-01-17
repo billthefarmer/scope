@@ -6,7 +6,4 @@
       android:drawable="@drawable/ic_action_storage"
       android:state_checked="false" />
 
-  <item
-      android:drawable="@drawable/storage_checked"
-      android:state_checked="true" />
 </selector>

@@ -6,7 +6,4 @@
       android:drawable="@drawable/ic_action_important"
       android:state_checked="false" />
 
-  <item
-      android:drawable="@drawable/bright_checked"
-      android:state_checked="true" />
 </selector>

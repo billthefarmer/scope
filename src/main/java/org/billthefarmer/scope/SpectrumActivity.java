@@ -37,6 +37,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -294,6 +295,8 @@ public class SpectrumActivity extends Activity
     // Audio
     protected class Audio implements Runnable
     {
+        private static final String TAG = "Spectrum";
+
         protected int input;
         protected int sample;
         protected boolean lock;
@@ -310,6 +313,8 @@ public class SpectrumActivity extends Activity
         private static final int STEP = SAMPLES / OVERSAMPLE;
 
         private static final int N = 4;
+        private static final int M = 16;
+
         private static final double MIN = 0.5;
         private static final double expect = 2.0 * Math.PI * STEP / SAMPLES;
 
@@ -536,7 +541,18 @@ public class SpectrumActivity extends Activity
                 }
 
                 // Do a full process run every N
-                if (counter++ % N != 0)
+                if (++counter % N != 0)
+                    continue;
+
+                // Check display lock
+                if (lock)
+                    continue;
+
+                // Update spectrum
+                spectrum.postInvalidate();
+
+                // Update frequency and dB every M
+                if (counter % M != 0)
                     continue;
 
                 // Maximum FFT output
@@ -566,12 +582,7 @@ public class SpectrumActivity extends Activity
                 if (dB < -80.0)
                     dB = -80.0;
 
-                // Check display lock
-                if (lock)
-                    continue;
-
-                spectrum.postInvalidate();
-
+                // Update frequency and dB display
                 if (max > MIN)
                 {
                     final String s = String.format(Locale.getDefault(),

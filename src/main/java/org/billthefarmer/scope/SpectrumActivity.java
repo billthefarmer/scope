@@ -577,8 +577,7 @@ public class SpectrumActivity extends Activity
                     final String s = String.format(Locale.getDefault(),
                                                    "%1.1fHz  %1.1fdB",
                                                    frequency, dB);
-                    Handler handler = text.getHandler();
-                    handler.post(new Runnable()
+                    text.post(new Runnable()
                     {
                         @Override
                         public void run()
@@ -593,8 +592,7 @@ public class SpectrumActivity extends Activity
                     frequency = 0.0;
                     final String s = String.format(Locale.getDefault(),
                                                    "%1.1fdB", dB);
-                    Handler handler = text.getHandler();
-                    handler.post(new Runnable()
+                    text.post(new Runnable()
                     {
                         @Override
                         public void run()

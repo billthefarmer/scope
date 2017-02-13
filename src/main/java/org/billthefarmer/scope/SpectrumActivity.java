@@ -406,11 +406,31 @@ public class SpectrumActivity extends Activity
             }
 
             // Create the AudioRecord object
-            audioRecord =
-                new AudioRecord(input, sample,
-                                AudioFormat.CHANNEL_IN_MONO,
-                                AudioFormat.ENCODING_PCM_16BIT,
-                                size);
+            try
+            {
+                audioRecord =
+                    new AudioRecord(input, sample,
+                                    AudioFormat.CHANNEL_IN_MONO,
+                                    AudioFormat.ENCODING_PCM_16BIT,
+                                    size);
+            }
+
+            // Exception
+            catch (Exception e)
+            {
+                runOnUiThread(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            showAlert(R.string.app_name,
+                                      R.string.error_init);
+                        }
+                    });
+
+                thread = null;
+                return;
+            }
 
             // Check audiorecord
             if (audioRecord == null)

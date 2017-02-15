@@ -735,12 +735,29 @@ public class MainActivity extends Activity
         // Stop
         protected void stop()
         {
+            cleanUpAudioRecord();
+
             Thread t = thread;
             thread = null;
 
             // Wait for the thread to exit
             while (t != null && t.isAlive())
                 Thread.yield();
+        }
+
+        // Stop and release the audio recorder
+        private void cleanUpAudioRecord()
+        {
+            if (audioRecord != null &&
+                    audioRecord.getState() == AudioRecord.STATE_INITIALIZED)
+            {
+
+                if (audioRecord.getRecordingState() ==
+                        AudioRecord.RECORDSTATE_RECORDING)
+                    audioRecord.stop();
+
+                audioRecord.release();
+            }
         }
 
         // Process Audio

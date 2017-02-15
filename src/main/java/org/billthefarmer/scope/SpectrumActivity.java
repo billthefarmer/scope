@@ -652,11 +652,7 @@ public class SpectrumActivity extends Activity
             }
 
             // Stop and release the audio recorder
-            if (audioRecord != null)
-            {
-                audioRecord.stop();
-                audioRecord.release();
-            }
+            cleanUpAudioRecord();
         }
 
         // Real to complex FFT, ignores imaginary values in input array

@@ -996,11 +996,7 @@ public class MainActivity extends Activity
             }
 
             // Stop and release the audio recorder
-            if (audioRecord != null)
-            {
-                audioRecord.stop();
-                audioRecord.release();
-            }
+            cleanUpAudioRecord();
         }
     }
 }

@@ -147,6 +147,9 @@ public class Spectrum extends View
             float value = 0.0f;
 
             int index = (int)Math.round(Math.pow(Math.E, x * xscale));
+            if (index == last)
+                continue;
+
             for (int i = last; i <= index; i++)
             {
                 // Don't show DC component and don't overflow
@@ -158,7 +161,7 @@ public class Spectrum extends View
             }
 
             // Update last index
-            last = index + 1;
+            last = index;
 
             // Get max value
             if (max < value)

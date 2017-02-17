@@ -365,6 +365,7 @@ public class SpectrumActivity extends Activity
         // Stop
         protected void stop()
         {
+            // Stop and release the audio recorder
             cleanUpAudioRecord();
 
             Thread t = thread;
@@ -501,8 +502,8 @@ public class SpectrumActivity extends Activity
                 // Read a buffer of data
                 size = audioRecord.read(data, 0, STEP);
 
-                // Stop the thread if no data
-                if (size == 0)
+                // Stop the thread if no data or error state
+                if (size <= 0)
                 {
                     thread = null;
                     break;

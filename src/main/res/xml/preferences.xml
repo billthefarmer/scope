@@ -24,6 +24,14 @@
       android:title="@string/pref_display">
 
     <CheckBoxPreference
+	android:key="pref_fill"
+	android:icon="@drawable/ic_action_cloud"
+	android:title="@string/pref_fill"
+	android:summary="@string/pref_fill_summ"
+	android:persistent="true"
+	android:defaultValue="true" />
+
+    <CheckBoxPreference
 	android:key="pref_screen"
 	android:icon="@drawable/ic_action_brightness_low"
 	android:title="@string/pref_screen"

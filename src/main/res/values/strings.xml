@@ -55,6 +55,9 @@
 
   <string name="pref_display">Display</string>
 
+  <string name="pref_fill">Fill</string>
+  <string name="pref_fill_summ">Fill spectrum trace</string>
+
   <string name="pref_screen">Screen</string>
   <string name="pref_screen_summ">Keep screen on</string>
 

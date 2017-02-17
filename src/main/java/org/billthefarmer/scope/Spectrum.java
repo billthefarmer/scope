@@ -172,9 +172,24 @@ public class Spectrum extends View
             path.lineTo(x, y);
         }
 
+        // Complete path for fill
+        path.lineTo(width, 0);
+        paint.setAntiAlias(true);
+
+        // Fill
+        if (audio.fill)
+        {
+            // Colour transparent green
+            paint.setColor(Color.argb(63, 0, 255, 0));
+            paint.setStyle(Paint.Style.FILL);
+
+            // Fill path
+            canvas.drawPath(path, paint);
+        }
+
         // Color green
         paint.setColor(Color.GREEN);
-        paint.setAntiAlias(true);
+        paint.setStyle(Paint.Style.STROKE);
 
         // Draw path
         canvas.drawPath(path, paint);

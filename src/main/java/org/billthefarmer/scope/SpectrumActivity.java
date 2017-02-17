@@ -54,6 +54,7 @@ public class SpectrumActivity extends Activity
     implements View.OnClickListener
 {
     private static final String PREF_INPUT = "pref_input";
+    private static final String PREF_FILL = "pref_fill";
     private static final String PREF_SCREEN = "pref_screen";
 
     private Spectrum spectrum;
@@ -236,6 +237,7 @@ public class SpectrumActivity extends Activity
         {
             audio.input =
                 Integer.parseInt(preferences.getString(PREF_INPUT, "0"));
+            audio.fill = preferences.getBoolean(PREF_FILL, true);
         }
 
         screen = preferences.getBoolean(PREF_SCREEN, false);
@@ -300,6 +302,7 @@ public class SpectrumActivity extends Activity
         protected int input;
         protected int sample;
         protected boolean lock;
+        protected boolean fill;
 
         // Data
         protected double frequency;

@@ -41,6 +41,7 @@ public class Spectrum extends View
     private int height;
 
     private Path path;
+    private Path fillPath;
     private Paint paint;
 
     private Bitmap graticule;
@@ -54,8 +55,9 @@ public class Spectrum extends View
     {
         super(context, attrs);
 
-        // Create path and paint
+        // Create paths and paint
         path = new Path();
+        fillPath = new Path();
         paint = new Paint();
     }
 
@@ -98,6 +100,7 @@ public class Spectrum extends View
 
             // Set up paint
             paint.setStrokeWidth(2);
+            paint.setAntiAlias(false);
             paint.setStyle(Paint.Style.STROKE);
             paint.setColor(Color.argb(255, 0, 63, 0));
 
@@ -172,19 +175,24 @@ public class Spectrum extends View
             path.lineTo(x, y);
         }
 
-        // Complete path for fill
-        path.lineTo(width, 0);
         paint.setAntiAlias(true);
 
         // Fill
         if (audio.fill)
         {
+            // Copy path
+            fillPath.set(path);
+
+            // Complete path for fill
+            fillPath.lineTo(width, 0);
+            fillPath.close();
+
             // Colour transparent green
             paint.setColor(Color.argb(63, 0, 255, 0));
             paint.setStyle(Paint.Style.FILL);
 
             // Fill path
-            canvas.drawPath(path, paint);
+            canvas.drawPath(fillPath, paint);
         }
 
         // Color green

@@ -187,7 +187,7 @@ public class Spectrum extends View
             fillPath.lineTo(width, 0);
             fillPath.close();
 
-            // Colour transparent green
+            // Colour translucent green
             paint.setColor(Color.argb(63, 0, 255, 0));
             paint.setStyle(Paint.Style.FILL);
 

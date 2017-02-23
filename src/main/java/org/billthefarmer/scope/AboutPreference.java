@@ -24,7 +24,6 @@
 package org.billthefarmer.scope;
 
 import android.content.Context;
-import android.content.pm.PackageInfo;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
@@ -53,7 +52,7 @@ public class AboutPreference extends DialogPreference
 
         if (version != null)
         {
-            String v = (String) version.getText();
+            String v = (String)version.getText();
             String s = String.format(v, BuildConfig.VERSION_NAME);
             version.setText(s);
         }

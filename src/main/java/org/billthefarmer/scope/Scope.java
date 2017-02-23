@@ -23,7 +23,6 @@
 
 package org.billthefarmer.scope;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -33,6 +32,8 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import java.util.Locale;
 
 // Scope
 public class Scope extends View
@@ -117,7 +118,6 @@ public class Scope extends View
     private int max;
 
     // On draw
-    @SuppressLint("DefaultLocale")
     @Override
     protected void onDraw(Canvas canvas)
     {
@@ -216,7 +216,7 @@ public class Scope extends View
 
                 // Draw value
 
-                String s = String.format("%3.2f",
+                String s = String.format(Locale.getDefault(), "%3.2f",
                                          audio.data[i + xstart] / 32768.0);
                 cb.drawText(s, index, y, paint);
             }
@@ -226,7 +226,8 @@ public class Scope extends View
             // Draw time value
             if (scale < 100.0)
             {
-                String s = String.format((scale < 1.0) ? "%3.3f" :
+                String s = String.format(Locale.getDefault(),
+                                         (scale < 1.0) ? "%3.3f" :
                                          (scale < 10.0) ? "%3.2f" : "%3.1f",
                                          (start + (index * scale)) /
                                          MainActivity.SMALL_SCALE);
@@ -235,7 +236,8 @@ public class Scope extends View
 
             else
             {
-                String s = String.format("%3.3f", (start + (index * scale)) /
+                String s = String.format(Locale.getDefault(), "%3.3f",
+                                         (start + (index * scale)) /
                                          MainActivity.LARGE_SCALE);
                 cb.drawText(s, index, height / 2, paint);
             }

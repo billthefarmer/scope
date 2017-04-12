@@ -25,7 +25,7 @@
 
   <org.billthefarmer.scope.FreqScale
       android:id="@id/freqscale"
-      android:layout_width="fill_parent"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_alignLeft="@id/spectrum"
       android:layout_alignParentRight="true"

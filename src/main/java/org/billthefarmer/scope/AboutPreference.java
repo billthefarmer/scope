@@ -32,7 +32,6 @@ import android.widget.TextView;
 // AboutPreference
 public class AboutPreference extends DialogPreference
 {
-
     // Constructor
     public AboutPreference(Context context, AttributeSet attrs)
     {

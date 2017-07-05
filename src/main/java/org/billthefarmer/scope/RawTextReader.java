@@ -34,7 +34,8 @@ public class RawTextReader
     /* ********************************************************************
      * Read raw text file resource...
      *
-     * source: http://stackoverflow.com/questions/4087674/android-read-text-raw-resource-file
+     * source: http://stackoverflow.com/questions/4087674/
+     * android-read-text-raw-resource-file
      */
 
     // read
@@ -50,7 +51,7 @@ public class RawTextReader
         try
         {
             while ((line = buff.readLine()) != null)
-                text.append(line + "\n" );
+                text.append(line + System.getProperty("line.separator"));
         }
 
         catch (Exception e)

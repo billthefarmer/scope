@@ -17,7 +17,7 @@ and documentation.
  *  Index
  *  Spectrum
 
-###Using
+### Using
  The icons on the toolbar are, from left to right:
  
  *  **Bright line** - Defeats the sync and single shot
@@ -36,7 +36,7 @@ and documentation.
 The last two or six items may be on the menu, depending on the size of
 the device.
 
-###Oscilloscope
+### Oscilloscope
 Touching the display will produce a vertical index line, which will
 show the value at that point. The value is arbitrary, as there is
 automatic gain control on the input so the trace does not get
@@ -51,7 +51,7 @@ icon to reset the level to zero.
 In single shot mode the timebase may be changed to zoom in and pan
 left and right using the right and left icons.
 
-###Spectrum
+### Spectrum
 The spectrum display shows a spectrum with a logarithmic frequency
 scale. An index line shows the dominant frequency in the input. The
 frequency and input level is also displayed in the toolbar. To lock
@@ -59,7 +59,7 @@ the display, touch spectrum display or the lock icon in the
 toolbar. Touch it again to release the lock. To display the help
 screen, touch the help icon.
 
-###Settings
+### Settings
 The input source may be selected. Some of the selections will not be
 available, depending on the device. The screen option will stop the
 screen turning off. The about item shows the version and copyright.

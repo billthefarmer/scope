@@ -172,7 +172,6 @@ public class MainActivity extends Activity
             if (item.hasSubMenu())
             {
                 submenu = item.getSubMenu();
-                clearLast(submenu, DEFAULT_TIMEBASE);
                 item = submenu.getItem(timebase);
                 if (item != null)
                     item.setChecked(true);
@@ -298,7 +297,6 @@ public class MainActivity extends Activity
 
         // 0.1 ms
         case R.id.tb0_1ms:
-            clearLast(submenu, timebase);
             timebase = 0;
             item.setChecked(true);
             setTimebase(timebase, true);
@@ -306,7 +304,6 @@ public class MainActivity extends Activity
 
         // 0.2 ms
         case R.id.tb0_2ms:
-            clearLast(submenu, timebase);
             timebase = 1;
             item.setChecked(true);
             setTimebase(timebase, true);
@@ -314,7 +311,6 @@ public class MainActivity extends Activity
 
         // 0.5 ms
         case R.id.tb0_5ms:
-            clearLast(submenu, timebase);
             timebase = 2;
             item.setChecked(true);
             setTimebase(timebase, true);
@@ -322,7 +318,6 @@ public class MainActivity extends Activity
 
         // 1.0 ms
         case R.id.tb1_0ms:
-            clearLast(submenu, timebase);
             timebase = 3;
             item.setChecked(true);
             setTimebase(timebase, true);
@@ -330,7 +325,6 @@ public class MainActivity extends Activity
 
         // 2.0 ms
         case R.id.tb2_0ms:
-            clearLast(submenu, timebase);
             timebase = 4;
             item.setChecked(true);
             setTimebase(timebase, true);
@@ -338,7 +332,6 @@ public class MainActivity extends Activity
 
         // 5.0 ms
         case R.id.tb5_0ms:
-            clearLast(submenu, timebase);
             timebase = 5;
             item.setChecked(true);
             setTimebase(timebase, true);
@@ -346,7 +339,6 @@ public class MainActivity extends Activity
 
         // 10 ms
         case R.id.tb10ms:
-            clearLast(submenu, timebase);
             timebase = 6;
             item.setChecked(true);
             setTimebase(timebase, true);
@@ -354,7 +346,6 @@ public class MainActivity extends Activity
 
         // 20 ms
         case R.id.tb20ms:
-            clearLast(submenu, timebase);
             timebase = 7;
             item.setChecked(true);
             setTimebase(timebase, true);
@@ -363,7 +354,6 @@ public class MainActivity extends Activity
         // 50 ms
 
         case R.id.tb50ms:
-            clearLast(submenu, timebase);
             timebase = 8;
             item.setChecked(true);
             setTimebase(timebase, true);
@@ -371,7 +361,6 @@ public class MainActivity extends Activity
 
         // 0.1 sec
         case R.id.tb0_1sec:
-            clearLast(submenu, timebase);
             timebase = 9;
             item.setChecked(true);
             setTimebase(timebase, true);
@@ -379,7 +368,6 @@ public class MainActivity extends Activity
 
         // 0.2 sec
         case R.id.tb0_2sec:
-            clearLast(submenu, timebase);
             timebase = 10;
             item.setChecked(true);
             setTimebase(timebase, true);
@@ -387,7 +375,6 @@ public class MainActivity extends Activity
 
         // 0.5 sec
         case R.id.tb0_5sec:
-            clearLast(submenu, timebase);
             timebase = 11;
             item.setChecked(true);
             setTimebase(timebase, true);
@@ -494,20 +481,6 @@ public class MainActivity extends Activity
         startActivity(intent);
 
         return true;
-    }
-
-    // Clear last
-    void clearLast(SubMenu submenu, int timebase)
-    {
-        // Clear last submenu item tickbox
-
-        // if (submenu != null)
-        // {
-        //     MenuItem last =  submenu.getItem(timebase);
-
-        //     if (last != null)
-        //         last.setChecked(false);
-        // }
     }
 
     // Set timebase

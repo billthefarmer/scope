@@ -34,63 +34,51 @@
 
 	<item
 	    android:id="@+id/tb0_1ms"
-	    android:checkable="true"
 	    android:title="@string/tb0.1ms" />
 
 	<item
 	    android:id="@+id/tb0_2ms"
-	    android:checkable="true"
 	    android:title="@string/tb0.2ms" />
 
 	<item
 	    android:id="@+id/tb0_5ms"
-	    android:checkable="true"
 	    android:title="@string/tb0.5ms" />
 
 	<item
 	    android:id="@+id/tb1_0ms"
-	    android:checkable="true"
 	    android:checked="true"
 	    android:title="@string/tb1.0ms" />
 
 	<item
 	    android:id="@+id/tb2_0ms"
-	    android:checkable="true"
 	    android:title="@string/tb2.0ms" />
 
 	<item
 	    android:id="@+id/tb5_0ms"
-	    android:checkable="true"
 	    android:title="@string/tb5.0ms" />
 
 	<item
 	    android:id="@+id/tb10ms"
-	    android:checkable="true"
 	    android:title="@string/tb10ms" />
 
 	<item
 	    android:id="@+id/tb20ms"
-	    android:checkable="true"
 	    android:title="@string/tb20ms" />
 
 	<item
 	    android:id="@+id/tb50ms"
-	    android:checkable="true"
 	    android:title="@string/tb50ms" />
 
 	<item
 	    android:id="@+id/tb0_1sec"
-	    android:checkable="true"
 	    android:title="@string/tb0.1sec" />
 
 	<item
 	    android:id="@+id/tb0_2sec"
-	    android:checkable="true"
 	    android:title="@string/tb0.2sec" />
 
 	<item
 	    android:id="@+id/tb0_5sec"
-	    android:checkable="true"
 	    android:title="@string/tb0.5sec" />
 
       </group>

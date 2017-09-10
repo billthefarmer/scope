@@ -501,13 +501,13 @@ public class MainActivity extends Activity
     {
         // Clear last submenu item tickbox
 
-        if (submenu != null)
-        {
-            MenuItem last =  submenu.getItem(timebase);
+        // if (submenu != null)
+        // {
+        //     MenuItem last =  submenu.getItem(timebase);
 
-            if (last != null)
-                last.setChecked(false);
-        }
+        //     if (last != null)
+        //         last.setChecked(false);
+        // }
     }
 
     // Set timebase

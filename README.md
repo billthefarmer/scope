@@ -61,5 +61,6 @@ screen, touch the help icon.
 
 ### Settings
 The input source may be selected. Some of the selections will not be
-available, depending on the device. The screen option will stop the
-screen turning off. The about item shows the version and copyright.
+available, depending on the device. The fill option selects spectrum
+trace fill. The screen option will stop the screen turning off. The
+about item shows the version and copyright.

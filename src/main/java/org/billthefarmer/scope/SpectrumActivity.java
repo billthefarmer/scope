@@ -242,17 +242,12 @@ public class SpectrumActivity extends Activity
         screen = preferences.getBoolean(PREF_SCREEN, false);
 
         // Check screen
+        Window window = getWindow();
         if (screen)
-        {
-            Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
 
         else
-        {
-            Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
     }
 
     // Save preferences

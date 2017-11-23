@@ -545,13 +545,6 @@ public class MainActivity extends Activity
         toast.show();
     }
 
-    // On start
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
-    }
-
     // On Resume
     @Override
     protected void onResume()
@@ -578,13 +571,6 @@ public class MainActivity extends Activity
         audio.stop();
     }
 
-    // On stop
-    @Override
-    protected void onStop()
-    {
-        super.onStop();
-    }
-
     // Get preferences
     void getPreferences()
     {
@@ -604,17 +590,12 @@ public class MainActivity extends Activity
         screen = preferences.getBoolean(PREF_SCREEN, false);
 
         // Check screen
+        Window window = getWindow();
         if (screen)
-        {
-            Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
 
         else
-        {
-            Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
     }
 
     // Save preferences
@@ -737,7 +718,7 @@ public class MainActivity extends Activity
         // Process Audio
         protected void processAudio()
         {
-            // Assume the output sample will work on the input as
+            // Assume the output sample rate will work on the input as
             // there isn't an AudioRecord.getNativeInputSampleRate()
             sample =
                 AudioTrack.getNativeOutputSampleRate(AudioManager.STREAM_MUSIC);

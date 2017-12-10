@@ -396,6 +396,9 @@ public class SpectrumActivity extends Activity
             sample =
                 AudioTrack.getNativeOutputSampleRate(AudioManager.STREAM_MUSIC);
 
+            // Calculate fps
+            fps = (double)sample / SAMPLES;
+
             // Get buffer size
             int size =
                 AudioRecord.getMinBufferSize(sample,
@@ -483,9 +486,6 @@ public class SpectrumActivity extends Activity
                 thread = null;
                 return;
             }
-
-            // Calculate fps
-            fps = (double)sample / SAMPLES;
 
             // Start recording
             audioRecord.startRecording();

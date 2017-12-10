@@ -97,8 +97,7 @@ public class FreqScale extends View
 
             float fa[] = {1, 2, 5};
             float sa[] = {1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f,
-                          1.9f, 2.2f, 2.5f, 3, 3.5f, 4, 4.5f, 6, 7, 8, 9
-                         };
+                          1.9f, 2.2f, 2.5f, 3, 3.5f, 4, 4.5f, 6, 7, 8, 9};
             float ma[] = {10, 100, 1000, 10000};
             for (float m : ma)
             {

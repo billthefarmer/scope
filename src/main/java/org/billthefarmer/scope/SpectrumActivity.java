@@ -379,12 +379,16 @@ public class SpectrumActivity extends Activity
             if (audioRecord != null &&
                     audioRecord.getState() == AudioRecord.STATE_INITIALIZED)
             {
-
-                if (audioRecord.getRecordingState() ==
+                try
+                {
+                    if (audioRecord.getRecordingState() ==
                         AudioRecord.RECORDSTATE_RECORDING)
-                    audioRecord.stop();
+                        audioRecord.stop();
 
-                audioRecord.release();
+                    audioRecord.release();
+                }
+
+                catch (Exception e) {}
             }
         }
 

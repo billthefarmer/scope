@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  Accordion - An Android Accordion written in Java.
+//  Scope - An Android scope written in Java.
 //
 //  Copyright (C) 2014	Bill Farmer
 //
@@ -51,7 +51,6 @@ public class AboutPreference extends DialogPreference
         TextView version = (TextView) view.findViewById(R.id.about);
 
         // Set version in text view
-
         if (version != null)
         {
             String v = (String)version.getText();
@@ -76,12 +75,14 @@ public class AboutPreference extends DialogPreference
         TextView copyright = (TextView) view.findViewById(R.id.copyright);
 
         // Set movement method
-        copyright.setMovementMethod(LinkMovementMethod.getInstance());
+        if (copyright != null)
+            copyright.setMovementMethod(LinkMovementMethod.getInstance());
 
         // Get licence text view
         TextView licence = (TextView) view.findViewById(R.id.licence);
 
         // Set movement method
-        licence.setMovementMethod(LinkMovementMethod.getInstance());
+        if (licence != null)
+            licence.setMovementMethod(LinkMovementMethod.getInstance());
     }
 }

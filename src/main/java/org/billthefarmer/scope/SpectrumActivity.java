@@ -363,7 +363,7 @@ public class SpectrumActivity extends Activity
         protected void stop()
         {
             // Stop and release the audio recorder
-            cleanUpAudioRecord();
+            // cleanUpAudioRecord();
 
             Thread t = thread;
             thread = null;

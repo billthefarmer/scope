@@ -29,6 +29,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import java.util.Locale;
@@ -36,7 +37,9 @@ import java.util.Locale;
 // FreqScale
 public class FreqScale extends View
 {
+    private static final String TAG = "FreqScale";
     private static final int HEIGHT_FRACTION = 32;
+
     private int width;
     private int height;
 
@@ -86,6 +89,12 @@ public class FreqScale extends View
             // Calculate scale
             float scale = (float) Math.log(audio.xa.length) / (float) width;
 
+            if (BuildConfig.DEBUG)
+            {
+                Log.d(TAG, "Scale " + scale);
+                Log.d(TAG, "Fps " + audio.fps);
+            }
+
             // Set up paint
             paint.setStrokeWidth(2);
             paint.setColor(Color.BLACK);
@@ -108,6 +117,9 @@ public class FreqScale extends View
 
                     float x = (float) Math.log((f * m) / audio.fps) / scale;
                     canvas.drawLine(x, 0, x, height / 3, paint);
+
+                    if (BuildConfig.DEBUG)
+                        Log.d(TAG, "X " + x);
 
                     String s;
                     if (m >= 1000)

@@ -89,12 +89,6 @@ public class FreqScale extends View
             // Calculate scale
             float scale = (float) Math.log(audio.xa.length) / (float) width;
 
-            if (BuildConfig.DEBUG)
-            {
-                Log.d(TAG, "Scale " + scale);
-                Log.d(TAG, "Fps " + audio.fps);
-            }
-
             // Set up paint
             paint.setStrokeWidth(2);
             paint.setColor(Color.BLACK);
@@ -117,9 +111,6 @@ public class FreqScale extends View
 
                     float x = (float) Math.log((f * m) / audio.fps) / scale;
                     canvas.drawLine(x, 0, x, height / 3, paint);
-
-                    if (BuildConfig.DEBUG)
-                        Log.d(TAG, "X " + x);
 
                     String s;
                     if (m >= 1000)

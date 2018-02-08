@@ -23,11 +23,6 @@
 
 package org.billthefarmer.scope;
 
-import android.media.AudioFormat;
-import android.media.AudioManager;
-import android.media.AudioRecord;
-import android.media.AudioTrack;
-import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -35,6 +30,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.media.AudioFormat;
+import android.media.AudioManager;
+import android.media.AudioRecord;
+import android.media.AudioTrack;
+import android.os.Build;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
@@ -55,6 +56,9 @@ public class SpectrumActivity extends Activity
     private static final String PREF_INPUT = "pref_input";
     private static final String PREF_FILL = "pref_fill";
     private static final String PREF_SCREEN = "pref_screen";
+    private static final String PREF_DARK = "pref_dark";
+
+    private static final int VERSION_M = 23;
 
     private Spectrum spectrum;
     private FreqScale scale;
@@ -67,12 +71,20 @@ public class SpectrumActivity extends Activity
     private Audio audio;
 
     private boolean screen;
+    private boolean dark;
 
     // On create
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        // Get preferences
+        getPreferences();
+
+        if (dark)
+            setTheme(R.style.AppDarkTheme);
+
         setContentView(R.layout.activity_spectrum);
 
         spectrum = (Spectrum)findViewById(R.id.spectrum);
@@ -203,8 +215,13 @@ public class SpectrumActivity extends Activity
     {
         super.onResume();
 
+        boolean theme = dark;
+
         // Get preferences
         getPreferences();
+
+        if (theme != dark && Build.VERSION.SDK_INT != VERSION_M)
+            recreate();
 
         // Start the audio thread
         audio.start();
@@ -248,6 +265,8 @@ public class SpectrumActivity extends Activity
 
         else
             window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        dark = preferences.getBoolean(PREF_DARK, false);
     }
 
     // Save preferences

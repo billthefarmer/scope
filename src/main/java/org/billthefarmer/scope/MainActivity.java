@@ -23,11 +23,6 @@
 
 package org.billthefarmer.scope;
 
-import android.media.AudioFormat;
-import android.media.AudioManager;
-import android.media.AudioRecord;
-import android.media.AudioTrack;
-import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -35,6 +30,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.media.AudioFormat;
+import android.media.AudioManager;
+import android.media.AudioRecord;
+import android.media.AudioTrack;
+import android.os.Build;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
@@ -51,6 +52,7 @@ public class MainActivity extends Activity
 {
     private static final String PREF_INPUT = "pref_input";
     private static final String PREF_SCREEN = "pref_screen";
+    private static final String PREF_DARK = "pref_dark";
 
     private static final String TAG = "Scope";
 
@@ -87,6 +89,8 @@ public class MainActivity extends Activity
         65536, 131072, 262144, 524288
     };
 
+    private static final int VERSION_M = 23;
+
     protected static final int SIZE = 20;
     protected static final int DEFAULT_TIMEBASE = 3;
     protected static final float SMALL_SCALE = 200;
@@ -104,12 +108,20 @@ public class MainActivity extends Activity
     private SubMenu submenu;
 
     private boolean screen;
+    private boolean dark;
 
     // On create
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        // Get preferences
+        getPreferences();
+
+        if (dark)
+            setTheme(R.style.AppDarkTheme);
+
         setContentView(R.layout.activity_main);
 
         scope = (Scope)findViewById(R.id.scope);
@@ -551,8 +563,13 @@ public class MainActivity extends Activity
     {
         super.onResume();
 
+        boolean theme = dark;
+
         // Get preferences
         getPreferences();
+
+        if (theme != dark && Build.VERSION.SDK_INT != VERSION_M)
+            recreate();
 
         // Start the audio thread
         audio.start();
@@ -574,9 +591,6 @@ public class MainActivity extends Activity
     // Get preferences
     void getPreferences()
     {
-        // Load preferences
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -596,6 +610,8 @@ public class MainActivity extends Activity
 
         else
             window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        dark = preferences.getBoolean(PREF_DARK, false);
     }
 
     // Save preferences

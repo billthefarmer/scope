@@ -27,6 +27,7 @@ import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -39,7 +40,9 @@ public class SettingsFragment extends PreferenceFragment
     implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private static final String KEY_PREF_INPUT = "pref_input";
+    private static final String KEY_PREF_DARK = "pref_dark";
     private static final String KEY_PREF_ABOUT = "pref_about";
+    private static final int VERSION_M = 23;
 
     // onCreate
     @Override
@@ -52,8 +55,6 @@ public class SettingsFragment extends PreferenceFragment
 
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-        preferences.registerOnSharedPreferenceChangeListener(this);
 
         ListPreference preference =
             (ListPreference)findPreference(KEY_PREF_INPUT);
@@ -70,6 +71,24 @@ public class SettingsFragment extends PreferenceFragment
             String s = String.format(sum, BuildConfig.VERSION_NAME);
             about.setSummary(s);
         }
+    }
+
+    // on Resume
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        getPreferenceScreen().getSharedPreferences()
+            .registerOnSharedPreferenceChangeListener(this);
+    }
+
+    // on Pause
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        getPreferenceScreen().getSharedPreferences()
+            .unregisterOnSharedPreferenceChangeListener(this);
     }
 
     // On preference tree click
@@ -102,6 +121,11 @@ public class SettingsFragment extends PreferenceFragment
             // Set summary to be the user-description for the selected
             // value
             preference.setSummary(((ListPreference) preference).getEntry());
+        }
+        if (key.equals(KEY_PREF_DARK))
+        {
+            if (Build.VERSION.SDK_INT != VERSION_M)
+                getActivity().recreate();
         }
     }
 }

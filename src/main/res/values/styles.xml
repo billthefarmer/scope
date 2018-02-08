@@ -18,6 +18,38 @@
     <!-- All customizations that are NOT specific to a particular
          API-level can go here.
     -->
+
+    <item name="pref_input">@drawable/ic_action_mic</item>
+    <item name="pref_fill">@drawable/ic_action_cloud</item>
+    <item name="pref_screen">@drawable/ic_action_brightness_low</item>
+    <item name="pref_about">@drawable/ic_action_about</item>
+
+  </style>
+
+  <!--
+      Base application theme, dependent on API level. This theme is
+      replaced by AppDarkBaseTheme from res/values-vXX/styles.xml on
+      newer devices.
+  -->
+  <style name="AppDarkBaseTheme" parent="android:Theme.Holo">
+    <!--
+        Theme customizations available in newer API levels can go in
+        res/values-vXX/styles.xml, while customizations related to
+        backward-compatibility can go here.
+    -->
+  </style>
+
+  <!-- Application theme. -->
+  <style name="AppDarkTheme" parent="AppDarkBaseTheme">
+    <!-- All customizations that are NOT specific to a particular
+         API-level can go here.
+    -->
+
+    <item name="pref_input">@drawable/ic_action_mic</item>
+    <item name="pref_fill">@drawable/ic_action_cloud</item>
+    <item name="pref_screen">@drawable/ic_action_brightness_low</item>
+    <item name="pref_about">@drawable/ic_action_about</item>
+
   </style>
 
 </resources>

@@ -9,8 +9,8 @@
 
     <ListPreference
 	android:key="pref_input"
-	android:icon="@drawable/ic_action_mic"
-	android:dialogIcon="@drawable/ic_action_mic"
+	android:icon="?attr/pref_input"
+	android:dialogIcon="?attr/pref_input"
 	android:title="@string/pref_input"
 	android:summary="@string/pref_input_summ"
 	android:entries="@array/pref_input_entries"
@@ -25,7 +25,7 @@
 
     <CheckBoxPreference
 	android:key="pref_fill"
-	android:icon="@drawable/ic_action_cloud"
+	android:icon="?attr/pref_fill"
 	android:title="@string/pref_fill"
 	android:summary="@string/pref_fill_summ"
 	android:persistent="true"
@@ -33,7 +33,7 @@
 
     <CheckBoxPreference
 	android:key="pref_screen"
-	android:icon="@drawable/ic_action_brightness_low"
+	android:icon="?attr/pref_screen"
 	android:title="@string/pref_screen"
 	android:summary="@string/pref_screen_summ"
 	android:persistent="true"
@@ -47,8 +47,8 @@
 
     <org.billthefarmer.scope.AboutPreference
 	android:key="pref_about"
-	android:icon="@drawable/ic_action_about"
-	android:dialogIcon="@drawable/ic_action_about"
+	android:icon="?attr/pref_about"
+	android:dialogIcon="?attr/pref_about"
 	android:negativeButtonText=""
 	android:title="@string/pref_about"
 	android:summary="@string/pref_about_summ"

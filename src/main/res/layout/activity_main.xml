@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,7 +13,9 @@
       android:layout_height="match_parent"
       android:layout_alignParentLeft="true" 
       android:layout_alignParentTop="true"
-      android:layout_alignBottom="@+id/scope" />
+      android:layout_alignBottom="@+id/scope"
+      app:TextColour="?android:attr/textColorPrimary"
+      app:BackgroundColour="?android:attr/colorBackground" />
 
   <org.billthefarmer.scope.Scope
       android:id="@id/scope"
@@ -29,7 +32,9 @@
       android:layout_height="wrap_content"
       android:layout_alignLeft="@id/scope"
       android:layout_alignParentRight="true"
-      android:layout_alignParentBottom="true" />
+      android:layout_alignParentBottom="true"
+      app:TextColour="?android:attr/textColorPrimary"
+      app:BackgroundColour="?android:attr/colorBackground" />
 
   <org.billthefarmer.scope.Unit
       android:id="@+id/unit"
@@ -38,6 +43,8 @@
       android:layout_below="@id/yscale"
       android:layout_toLeftOf="@id/xscale"
       android:layout_alignParentLeft="true"
-      android:layout_alignParentBottom="true" />
+      android:layout_alignParentBottom="true"
+      app:TextColour="?android:attr/textColorPrimary"
+      app:BackgroundColour="?android:attr/colorBackground" />
 
 </RelativeLayout>

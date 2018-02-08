@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <declare-styleable name="Scope">
+
+    <attr name="TextColour" format="reference" />
+    <attr name="BackgroundColour" format="reference" />
+
+    <attr name="pref_input" format="reference" />
+    <attr name="pref_fill" format="reference" />
+    <attr name="pref_screen" format="reference" />
+    <attr name="pref_dark" format="reference" />
+    <attr name="pref_about" format="reference" />
+
+  </declare-styleable>
+
+</resources>

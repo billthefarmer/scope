@@ -24,6 +24,8 @@
 package org.billthefarmer.scope;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -39,6 +41,7 @@ public class YScale extends View
 
     private int width;
     private int height;
+    private int textColour;
 
     protected float index;
 
@@ -50,6 +53,16 @@ public class YScale extends View
     public YScale(Context context, AttributeSet attrs)
     {
         super(context, attrs);
+
+        Resources resources = getResources();
+
+        final TypedArray typedArray =
+            context.obtainStyledAttributes(attrs, R.styleable.Scope, 0, 0);
+
+        textColour =
+            typedArray.getColor(R.styleable.Scope_TextColour,
+                                resources.getColor(android.R.color.black));
+        typedArray.recycle();
 
         // Create paint
         matrix = new Matrix();
@@ -102,6 +115,7 @@ public class YScale extends View
     {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(2);
+        paint.setColor(textColour);
 
         canvas.translate(0, height / 2);
 

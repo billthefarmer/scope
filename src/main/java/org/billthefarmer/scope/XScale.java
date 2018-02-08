@@ -24,8 +24,9 @@
 package org.billthefarmer.scope;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
@@ -43,6 +44,7 @@ public class XScale extends View
 
     private int width;
     private int height;
+    private int textColour;
 
     private Paint paint;
 
@@ -50,6 +52,16 @@ public class XScale extends View
     public XScale(Context context, AttributeSet attrs)
     {
         super(context, attrs);
+
+        Resources resources = getResources();
+
+        final TypedArray typedArray =
+            context.obtainStyledAttributes(attrs, R.styleable.Scope, 0, 0);
+
+        textColour =
+            typedArray.getColor(R.styleable.Scope_TextColour,
+                                resources.getColor(android.R.color.black));
+        typedArray.recycle();
 
         // Create paint
         paint = new Paint();
@@ -90,7 +102,7 @@ public class XScale extends View
     {
         // Set up paint
         paint.setStrokeWidth(2);
-        paint.setColor(Color.BLACK);
+        paint.setColor(textColour);
 
         // Draw ticks
         for (int i = 0; i < width; i += MainActivity.SIZE)

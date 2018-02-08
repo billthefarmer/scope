@@ -24,6 +24,8 @@
 package org.billthefarmer.scope;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
@@ -37,6 +39,7 @@ public class Unit extends View
 
     private int width;
     private int height;
+    private int textColour;
 
     private Paint paint;
 
@@ -44,6 +47,16 @@ public class Unit extends View
     public Unit(Context context, AttributeSet attrs)
     {
         super(context, attrs);
+
+        Resources resources = getResources();
+
+        final TypedArray typedArray =
+            context.obtainStyledAttributes(attrs, R.styleable.Scope, 0, 0);
+
+        textColour =
+            typedArray.getColor(R.styleable.Scope_TextColour,
+                                resources.getColor(android.R.color.black));
+        typedArray.recycle();
 
         // Create paint
         paint = new Paint();
@@ -68,6 +81,7 @@ public class Unit extends View
     protected void onDraw(Canvas canvas)
     {
         paint.setStrokeWidth(2);
+        paint.setColor(textColour);
 
         // Draw half a tick
         canvas.drawLine(width, 0, width, height / 3, paint);

@@ -22,6 +22,7 @@
     <item name="pref_input">@drawable/ic_action_mic</item>
     <item name="pref_fill">@drawable/ic_action_cloud</item>
     <item name="pref_screen">@drawable/ic_action_brightness_low</item>
+    <item name="pref_dark">@drawable/ic_action_brightness_high</item>
     <item name="pref_about">@drawable/ic_action_about</item>
 
   </style>
@@ -45,10 +46,11 @@
          API-level can go here.
     -->
 
-    <item name="pref_input">@drawable/ic_action_mic</item>
-    <item name="pref_fill">@drawable/ic_action_cloud</item>
-    <item name="pref_screen">@drawable/ic_action_brightness_low</item>
-    <item name="pref_about">@drawable/ic_action_about</item>
+    <item name="pref_input">@drawable/ic_action_mic_dark</item>
+    <item name="pref_fill">@drawable/ic_action_cloud_dark</item>
+    <item name="pref_screen">@drawable/ic_action_brightness_low_dark</item>
+    <item name="pref_dark">@drawable/ic_action_brightness_high_dark</item>
+    <item name="pref_about">@drawable/ic_action_about_dark</item>
 
   </style>
 

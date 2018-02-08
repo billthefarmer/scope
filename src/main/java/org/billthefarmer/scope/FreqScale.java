@@ -23,13 +23,12 @@
 
 package org.billthefarmer.scope;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import java.util.Locale;
@@ -37,11 +36,11 @@ import java.util.Locale;
 // FreqScale
 public class FreqScale extends View
 {
-    private static final String TAG = "FreqScale";
     private static final int HEIGHT_FRACTION = 32;
 
     private int width;
     private int height;
+    private int textColour;
 
     private Paint paint;
 
@@ -51,6 +50,16 @@ public class FreqScale extends View
     public FreqScale(Context context, AttributeSet attrs)
     {
         super(context, attrs);
+
+        Resources resources = getResources();
+
+        final TypedArray typedArray =
+            context.obtainStyledAttributes(attrs, R.styleable.Scope, 0, 0);
+
+        textColour =
+            typedArray.getColor(R.styleable.Scope_TextColour,
+                                resources.getColor(android.R.color.black));
+        typedArray.recycle();
 
         // Create paint
         paint = new Paint();
@@ -91,7 +100,7 @@ public class FreqScale extends View
 
             // Set up paint
             paint.setStrokeWidth(2);
-            paint.setColor(Color.BLACK);
+            paint.setColor(textColour);
             paint.setTextSize(height * 2 / 3);
             paint.setTextAlign(Paint.Align.CENTER);
 

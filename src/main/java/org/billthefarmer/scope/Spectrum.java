@@ -209,7 +209,7 @@ public class Spectrum extends View
             // Create line for frequency
             float x = (float)Math.log(audio.frequency / audio.fps) / xscale;
             paint.setAntiAlias(false);
-            canvas.drawLine(x, 0, x, height / 4, paint);
+            canvas.drawLine(x, 0, x, height, paint);
 
             // Draw frequency value
             canvas.scale(1, -1);

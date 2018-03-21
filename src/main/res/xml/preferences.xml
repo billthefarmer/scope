@@ -32,6 +32,14 @@
 	android:defaultValue="true" />
 
     <CheckBoxPreference
+	android:key="pref_hold"
+	android:icon="?attr/pref_hold"
+	android:title="@string/pref_hold"
+	android:summary="@string/pref_hold_summ"
+	android:persistent="true"
+	android:defaultValue="true" />
+
+    <CheckBoxPreference
 	android:key="pref_screen"
 	android:icon="?attr/pref_screen"
 	android:title="@string/pref_screen"
@@ -50,6 +58,7 @@
 	android:icon="?attr/pref_dark"
 	android:title="@string/pref_dark"
 	android:summary="@string/pref_dark_summ"
+	android:persistent="true"
 	android:defaultValue="false" />
 
   </PreferenceCategory>

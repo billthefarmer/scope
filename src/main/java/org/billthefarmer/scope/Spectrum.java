@@ -136,11 +136,78 @@ public class Spectrum extends View
         // Calculate the scaling
         float yscale = (height / max);
 
+        // Reset max
         max = 0.0f;
 
         // Rewind path
         path.rewind();
         path.moveTo(0, 0);
+
+        if (audio.hold)
+        {
+            // Create trace
+            int last = 1;
+            for (int x = 0; x < width; x++)
+            {
+                float value = 0.0f;
+
+                int index = (int)Math.round(Math.pow(Math.E, x * xscale));
+                if (index == last)
+                    continue;
+
+                for (int i = last; i <= index; i++)
+                {
+                    // Don't show DC component and don't overflow
+                    if (i > 0 && i < audio.xm.length)
+                    {
+                        if (value < audio.xm[i])
+                            value = (float)audio.xm[i];
+                    }
+                }
+
+                // Update last index
+                last = index;
+
+                // Get max value
+                if (max < value)
+                    max = value;
+
+                float y = value * yscale;
+
+                path.lineTo(x, y);
+            }
+
+            paint.setAntiAlias(true);
+
+            // Fill
+            if (audio.fill)
+            {
+                // Copy path
+                fillPath.set(path);
+
+                // Complete path for fill
+                fillPath.lineTo(width, 0);
+                fillPath.close();
+
+                // Colour translucent green
+                paint.setColor(Color.argb(63, 255, 255, 0));
+                paint.setStyle(Paint.Style.FILL);
+
+                // Fill path
+                canvas.drawPath(fillPath, paint);
+            }
+
+            // Color green
+            paint.setColor(Color.YELLOW);
+            paint.setStyle(Paint.Style.STROKE);
+
+            // Draw path
+            canvas.drawPath(path, paint);
+
+            // Rewind path
+            path.rewind();
+            path.moveTo(0, 0);
+        }
 
         // Create trace
         int last = 1;

@@ -47,6 +47,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 // SpectrumActivity
@@ -55,6 +56,7 @@ public class SpectrumActivity extends Activity
 {
     private static final String PREF_INPUT = "pref_input";
     private static final String PREF_FILL = "pref_fill";
+    private static final String PREF_HOLD = "pref_hold";
     private static final String PREF_SCREEN = "pref_screen";
     private static final String PREF_DARK = "pref_dark";
 
@@ -254,6 +256,7 @@ public class SpectrumActivity extends Activity
             audio.input =
                 Integer.parseInt(preferences.getString(PREF_INPUT, "0"));
             audio.fill = preferences.getBoolean(PREF_FILL, true);
+            audio.hold = preferences.getBoolean(PREF_HOLD, true);
         }
 
         screen = preferences.getBoolean(PREF_SCREEN, false);
@@ -316,6 +319,7 @@ public class SpectrumActivity extends Activity
         protected int sample;
         protected boolean lock;
         protected boolean fill;
+        protected boolean hold;
 
         // Data
         protected double frequency;
@@ -328,8 +332,8 @@ public class SpectrumActivity extends Activity
         private static final int RANGE = SAMPLES / 2;
         private static final int STEP = SAMPLES / OVERSAMPLE;
 
-        private static final int N = 4;
-        private static final int M = 16;
+        private static final int N = 8;
+        private static final int M = 32;
 
         private static final double MIN = 0.5;
         private static final double expect = 2.0 * Math.PI * STEP / SAMPLES;
@@ -344,6 +348,7 @@ public class SpectrumActivity extends Activity
         private double xi[];
 
         protected double xa[];
+        protected double xm[];
 
         private double xp[];
         private double xf[];
@@ -359,6 +364,7 @@ public class SpectrumActivity extends Activity
             xi = new double[SAMPLES];
 
             xa = new double[RANGE];
+            xm = new double[RANGE];
             xp = new double[RANGE];
             xf = new double[RANGE];
         }
@@ -516,6 +522,9 @@ public class SpectrumActivity extends Activity
             // Max data
             double dmax = 0.0;
 
+            // Max spectrum
+            Arrays.fill(xm, 0.0);
+
             // Continue until the thread is stopped
             while (thread != null)
             {
@@ -569,7 +578,15 @@ public class SpectrumActivity extends Activity
                     double real = xr[i];
                     double imag = xi[i];
 
+                    // Get the magnitude
                     xa[i] = Math.hypot(real, imag);
+
+                    // Do max spectrum calculation
+                    if (xm[i] < xa[i])
+                        xm[i] = xa[i];
+
+                    else
+                        xm[i] = ((xm[i] * 49.0) + xa[i]) / 50.0;
 
                     // Do frequency calculation
                     double p = Math.atan2(imag, real);

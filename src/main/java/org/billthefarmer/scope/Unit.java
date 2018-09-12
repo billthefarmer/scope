@@ -31,7 +31,6 @@ import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.util.AttributeSet;
 import android.view.View;
-
 // Unit
 public class Unit extends View
 {

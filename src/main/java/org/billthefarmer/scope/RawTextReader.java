@@ -25,16 +25,15 @@ package org.billthefarmer.scope;
 
 import android.content.Context;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.BufferedReader;
-
 public class RawTextReader
 {
     /* ********************************************************************
      * Read raw text file resource...
      *
-     * source: http://stackoverflow.com/questions/4087674/
+     * source: https://stackoverflow.com/questions/4087674/android-read-text-raw-resource-file
      * android-read-text-raw-resource-file
      */
 
@@ -51,7 +50,7 @@ public class RawTextReader
         try
         {
             while ((line = buff.readLine()) != null)
-                text.append(line + System.getProperty("line.separator"));
+                text.append(line).append(System.getProperty("line.separator"));
         }
 
         catch (Exception e)

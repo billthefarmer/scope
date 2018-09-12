@@ -30,7 +30,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
-
 // Scale
 public class Scale extends View
 {

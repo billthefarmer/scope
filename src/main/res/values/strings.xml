@@ -6,8 +6,7 @@
   <string name="spectrum">Spectrum</string>
   <string name="settings">Settings</string>
   <string name="built">Built %s</string>
-  <string name="copyright">Copyright \u00A9 2017 <a
-  href="http://billthefarmer.github.io">Bill Farmer</a>
+  <string name="copyright">Copyright \u00A9 2017 <a href="https://billthefarmer.github.io">Bill Farmer</a>
   </string>
   <string name="licence">Licence <a
   href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>

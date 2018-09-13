@@ -26,7 +26,6 @@ package org.billthefarmer.scope;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -37,16 +36,13 @@ import android.media.AudioTrack;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
-
 // MainActivity
 public class MainActivity extends Activity
 {
@@ -107,7 +103,6 @@ public class MainActivity extends Activity
     private Toast toast;
     private SubMenu submenu;
 
-    private boolean screen;
     private boolean dark;
 
     // On create
@@ -124,10 +119,10 @@ public class MainActivity extends Activity
 
         setContentView(R.layout.activity_main);
 
-        scope = (Scope)findViewById(R.id.scope);
-        xscale = (XScale)findViewById(R.id.xscale);
-        yscale = (YScale)findViewById(R.id.yscale);
-        unit = (Unit)findViewById(R.id.unit);
+        scope = findViewById(R.id.scope);
+        xscale = findViewById(R.id.xscale);
+        yscale = findViewById(R.id.yscale);
+        unit = findViewById(R.id.unit);
 
         // Get action bar
         ActionBar actionBar = getActionBar();
@@ -507,11 +502,7 @@ public class MainActivity extends Activity
             unit.scale = scope.scale;
 
             // Set up scope points
-            if (timebase == 0)
-                scope.points = true;
-
-            else
-                scope.points = false;
+            scope.points = timebase == 0;
 
             // Reset start
             scope.start = 0;
@@ -601,7 +592,7 @@ public class MainActivity extends Activity
                 Integer.parseInt(preferences.getString(PREF_INPUT, "0"));
         }
 
-        screen = preferences.getBoolean(PREF_SCREEN, false);
+        boolean screen = preferences.getBoolean(PREF_SCREEN, false);
 
         // Check screen
         Window window = getWindow();
@@ -634,16 +625,11 @@ public class MainActivity extends Activity
         builder.setTitle(appName);
         builder.setMessage(errorBuffer);
         builder.setNeutralButton(android.R.string.ok,
-                                 new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog,
-                                int which)
-            {
-                // Dismiss dialog
-                dialog.dismiss();
-            }
-        });
+                (dialog, which) ->
+                {
+                    // Dismiss dialog
+                    dialog.dismiss();
+                });
 
         // Create the dialog
         AlertDialog dialog = builder.create();
@@ -753,15 +739,8 @@ public class MainActivity extends Activity
                     size == AudioRecord.ERROR ||
                     size <= 0)
             {
-                runOnUiThread(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        showAlert(R.string.app_name,
-                                  R.string.error_buffer);
-                    }
-                });
+                runOnUiThread(() -> showAlert(R.string.app_name,
+                        R.string.error_buffer));
 
                 thread = null;
                 return;
@@ -780,51 +759,22 @@ public class MainActivity extends Activity
             // Exception
             catch (Exception e)
             {
-                runOnUiThread(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            showAlert(R.string.app_name,
-                                      R.string.error_init);
-                        }
-                    });
+                runOnUiThread(() -> showAlert(R.string.app_name,
+                        R.string.error_init));
 
                 thread = null;
                 return;
             }
 
             // Check audiorecord
-            if (audioRecord == null)
-            {
-                runOnUiThread(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        showAlert(R.string.app_name,
-                                  R.string.error_init);
-                    }
-                });
-
-                thread = null;
-                return;
-            }
 
             // Check state
             int state = audioRecord.getState();
 
             if (state != AudioRecord.STATE_INITIALIZED)
             {
-                runOnUiThread(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        showAlert(R.string.app_name,
-                                  R.string.error_init);
-                    }
-                });
+                runOnUiThread(() -> showAlert(R.string.app_name,
+                        R.string.error_init));
 
                 audioRecord.release();
                 thread = null;
@@ -873,7 +823,7 @@ public class MainActivity extends Activity
                         float level = -yscale.index * scope.yscale;
 
                         // Initialise sync
-                        int dx = 0;
+                        int dx;
 
                         // Sync polarity
                         if (level < 0)

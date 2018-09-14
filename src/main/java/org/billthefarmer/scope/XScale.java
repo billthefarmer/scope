@@ -49,6 +49,7 @@ public class XScale extends View
     private Paint paint;
 
     // XScale
+    @SuppressWarnings("deprecation")
     public XScale(Context context, AttributeSet attrs)
     {
         super(context, attrs);

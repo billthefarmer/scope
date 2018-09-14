@@ -49,6 +49,7 @@ public class YScale extends View
     private Path thumb;
 
     // YScale
+    @SuppressWarnings("deprecation")
     public YScale(Context context, AttributeSet attrs)
     {
         super(context, attrs);

@@ -47,6 +47,7 @@ public class FreqScale extends View
     protected SpectrumActivity.Audio audio;
 
     // Constructor
+    @SuppressWarnings("deprecation")
     public FreqScale(Context context, AttributeSet attrs)
     {
         super(context, attrs);

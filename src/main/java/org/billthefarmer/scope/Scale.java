@@ -42,6 +42,7 @@ public class Scale extends View
     private Paint paint;
 
     // Constructor
+    @SuppressWarnings("deprecation")
     public Scale(Context context, AttributeSet attrs)
     {
         super(context, attrs);

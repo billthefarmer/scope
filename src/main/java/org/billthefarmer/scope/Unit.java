@@ -43,6 +43,7 @@ public class Unit extends View
     private Paint paint;
 
     // Unit
+    @SuppressWarnings("deprecation")
     public Unit(Context context, AttributeSet attrs)
     {
         super(context, attrs);

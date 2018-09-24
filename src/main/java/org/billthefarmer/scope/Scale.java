@@ -30,9 +30,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
+
 // Scale
-public class Scale extends View
-{
+public class Scale extends View {
     private static final int WIDTH_FRACTION = 24;
 
     private int width;
@@ -43,18 +43,17 @@ public class Scale extends View
 
     // Constructor
     @SuppressWarnings("deprecation")
-    public Scale(Context context, AttributeSet attrs)
-    {
+    public Scale(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         Resources resources = getResources();
 
         final TypedArray typedArray =
-            context.obtainStyledAttributes(attrs, R.styleable.Scope, 0, 0);
+                context.obtainStyledAttributes(attrs, R.styleable.Scope, 0, 0);
 
         textColour =
-            typedArray.getColor(R.styleable.Scope_TextColour,
-                                resources.getColor(android.R.color.black));
+                typedArray.getColor(R.styleable.Scope_TextColour,
+                        resources.getColor(android.R.color.black));
         typedArray.recycle();
 
         // Create paint
@@ -63,8 +62,7 @@ public class Scale extends View
 
     // onMeasure
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         // Get offered dimension
@@ -76,8 +74,7 @@ public class Scale extends View
 
     // onSizeChanged
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh)
-    {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
         // Get actual dimensions
@@ -86,8 +83,7 @@ public class Scale extends View
     }
 
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
         paint.setStrokeWidth(2);
         paint.setColor(textColour);
 
@@ -95,13 +91,11 @@ public class Scale extends View
         canvas.scale(1, -1);
 
         // Draw scale ticks
-        for (int i = 0; i < height; i += MainActivity.SIZE)
-        {
+        for (int i = 0; i < height; i += MainActivity.SIZE) {
             canvas.drawLine(width * 2 / 3, i, width, i, paint);
         }
 
-        for (int i = 0; i < height; i += MainActivity.SIZE * 5)
-        {
+        for (int i = 0; i < height; i += MainActivity.SIZE * 5) {
             canvas.drawLine(width / 3, i, width, i, paint);
         }
     }

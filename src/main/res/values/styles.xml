@@ -1,59 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+  <!--
+      Base application theme, dependent on API level. This theme is
+      replaced by AppBaseTheme from res/values-vXX/styles.xml on newer
+      devices.
+  -->
+  <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
     <!--
-        Base application theme, dependent on API level. This theme is
-        replaced by AppBaseTheme from res/values-vXX/styles.xml on newer
-        devices.
+        Theme customizations available in newer API levels can go in
+        res/values-vXX/styles.xml, while customizations related to
+        backward-compatibility can go here.
     -->
-    <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
-    </style>
+  </style>
 
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular
-             API-level can go here.
-        -->
+  <!-- Application theme. -->
+  <style name="AppTheme" parent="AppBaseTheme">
+    <!-- All customizations that are NOT specific to a particular
+         API-level can go here.
+    -->
 
-        <item name="pref_input">@drawable/ic_action_mic</item>
-        <item name="pref_fill">@drawable/ic_action_cloud</item>
-        <item name="pref_hold">@drawable/ic_action_upload</item>
-        <item name="pref_screen">@drawable/ic_action_brightness_low</item>
-        <item name="pref_dark">@drawable/ic_action_brightness_high</item>
-        <item name="pref_about">@drawable/ic_action_about</item>
+    <item name="pref_input">@drawable/ic_action_mic</item>
+    <item name="pref_fill">@drawable/ic_action_cloud</item>
+    <item name="pref_hold">@drawable/ic_action_upload</item>
+    <item name="pref_screen">@drawable/ic_action_brightness_low</item>
+    <item name="pref_dark">@drawable/ic_action_brightness_high</item>
+    <item name="pref_about">@drawable/ic_action_about</item>
 
-    </style>
+  </style>
 
+  <!--
+      Base application theme, dependent on API level. This theme is
+      replaced by AppDarkBaseTheme from res/values-vXX/styles.xml on
+      newer devices.
+  -->
+  <style name="AppDarkBaseTheme" parent="android:Theme.Holo">
     <!--
-        Base application theme, dependent on API level. This theme is
-        replaced by AppDarkBaseTheme from res/values-vXX/styles.xml on
-        newer devices.
+        Theme customizations available in newer API levels can go in
+        res/values-vXX/styles.xml, while customizations related to
+        backward-compatibility can go here.
     -->
-    <style name="AppDarkBaseTheme" parent="android:Theme.Holo">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
-    </style>
+  </style>
 
-    <!-- Application theme. -->
-    <style name="AppDarkTheme" parent="AppDarkBaseTheme">
-        <!-- All customizations that are NOT specific to a particular
-             API-level can go here.
-        -->
+  <!-- Application theme. -->
+  <style name="AppDarkTheme" parent="AppDarkBaseTheme">
+    <!-- All customizations that are NOT specific to a particular
+         API-level can go here.
+    -->
 
-        <item name="pref_input">@drawable/ic_action_mic_dark</item>
-        <item name="pref_fill">@drawable/ic_action_cloud_dark</item>
-        <item name="pref_hold">@drawable/ic_action_upload_dark</item>
-        <item name="pref_screen">@drawable/ic_action_brightness_low_dark</item>
-        <item name="pref_dark">@drawable/ic_action_brightness_high_dark</item>
-        <item name="pref_about">@drawable/ic_action_about_dark</item>
+    <item name="pref_input">@drawable/ic_action_mic_dark</item>
+    <item name="pref_fill">@drawable/ic_action_cloud_dark</item>
+    <item name="pref_hold">@drawable/ic_action_upload_dark</item>
+    <item name="pref_screen">@drawable/ic_action_brightness_low_dark</item>
+    <item name="pref_dark">@drawable/ic_action_brightness_high_dark</item>
+    <item name="pref_about">@drawable/ic_action_about_dark</item>
 
-    </style>
+  </style>
 
 </resources>

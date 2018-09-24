@@ -1,80 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/action_settings">
+                  android:title="@string/action_settings">
 
-    <PreferenceCategory
-        android:key="pref_input_category"
-        android:title="@string/pref_input_category">
+  <PreferenceCategory
+      android:key="pref_input_category"
+      android:title="@string/pref_input_category">
 
-        <ListPreference
-            android:defaultValue="@integer/def_input"
-            android:dialogIcon="?attr/pref_input"
-            android:entries="@array/pref_input_entries"
-            android:entryValues="@array/pref_input_entry_values"
-            android:icon="?attr/pref_input"
-            android:key="pref_input"
-            android:summary="@string/pref_input_summ"
-            android:title="@string/pref_input" />
+    <ListPreference
+        android:defaultValue="@integer/def_input"
+        android:dialogIcon="?attr/pref_input"
+        android:entries="@array/pref_input_entries"
+        android:entryValues="@array/pref_input_entry_values"
+        android:icon="?attr/pref_input"
+        android:key="pref_input"
+        android:summary="@string/pref_input_summ"
+        android:title="@string/pref_input" />
 
-    </PreferenceCategory>
+  </PreferenceCategory>
 
-    <PreferenceCategory
-        android:key="pref_display_category"
-        android:title="@string/pref_display">
+  <PreferenceCategory
+      android:key="pref_display_category"
+      android:title="@string/pref_display">
 
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:icon="?attr/pref_fill"
-            android:key="pref_fill"
-            android:persistent="true"
-            android:summary="@string/pref_fill_summ"
-            android:title="@string/pref_fill" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="?attr/pref_fill"
+        android:key="pref_fill"
+        android:persistent="true"
+        android:summary="@string/pref_fill_summ"
+        android:title="@string/pref_fill" />
 
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:icon="?attr/pref_hold"
-            android:key="pref_hold"
-            android:persistent="true"
-            android:summary="@string/pref_hold_summ"
-            android:title="@string/pref_hold" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="?attr/pref_hold"
+        android:key="pref_hold"
+        android:persistent="true"
+        android:summary="@string/pref_hold_summ"
+        android:title="@string/pref_hold" />
 
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:icon="?attr/pref_screen"
-            android:key="pref_screen"
-            android:persistent="true"
-            android:summary="@string/pref_screen_summ"
-            android:title="@string/pref_screen" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:icon="?attr/pref_screen"
+        android:key="pref_screen"
+        android:persistent="true"
+        android:summary="@string/pref_screen_summ"
+        android:title="@string/pref_screen" />
 
-    </PreferenceCategory>
+  </PreferenceCategory>
 
-    <PreferenceCategory
-        android:key="pref_theme_category"
-        android:title="@string/pref_theme">
+  <PreferenceCategory
+      android:key="pref_theme_category"
+      android:title="@string/pref_theme">
 
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:icon="?attr/pref_dark"
-            android:key="pref_dark"
-            android:persistent="true"
-            android:summary="@string/pref_dark_summ"
-            android:title="@string/pref_dark" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:icon="?attr/pref_dark"
+        android:key="pref_dark"
+        android:persistent="true"
+        android:summary="@string/pref_dark_summ"
+        android:title="@string/pref_dark" />
 
-    </PreferenceCategory>
+  </PreferenceCategory>
 
-    <PreferenceCategory
-        android:key="pref_about_category"
-        android:title="@string/pref_about">
+  <PreferenceCategory
+      android:key="pref_about_category"
+      android:title="@string/pref_about">
 
-        <org.billthefarmer.scope.AboutPreference
-            android:dialogIcon="?attr/pref_about"
-            android:dialogLayout="@layout/about_dialog"
-            android:icon="?attr/pref_about"
-            android:key="pref_about"
-            android:negativeButtonText=""
-            android:summary="@string/pref_about_summ"
-            android:title="@string/pref_about" />
+    <org.billthefarmer.scope.AboutPreference
+        android:dialogIcon="?attr/pref_about"
+        android:dialogLayout="@layout/about_dialog"
+        android:icon="?attr/pref_about"
+        android:key="pref_about"
+        android:negativeButtonText=""
+        android:summary="@string/pref_about_summ"
+        android:title="@string/pref_about" />
 
-    </PreferenceCategory>
+  </PreferenceCategory>
 
 </PreferenceScreen>

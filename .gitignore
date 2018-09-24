@@ -8,3 +8,4 @@ local.properties
 .classpath
 .project
 jni/
+*.orig

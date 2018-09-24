@@ -1,136 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AlwaysShowAction">
 
-  <item
-      android:id="@+id/bright"
-      android:showAsAction="always"
-      android:title="@string/action_bright_line"
-      android:icon="@drawable/action_bright" />
+    <item
+        android:id="@+id/bright"
+        android:icon="@drawable/action_bright"
+        android:showAsAction="always"
+        android:title="@string/action_bright_line" />
 
-  <item
-      android:id="@+id/single"
-      android:showAsAction="always"
-      android:title="@string/action_single_shot"
-      android:icon="@drawable/action_single" />
+    <item
+        android:id="@+id/single"
+        android:icon="@drawable/action_single"
+        android:showAsAction="always"
+        android:title="@string/action_single_shot" />
 
-  <item
-      android:id="@+id/trigger"
-      android:showAsAction="always"
-      android:title="@string/action_trigger"
-      android:icon="@drawable/ic_action_repeat" />
+    <item
+        android:id="@+id/trigger"
+        android:icon="@drawable/ic_action_repeat"
+        android:showAsAction="always"
+        android:title="@string/action_trigger" />
 
-  <item
-      android:id="@+id/timebase"
-      android:showAsAction="always"
-      android:title="@string/action_timebase"
-      android:icon="@drawable/ic_action_time" >
+    <item
+        android:id="@+id/timebase"
+        android:icon="@drawable/ic_action_time"
+        android:showAsAction="always"
+        android:title="@string/action_timebase">
 
-    <menu>
-      <group
-	  android:checkableBehavior="single" >
+        <menu>
+            <group android:checkableBehavior="single">
 
-	<item
-	    android:id="@+id/tb0_1ms"
-	    android:title="@string/tb0.1ms" />
+                <item
+                    android:id="@+id/tb0_1ms"
+                    android:title="@string/tb0.1ms" />
 
-	<item
-	    android:id="@+id/tb0_2ms"
-	    android:title="@string/tb0.2ms" />
+                <item
+                    android:id="@+id/tb0_2ms"
+                    android:title="@string/tb0.2ms" />
 
-	<item
-	    android:id="@+id/tb0_5ms"
-	    android:title="@string/tb0.5ms" />
+                <item
+                    android:id="@+id/tb0_5ms"
+                    android:title="@string/tb0.5ms" />
 
-	<item
-	    android:id="@+id/tb1_0ms"
-	    android:checked="true"
-	    android:title="@string/tb1.0ms" />
+                <item
+                    android:id="@+id/tb1_0ms"
+                    android:checked="true"
+                    android:title="@string/tb1.0ms" />
 
-	<item
-	    android:id="@+id/tb2_0ms"
-	    android:title="@string/tb2.0ms" />
+                <item
+                    android:id="@+id/tb2_0ms"
+                    android:title="@string/tb2.0ms" />
 
-	<item
-	    android:id="@+id/tb5_0ms"
-	    android:title="@string/tb5.0ms" />
+                <item
+                    android:id="@+id/tb5_0ms"
+                    android:title="@string/tb5.0ms" />
 
-	<item
-	    android:id="@+id/tb10ms"
-	    android:title="@string/tb10ms" />
+                <item
+                    android:id="@+id/tb10ms"
+                    android:title="@string/tb10ms" />
 
-	<item
-	    android:id="@+id/tb20ms"
-	    android:title="@string/tb20ms" />
+                <item
+                    android:id="@+id/tb20ms"
+                    android:title="@string/tb20ms" />
 
-	<item
-	    android:id="@+id/tb50ms"
-	    android:title="@string/tb50ms" />
+                <item
+                    android:id="@+id/tb50ms"
+                    android:title="@string/tb50ms" />
 
-	<item
-	    android:id="@+id/tb0_1sec"
-	    android:title="@string/tb0.1sec" />
+                <item
+                    android:id="@+id/tb0_1sec"
+                    android:title="@string/tb0.1sec" />
 
-	<item
-	    android:id="@+id/tb0_2sec"
-	    android:title="@string/tb0.2sec" />
+                <item
+                    android:id="@+id/tb0_2sec"
+                    android:title="@string/tb0.2sec" />
 
-	<item
-	    android:id="@+id/tb0_5sec"
-	    android:title="@string/tb0.5sec" />
+                <item
+                    android:id="@+id/tb0_5sec"
+                    android:title="@string/tb0.5sec" />
 
-      </group>
-    </menu>
-  </item>
+            </group>
+        </menu>
+    </item>
 
-  <item
-      android:id="@+id/storage"
-      android:showAsAction="always"
-      android:title="@string/action_storage"
-      android:icon="@drawable/action_storage" />
+    <item
+        android:id="@+id/storage"
+        android:icon="@drawable/action_storage"
+        android:showAsAction="always"
+        android:title="@string/action_storage" />
 
-  <item
-      android:id="@+id/clear"
-      android:showAsAction="always"
-      android:title="@string/action_clear"
-      android:icon="@drawable/ic_action_refresh" />
+    <item
+        android:id="@+id/clear"
+        android:icon="@drawable/ic_action_refresh"
+        android:showAsAction="always"
+        android:title="@string/action_clear" />
 
-  <item
-      android:id="@+id/left"
-      android:showAsAction="always"
-      android:title="@string/action_left"
-      android:icon="@drawable/ic_action_previous_item" />
+    <item
+        android:id="@+id/left"
+        android:icon="@drawable/ic_action_previous_item"
+        android:showAsAction="always"
+        android:title="@string/action_left" />
 
-  <item
-      android:id="@+id/right"
-      android:showAsAction="always"
-      android:title="@string/action_right"
-      android:icon="@drawable/ic_action_next_item" />
+    <item
+        android:id="@+id/right"
+        android:icon="@drawable/ic_action_next_item"
+        android:showAsAction="always"
+        android:title="@string/action_right" />
 
-  <item
-      android:id="@+id/start"
-      android:showAsAction="always"
-      android:title="@string/action_start"
-      android:icon="@drawable/ic_action_back" />
+    <item
+        android:id="@+id/start"
+        android:icon="@drawable/ic_action_back"
+        android:showAsAction="always"
+        android:title="@string/action_start" />
 
-  <item
-      android:id="@+id/end"
-      android:showAsAction="always"
-      android:title="@string/action_end"
-      android:icon="@drawable/ic_action_forward" />
+    <item
+        android:id="@+id/end"
+        android:icon="@drawable/ic_action_forward"
+        android:showAsAction="always"
+        android:title="@string/action_end" />
 
-  <item
-      android:id="@+id/action_spectrum"
-      android:showAsAction="always"
-      android:title="@string/action_spectrum"
-      android:icon="@drawable/ic_action_network_cell" />
+    <item
+        android:id="@+id/action_spectrum"
+        android:icon="@drawable/ic_action_network_cell"
+        android:showAsAction="always"
+        android:title="@string/action_spectrum" />
 
-  <item
-      android:id="@+id/action_settings"
-      android:showAsAction="always"
-      android:title="@string/action_settings"
-      android:icon="@drawable/ic_action_settings" />
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_action_settings"
+        android:showAsAction="always"
+        android:title="@string/action_settings" />
 
 </menu>

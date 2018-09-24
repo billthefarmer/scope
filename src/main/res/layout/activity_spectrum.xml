@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="RtlHardcoded" >
+    tools:ignore="RtlHardcoded">
 
-  <org.billthefarmer.scope.Scale
-      android:id="@+id/scale"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:layout_alignParentLeft="true" 
-      android:layout_alignParentTop="true"
-      android:layout_alignBottom="@+id/spectrum"
-      app:TextColour="?android:attr/textColorPrimary"
-      app:BackgroundColour="?android:attr/colorBackground" />
+    <org.billthefarmer.scope.Scale
+        android:id="@+id/scale"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/spectrum"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        app:BackgroundColour="?android:attr/colorBackground"
+        app:TextColour="?android:attr/textColorPrimary" />
 
-  <org.billthefarmer.scope.Spectrum
-      android:id="@id/spectrum"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_above="@+id/freqscale"
-      android:layout_alignParentTop="true"
-      android:layout_alignParentRight="true"
-      android:layout_toRightOf="@id/scale" />
+    <org.billthefarmer.scope.Spectrum
+        android:id="@id/spectrum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/freqscale"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/scale" />
 
-  <org.billthefarmer.scope.FreqScale
-      android:id="@id/freqscale"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignLeft="@id/spectrum"
-      android:layout_alignParentRight="true"
-      android:layout_alignParentBottom="true"
-      app:TextColour="?android:attr/textColorPrimary"
-      app:BackgroundColour="?android:attr/colorBackground" />
+    <org.billthefarmer.scope.FreqScale
+        android:id="@id/freqscale"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/spectrum"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:BackgroundColour="?android:attr/colorBackground"
+        app:TextColour="?android:attr/textColorPrimary" />
 
-  <org.billthefarmer.scope.Unit
-      android:id="@+id/specunit"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/scale"
-      android:layout_toLeftOf="@id/freqscale"
-      android:layout_alignParentLeft="true"
-      android:layout_alignParentBottom="true"
-      app:TextColour="?android:attr/textColorPrimary"
-      app:BackgroundColour="?android:attr/colorBackground" />
+    <org.billthefarmer.scope.Unit
+        android:id="@+id/specunit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/scale"
+        android:layout_toLeftOf="@id/freqscale"
+        app:BackgroundColour="?android:attr/colorBackground"
+        app:TextColour="?android:attr/textColorPrimary" />
 
 </RelativeLayout>

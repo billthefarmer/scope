@@ -35,8 +35,7 @@ import android.view.View;
 import java.util.Locale;
 
 // Spectrum
-public class Spectrum extends View
-{
+public class Spectrum extends View {
     private int width;
     private int height;
 
@@ -51,8 +50,7 @@ public class Spectrum extends View
     protected SpectrumActivity.Audio audio;
 
     // Spectrum
-    public Spectrum(Context context, AttributeSet attrs)
-    {
+    public Spectrum(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         // Create paths and paint
@@ -63,8 +61,7 @@ public class Spectrum extends View
 
     // On size changed
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh)
-    {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
         // Get dimensions
@@ -74,25 +71,22 @@ public class Spectrum extends View
 
     // On draw
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
         // Check for data
-        if ((audio == null) || (audio.xa == null))
-        {
+        if ((audio == null) || (audio.xa == null)) {
             canvas.drawColor(Color.BLACK);
             return;
         }
 
         // Calculate x scale
-        float xscale = (float)Math.log(audio.xa.length) / width;
+        float xscale = (float) Math.log(audio.xa.length) / width;
 
         // Create graticule
         if (graticule == null || graticule.getWidth() != width ||
-                graticule.getHeight() != height)
-        {
+                graticule.getHeight() != height) {
             // Create a bitmap for the graticule
             graticule = Bitmap.createBitmap(width, height,
-                                            Bitmap.Config.ARGB_8888);
+                    Bitmap.Config.ARGB_8888);
             Canvas c = new Canvas(graticule);
 
             // Black background
@@ -106,19 +100,16 @@ public class Spectrum extends View
 
             // Draw graticule
             float fa[] = {1, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f,
-                          1.9f, 2, 2.2f, 2.5f, 3, 3.5f, 4, 4.5f, 5, 6, 7, 8, 9};
+                    1.9f, 2, 2.2f, 2.5f, 3, 3.5f, 4, 4.5f, 5, 6, 7, 8, 9};
             float ma[] = {1, 10, 100, 1000, 10000};
-            for (float m : ma)
-            {
-                for (float f : fa)
-                {
+            for (float m : ma) {
+                for (float f : fa) {
                     float x = (float) Math.log((f * m) / audio.fps) / xscale;
                     c.drawLine(x, 0, x, height, paint);
                 }
             }
 
-            for (int i = 0; i < height; i += MainActivity.SIZE)
-            {
+            for (int i = 0; i < height; i += MainActivity.SIZE) {
                 c.drawLine(0, i, width, i, paint);
             }
         }
@@ -143,25 +134,21 @@ public class Spectrum extends View
         path.rewind();
         path.moveTo(0, 0);
 
-        if (audio.hold)
-        {
+        if (audio.hold) {
             // Create trace
             int last = 1;
-            for (int x = 0; x < width; x++)
-            {
+            for (int x = 0; x < width; x++) {
                 float value = 0.0f;
 
-                int index = (int)Math.round(Math.pow(Math.E, x * xscale));
+                int index = (int) Math.round(Math.pow(Math.E, x * xscale));
                 if (index == last)
                     continue;
 
-                for (int i = last; i <= index; i++)
-                {
+                for (int i = last; i <= index; i++) {
                     // Don't show DC component and don't overflow
-                    if (i > 0 && i < audio.xm.length)
-                    {
+                    if (i > 0 && i < audio.xm.length) {
                         if (value < audio.xm[i])
-                            value = (float)audio.xm[i];
+                            value = (float) audio.xm[i];
                     }
                 }
 
@@ -180,8 +167,7 @@ public class Spectrum extends View
             paint.setAntiAlias(true);
 
             // Fill
-            if (audio.fill)
-            {
+            if (audio.fill) {
                 // Copy path
                 fillPath.set(path);
 
@@ -211,21 +197,18 @@ public class Spectrum extends View
 
         // Create trace
         int last = 1;
-        for (int x = 0; x < width; x++)
-        {
+        for (int x = 0; x < width; x++) {
             float value = 0.0f;
 
-            int index = (int)Math.round(Math.pow(Math.E, x * xscale));
+            int index = (int) Math.round(Math.pow(Math.E, x * xscale));
             if (index == last)
                 continue;
 
-            for (int i = last; i <= index; i++)
-            {
+            for (int i = last; i <= index; i++) {
                 // Don't show DC component and don't overflow
-                if (i > 0 && i < audio.xa.length)
-                {
+                if (i > 0 && i < audio.xa.length) {
                     if (value < audio.xa[i])
-                        value = (float)audio.xa[i];
+                        value = (float) audio.xa[i];
                 }
             }
 
@@ -244,8 +227,7 @@ public class Spectrum extends View
         paint.setAntiAlias(true);
 
         // Fill
-        if (audio.fill)
-        {
+        if (audio.fill) {
             // Copy path
             fillPath.set(path);
 
@@ -268,20 +250,19 @@ public class Spectrum extends View
         // Draw path
         canvas.drawPath(path, paint);
 
-        if (audio.frequency > 0.0)
-        {
+        if (audio.frequency > 0.0) {
             // Yellow pen for frequency trace
             paint.setColor(Color.YELLOW);
 
             // Create line for frequency
-            float x = (float)Math.log(audio.frequency / audio.fps) / xscale;
+            float x = (float) Math.log(audio.frequency / audio.fps) / xscale;
             paint.setAntiAlias(false);
             canvas.drawLine(x, 0, x, height, paint);
 
             // Draw frequency value
             canvas.scale(1, -1);
             String s = String.format(Locale.getDefault(), "%1.1fHz",
-                                     audio.frequency);
+                    audio.frequency);
             paint.setTextSize(height / 48);
             paint.setTextAlign(Paint.Align.CENTER);
             paint.setAntiAlias(true);

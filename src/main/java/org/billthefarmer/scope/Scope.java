@@ -36,8 +36,7 @@ import android.view.View;
 import java.util.Locale;
 
 // Scope
-public class Scope extends View
-{
+public class Scope extends View {
     private int width;
     private int height;
 
@@ -61,8 +60,7 @@ public class Scope extends View
     protected MainActivity.Audio audio;
 
     // Scope
-    public Scope(Context context, AttributeSet attrs)
-    {
+    public Scope(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         // Create path and paint
@@ -72,8 +70,7 @@ public class Scope extends View
 
     // On size changed
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh)
-    {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
         // Get dimensions
@@ -86,7 +83,7 @@ public class Scope extends View
 
         // Create a bitmap for the graticule
         graticule = Bitmap.createBitmap(width, height,
-                                        Bitmap.Config.ARGB_8888);
+                Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(graticule);
 
         // Black background
@@ -103,8 +100,7 @@ public class Scope extends View
 
         canvas.translate(0, height / 2);
 
-        for (int i = 0; i < height / 2; i += MainActivity.SIZE)
-        {
+        for (int i = 0; i < height / 2; i += MainActivity.SIZE) {
             canvas.drawLine(0, i, width, i, paint);
             canvas.drawLine(0, -i, width, -i, paint);
         }
@@ -119,37 +115,34 @@ public class Scope extends View
 
     // On draw
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
         // Check for data
-        if ((audio == null) || (audio.data == null))
-        {
+        if ((audio == null) || (audio.data == null)) {
             canvas.drawBitmap(graticule, 0, 0, null);
             return;
         }
 
         // Draw the graticule on the bitmap
-        if (!storage || clear)
-        {
+        if (!storage || clear) {
             cb.drawBitmap(graticule, 0, -height / 2, null);
             clear = false;
         }
 
         // Calculate x scale etc
-        float xscale = (float)(2.0 / ((audio.sample / 100000.0) * scale));
+        float xscale = (float) (2.0 / ((audio.sample / 100000.0) * scale));
         int xstart = Math.round(start);
-        int xstep = Math.round((float)1.0 / xscale);
-        int xstop = Math.round(xstart + ((float)width / xscale));
+        int xstep = Math.round((float) 1.0 / xscale);
+        int xstop = Math.round(xstart + ((float) width / xscale));
 
         if (xstop > audio.length)
-            xstop = (int)audio.length;
+            xstop = (int) audio.length;
 
         // Calculate y scale
 
         if (max < 4096)
             max = 4096;
 
-        yscale = (float)(max / (height / 2.0));
+        yscale = (float) (max / (height / 2.0));
 
         max = 0;
 
@@ -157,33 +150,26 @@ public class Scope extends View
         path.rewind();
         path.moveTo(0, 0);
 
-        if (xscale < 1.0)
-        {
-            for (int i = 0; i < xstop - xstart; i += xstep)
-            {
+        if (xscale < 1.0) {
+            for (int i = 0; i < xstop - xstart; i += xstep) {
                 if (max < Math.abs(audio.data[i + xstart]))
                     max = Math.abs(audio.data[i + xstart]);
 
-                float x = (float)i * xscale;
-                float y = -(float)audio.data[i + xstart] / yscale;
+                float x = (float) i * xscale;
+                float y = -(float) audio.data[i + xstart] / yscale;
                 path.lineTo(x, y);
             }
-        }
-
-        else
-        {
-            for (int i = 0; i < xstop - xstart; i++)
-            {
+        } else {
+            for (int i = 0; i < xstop - xstart; i++) {
                 if (max < Math.abs(audio.data[i + xstart]))
                     max = Math.abs(audio.data[i + xstart]);
 
-                float x = (float)i * xscale;
-                float y = -(float)audio.data[i + xstart] / yscale;
+                float x = (float) i * xscale;
+                float y = -(float) audio.data[i + xstart] / yscale;
                 path.lineTo(x, y);
 
                 // Draw points at max resolution
-                if (points)
-                {
+                if (points) {
                     path.addRect(x - 2, y - 2, x + 2, y + 2, Path.Direction.CW);
                     path.moveTo(x, y);
                 }
@@ -196,8 +182,7 @@ public class Scope extends View
         cb.drawPath(path, paint);
 
         // Draw index
-        if (index > 0 && index < width)
-        {
+        if (index > 0 && index < width) {
             // Yellow index
             paint.setColor(Color.YELLOW);
 
@@ -210,35 +195,30 @@ public class Scope extends View
 
             // Get value
             int i = Math.round(index / xscale);
-            if (i + xstart < audio.length)
-            {
+            if (i + xstart < audio.length) {
                 float y = -audio.data[i + xstart] / yscale;
 
                 // Draw value
 
                 String s = String.format(Locale.getDefault(), "%3.2f",
-                                         audio.data[i + xstart] / 32768.0);
+                        audio.data[i + xstart] / 32768.0);
                 cb.drawText(s, index, y, paint);
             }
 
             paint.setTextAlign(Paint.Align.CENTER);
 
             // Draw time value
-            if (scale < 100.0)
-            {
+            if (scale < 100.0) {
                 String s = String.format(Locale.getDefault(),
-                                         (scale < 1.0) ? "%3.3f" :
-                                         (scale < 10.0) ? "%3.2f" : "%3.1f",
-                                         (start + (index * scale)) /
-                                         MainActivity.SMALL_SCALE);
+                        (scale < 1.0) ? "%3.3f" :
+                                (scale < 10.0) ? "%3.2f" : "%3.1f",
+                        (start + (index * scale)) /
+                                MainActivity.SMALL_SCALE);
                 cb.drawText(s, index, height / 2, paint);
-            }
-
-            else
-            {
+            } else {
                 String s = String.format(Locale.getDefault(), "%3.3f",
-                                         (start + (index * scale)) /
-                                         MainActivity.LARGE_SCALE);
+                        (start + (index * scale)) /
+                                MainActivity.LARGE_SCALE);
                 cb.drawText(s, index, height / 2, paint);
             }
         }
@@ -248,25 +228,23 @@ public class Scope extends View
 
     // On touch event
     @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
+    public boolean onTouchEvent(MotionEvent event) {
         float x = event.getX();
         float y = event.getY();
 
         // Set the index from the touch dimension
-        switch (event.getAction())
-        {
-        case MotionEvent.ACTION_DOWN:
-            index = x;
-            break;
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                index = x;
+                break;
 
-        case MotionEvent.ACTION_MOVE:
-            index = x;
-            break;
+            case MotionEvent.ACTION_MOVE:
+                index = x;
+                break;
 
-        case MotionEvent.ACTION_UP:
-            index = x;
-            break;
+            case MotionEvent.ACTION_UP:
+                index = x;
+                break;
         }
 
         return true;

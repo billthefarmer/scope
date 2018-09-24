@@ -33,9 +33,9 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
 // YScale
-public class YScale extends View
-{
+public class YScale extends View {
     private static final int WIDTH_FRACTION = 24;
 
     private int width;
@@ -50,18 +50,17 @@ public class YScale extends View
 
     // YScale
     @SuppressWarnings("deprecation")
-    public YScale(Context context, AttributeSet attrs)
-    {
+    public YScale(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         Resources resources = getResources();
 
         final TypedArray typedArray =
-            context.obtainStyledAttributes(attrs, R.styleable.Scope, 0, 0);
+                context.obtainStyledAttributes(attrs, R.styleable.Scope, 0, 0);
 
         textColour =
-            typedArray.getColor(R.styleable.Scope_TextColour,
-                                resources.getColor(android.R.color.black));
+                typedArray.getColor(R.styleable.Scope_TextColour,
+                        resources.getColor(android.R.color.black));
         typedArray.recycle();
 
         // Create paint
@@ -71,8 +70,7 @@ public class YScale extends View
 
     // onMeasure
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         // Get offered dimension
@@ -84,8 +82,7 @@ public class YScale extends View
 
     // onSizeChanged
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh)
-    {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
         // Get actual dimensions
@@ -111,8 +108,7 @@ public class YScale extends View
 
     // onDraw
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(2);
         paint.setColor(textColour);
@@ -120,21 +116,18 @@ public class YScale extends View
         canvas.translate(0, height / 2);
 
         // Draw scale ticks
-        for (int i = 0; i < height / 2; i += MainActivity.SIZE)
-        {
+        for (int i = 0; i < height / 2; i += MainActivity.SIZE) {
             canvas.drawLine(width * 2 / 3, i, width, i, paint);
             canvas.drawLine(width * 2 / 3, -i, width, -i, paint);
         }
 
-        for (int i = 0; i < height / 2; i += MainActivity.SIZE * 5)
-        {
+        for (int i = 0; i < height / 2; i += MainActivity.SIZE * 5) {
             canvas.drawLine(width / 3, i, width, i, paint);
             canvas.drawLine(width / 3, -i, width, -i, paint);
         }
 
         // Draw sync level thumb if not zero
-        if (index != 0)
-        {
+        if (index != 0) {
             canvas.translate(width / 3, index);
             paint.setStyle(Paint.Style.FILL);
             canvas.drawPath(thumb, paint);
@@ -143,25 +136,23 @@ public class YScale extends View
 
     // On touch event
     @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
+    public boolean onTouchEvent(MotionEvent event) {
         float x = event.getX();
         float y = event.getY();
 
         // Set the index from the touch dimension
-        switch (event.getAction())
-        {
-        case MotionEvent.ACTION_DOWN:
-            index = y - (height / 2);
-            break;
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                index = y - (height / 2);
+                break;
 
-        case MotionEvent.ACTION_MOVE:
-            index = y - (height / 2);
-            break;
+            case MotionEvent.ACTION_MOVE:
+                index = y - (height / 2);
+                break;
 
-        case MotionEvent.ACTION_UP:
-            index = y - (height / 2);
-            break;
+            case MotionEvent.ACTION_UP:
+                index = y - (height / 2);
+                break;
         }
 
         invalidate();

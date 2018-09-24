@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="RtlHardcoded" >
+    tools:ignore="RtlHardcoded">
 
-  <org.billthefarmer.scope.YScale
-      android:id="@+id/yscale"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:layout_alignParentLeft="true" 
-      android:layout_alignParentTop="true"
-      android:layout_alignBottom="@+id/scope"
-      app:TextColour="?android:attr/textColorPrimary"
-      app:BackgroundColour="?android:attr/colorBackground" />
+    <org.billthefarmer.scope.YScale
+        android:id="@+id/yscale"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/scope"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        app:BackgroundColour="?android:attr/colorBackground"
+        app:TextColour="?android:attr/textColorPrimary" />
 
-  <org.billthefarmer.scope.Scope
-      android:id="@id/scope"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_above="@+id/xscale"
-      android:layout_alignParentTop="true"
-      android:layout_alignParentRight="true"
-      android:layout_toRightOf="@id/yscale" />
+    <org.billthefarmer.scope.Scope
+        android:id="@id/scope"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/xscale"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/yscale" />
 
-  <org.billthefarmer.scope.XScale
-      android:id="@id/xscale"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignLeft="@id/scope"
-      android:layout_alignParentRight="true"
-      android:layout_alignParentBottom="true"
-      app:TextColour="?android:attr/textColorPrimary"
-      app:BackgroundColour="?android:attr/colorBackground" />
+    <org.billthefarmer.scope.XScale
+        android:id="@id/xscale"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/scope"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:BackgroundColour="?android:attr/colorBackground"
+        app:TextColour="?android:attr/textColorPrimary" />
 
-  <org.billthefarmer.scope.Unit
-      android:id="@+id/unit"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/yscale"
-      android:layout_toLeftOf="@id/xscale"
-      android:layout_alignParentLeft="true"
-      android:layout_alignParentBottom="true"
-      app:TextColour="?android:attr/textColorPrimary"
-      app:BackgroundColour="?android:attr/colorBackground" />
+    <org.billthefarmer.scope.Unit
+        android:id="@+id/unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/yscale"
+        android:layout_toLeftOf="@id/xscale"
+        app:BackgroundColour="?android:attr/colorBackground"
+        app:TextColour="?android:attr/textColorPrimary" />
 
 </RelativeLayout>

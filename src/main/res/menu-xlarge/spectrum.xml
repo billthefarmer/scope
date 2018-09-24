@@ -1,21 +1,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <item
-      android:id="@+id/action_lock"
-      android:showAsAction="always"
-      android:title="@string/action_lock"
-      android:icon="@drawable/action_lock" />
+    <item
+        android:id="@+id/action_lock"
+        android:icon="@drawable/action_lock"
+        android:showAsAction="always"
+        android:title="@string/action_lock" />
 
-  <item
-      android:id="@+id/action_help"
-      android:showAsAction="always"
-      android:title="@string/action_help"
-      android:icon="@drawable/ic_action_help" />
+    <item
+        android:id="@+id/action_help"
+        android:icon="@drawable/ic_action_help"
+        android:showAsAction="always"
+        android:title="@string/action_help" />
 
-  <item
-      android:id="@+id/action_settings"
-      android:showAsAction="always"
-      android:title="@string/action_settings"
-      android:icon="@drawable/ic_action_settings" />
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_action_settings"
+        android:showAsAction="always"
+        android:title="@string/action_settings" />
 
 </menu>

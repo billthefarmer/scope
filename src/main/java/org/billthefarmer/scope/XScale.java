@@ -34,7 +34,8 @@ import android.view.View;
 import java.util.Locale;
 
 // XScale
-public class XScale extends View {
+public class XScale extends View
+{
     private static final int HEIGHT_FRACTION = 32;
 
     protected float step;
@@ -49,17 +50,18 @@ public class XScale extends View {
 
     // XScale
     @SuppressWarnings("deprecation")
-    public XScale(Context context, AttributeSet attrs) {
+    public XScale(Context context, AttributeSet attrs)
+    {
         super(context, attrs);
 
         Resources resources = getResources();
 
         final TypedArray typedArray =
-                context.obtainStyledAttributes(attrs, R.styleable.Scope, 0, 0);
+            context.obtainStyledAttributes(attrs, R.styleable.Scope, 0, 0);
 
         textColour =
-                typedArray.getColor(R.styleable.Scope_TextColour,
-                        resources.getColor(android.R.color.black));
+            typedArray.getColor(R.styleable.Scope_TextColour,
+                                resources.getColor(android.R.color.black));
         typedArray.recycle();
 
         // Create paint
@@ -73,7 +75,8 @@ public class XScale extends View {
 
     // onMeasure
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         // Get offered dimension
@@ -85,7 +88,8 @@ public class XScale extends View {
 
     // onSizeChanged
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh)
+    {
         super.onSizeChanged(w, h, oldw, oldh);
 
         // Get actual dimensions
@@ -95,7 +99,8 @@ public class XScale extends View {
 
     // onDraw
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas)
+    {
         // Set up paint
         paint.setStrokeWidth(2);
         paint.setColor(textColour);
@@ -113,24 +118,29 @@ public class XScale extends View {
         paint.setTextAlign(Paint.Align.CENTER);
 
         // Draw scale
-        if (scale < 100.0) {
+        if (scale < 100.0)
+        {
             canvas.drawText("ms", 0, height - (height / 6), paint);
 
             for (int i = MainActivity.SIZE * 10; i < width;
-                 i += MainActivity.SIZE * 10) {
+                    i += MainActivity.SIZE * 10)
+            {
                 String s = String.format(Locale.getDefault(),
-                        "%1.1f", (start + (i * scale)) /
-                                MainActivity.SMALL_SCALE);
+                                         "%1.1f", (start + (i * scale)) /
+                                         MainActivity.SMALL_SCALE);
                 canvas.drawText(s, i, height - (height / 8), paint);
             }
-        } else {
+        }
+        else
+        {
             canvas.drawText("sec", 0, height - (height / 6), paint);
 
             for (int i = MainActivity.SIZE * 10; i < width;
-                 i += MainActivity.SIZE * 10) {
+                    i += MainActivity.SIZE * 10)
+            {
                 String s = String.format(Locale.getDefault(),
-                        "%1.1f", (start + (i * scale)) /
-                                MainActivity.LARGE_SCALE);
+                                         "%1.1f", (start + (i * scale)) /
+                                         MainActivity.LARGE_SCALE);
                 canvas.drawText(s, i, height - (height / 8), paint);
             }
         }

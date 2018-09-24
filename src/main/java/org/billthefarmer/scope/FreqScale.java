@@ -34,7 +34,8 @@ import android.view.View;
 import java.util.Locale;
 
 // FreqScale
-public class FreqScale extends View {
+public class FreqScale extends View
+{
     private static final int HEIGHT_FRACTION = 32;
 
     private int width;
@@ -47,16 +48,17 @@ public class FreqScale extends View {
 
     // Constructor
     @SuppressWarnings("deprecation")
-    public FreqScale(Context context, AttributeSet attrs) {
+    public FreqScale(Context context, AttributeSet attrs)
+    {
         super(context, attrs);
 
         Resources resources = getResources();
 
         final TypedArray typedArray = context.obtainStyledAttributes(attrs,
-                R.styleable.Scope, 0, 0);
+                                      R.styleable.Scope, 0, 0);
 
         textColour = typedArray.getColor(R.styleable.Scope_TextColour,
-                resources.getColor(android.R.color.black));
+                                         resources.getColor(android.R.color.black));
         typedArray.recycle();
 
         // Create paint
@@ -65,7 +67,8 @@ public class FreqScale extends View {
 
     // onMeasure
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         // Get offered dimension
@@ -76,7 +79,8 @@ public class FreqScale extends View {
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh)
+    {
         super.onSizeChanged(w, h, oldw, oldh);
 
         // Get actual dimensions
@@ -86,9 +90,11 @@ public class FreqScale extends View {
 
     // onDraw
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas)
+    {
         // Check for data
-        if ((audio != null) && (audio.xa != null)) {
+        if ((audio != null) && (audio.xa != null))
+        {
             // Calculate scale
             float scale = (float) Math.log(audio.xa.length) / (float) width;
 
@@ -103,10 +109,13 @@ public class FreqScale extends View {
 
             float fa[] = {1, 2, 5};
             float sa[] = {1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f,
-                    1.9f, 2.2f, 2.5f, 3, 3.5f, 4, 4.5f, 6, 7, 8, 9};
+                          1.9f, 2.2f, 2.5f, 3, 3.5f, 4, 4.5f, 6, 7, 8, 9
+                         };
             float ma[] = {10, 100, 1000, 10000};
-            for (float m : ma) {
-                for (float f : fa) {
+            for (float m : ma)
+            {
+                for (float f : fa)
+                {
                     if ((f == 1) && (m == 10))
                         continue;
 
@@ -116,18 +125,19 @@ public class FreqScale extends View {
                     String s;
                     if (m >= 1000)
                         s = String.format(Locale.getDefault(),
-                                "%1.0fK", f * m / 1000);
+                                          "%1.0fK", f * m / 1000);
 
                     else
                         s = String.format(Locale.getDefault(),
-                                "%1.0f", f * m);
+                                          "%1.0f", f * m);
 
                     paint.setAntiAlias(true);
                     canvas.drawText(s, x, height - (height / 6), paint);
                     paint.setAntiAlias(false);
                 }
 
-                for (float s : sa) {
+                for (float s : sa)
+                {
                     float x = (float) Math.log((s * m) / audio.fps) / scale;
                     canvas.drawLine(x, 0, x, height / 4, paint);
                 }

@@ -36,7 +36,8 @@ import android.preference.PreferenceScreen;
 // SettingsFragment
 @SuppressWarnings("deprecation")
 public class SettingsFragment extends android.preference.PreferenceFragment
-        implements SharedPreferences.OnSharedPreferenceChangeListener {
+    implements SharedPreferences.OnSharedPreferenceChangeListener
+{
     private static final String KEY_PREF_INPUT = "pref_input";
     private static final String KEY_PREF_DARK = "pref_dark";
     private static final String KEY_PREF_ABOUT = "pref_about";
@@ -44,23 +45,25 @@ public class SettingsFragment extends android.preference.PreferenceFragment
 
     // onCreate
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.preferences);
 
         SharedPreferences preferences =
-                PreferenceManager.getDefaultSharedPreferences(getActivity());
+            PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         ListPreference preference =
-                (ListPreference) findPreference(KEY_PREF_INPUT);
+            (ListPreference) findPreference(KEY_PREF_INPUT);
         preference.setSummary(preference.getEntry());
 
         // Get about summary
         Preference about = findPreference(KEY_PREF_ABOUT);
 
-        if (about != null) {
+        if (about != null)
+        {
             String sum = (String) about.getSummary();
 
             // Set version in text view
@@ -71,28 +74,32 @@ public class SettingsFragment extends android.preference.PreferenceFragment
 
     // on Resume
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
         getPreferenceScreen().getSharedPreferences()
-                .registerOnSharedPreferenceChangeListener(this);
+        .registerOnSharedPreferenceChangeListener(this);
     }
 
     // on Pause
     @Override
-    public void onPause() {
+    public void onPause()
+    {
         super.onPause();
         getPreferenceScreen().getSharedPreferences()
-                .unregisterOnSharedPreferenceChangeListener(this);
+        .unregisterOnSharedPreferenceChangeListener(this);
     }
 
     // On preference tree click
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-                                         Preference preference) {
+                                         Preference preference)
+    {
         boolean result =
-                super.onPreferenceTreeClick(preferenceScreen, preference);
+            super.onPreferenceTreeClick(preferenceScreen, preference);
 
-        if (preference instanceof PreferenceScreen) {
+        if (preference instanceof PreferenceScreen)
+        {
             Dialog dialog = ((PreferenceScreen) preference).getDialog();
             ActionBar actionBar = dialog.getActionBar();
             actionBar.setDisplayHomeAsUpEnabled(false);
@@ -104,15 +111,18 @@ public class SettingsFragment extends android.preference.PreferenceFragment
     // On shared preference changed
     @Override
     public void onSharedPreferenceChanged(SharedPreferences preferences,
-                                          String key) {
-        if (key.equals(KEY_PREF_INPUT)) {
+                                          String key)
+    {
+        if (key.equals(KEY_PREF_INPUT))
+        {
             Preference preference = findPreference(key);
 
             // Set summary to be the user-description for the selected
             // value
             preference.setSummary(((ListPreference) preference).getEntry());
         }
-        if (key.equals(KEY_PREF_DARK)) {
+        if (key.equals(KEY_PREF_DARK))
+        {
             if (Build.VERSION.SDK_INT != VERSION_M)
                 getActivity().recreate();
         }

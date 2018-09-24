@@ -33,7 +33,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 // Unit
-public class Unit extends View {
+public class Unit extends View
+{
     protected float scale;
 
     private int width;
@@ -44,17 +45,18 @@ public class Unit extends View {
 
     // Unit
     @SuppressWarnings("deprecation")
-    public Unit(Context context, AttributeSet attrs) {
+    public Unit(Context context, AttributeSet attrs)
+    {
         super(context, attrs);
 
         Resources resources = getResources();
 
         final TypedArray typedArray =
-                context.obtainStyledAttributes(attrs, R.styleable.Scope, 0, 0);
+            context.obtainStyledAttributes(attrs, R.styleable.Scope, 0, 0);
 
         textColour =
-                typedArray.getColor(R.styleable.Scope_TextColour,
-                        resources.getColor(android.R.color.black));
+            typedArray.getColor(R.styleable.Scope_TextColour,
+                                resources.getColor(android.R.color.black));
         typedArray.recycle();
 
         // Create paint
@@ -66,7 +68,8 @@ public class Unit extends View {
 
     // onSizeChanged
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh)
+    {
         super.onSizeChanged(w, h, oldw, oldh);
 
         // Get dinemsions
@@ -76,7 +79,8 @@ public class Unit extends View {
 
     // onDraw
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas)
+    {
         paint.setStrokeWidth(2);
         paint.setColor(textColour);
 
@@ -89,10 +93,12 @@ public class Unit extends View {
         paint.setTextAlign(Align.CENTER);
 
         // Draw half of the units
-        if (scale == 0) {
+        if (scale == 0)
+        {
             canvas.drawLine(width / 3, 0, width, 0, paint);
             canvas.drawText("freq", width, height - (height / 6), paint);
-        } else if (scale < 100.0)
+        }
+        else if (scale < 100.0)
             canvas.drawText("ms", width, height - (height / 6), paint);
 
         else

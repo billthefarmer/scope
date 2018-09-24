@@ -1,48 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="org.billthefarmer.scope"
-    tools:ignore="GoogleAppIndexingWarning"
-    android:versionCode="118"
-    android:versionName="1.18"
-    android:installLocation="auto">
+    android:installLocation="auto"
+    tools:ignore="GoogleAppIndexingWarning">
 
-  <uses-sdk
-      tools:ignore="OldTargetApi"
-      android:minSdkVersion="14"
-      android:targetSdkVersion="22" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-  <uses-permission
-      android:name="android.permission.RECORD_AUDIO" />
-
-  <application
-      tools:ignore="AllowBackup"
-      android:allowBackup="true"
-      android:icon="@drawable/ic_launcher"
-      android:label="@string/app_name"
-      android:theme="@style/AppTheme" >
-    <activity
-        android:name="MainActivity"
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:screenOrientation="landscape" >
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-    </activity>
-    <activity
-	android:name="SpectrumActivity"
-	android:screenOrientation="landscape" >
-    </activity>
-    <activity
-        android:name="HelpActivity"
-        android:screenOrientation="landscape" >
-    </activity>
-    <activity
-	android:name="SettingsActivity"
-        android:screenOrientation="landscape" >
-    </activity>
-  </application>
+        android:theme="@style/AppTheme"
+        tools:ignore="AllowBackup">
+        <activity
+            android:name="MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="SpectrumActivity"
+            android:screenOrientation="landscape">
 
+        </activity>
+        <activity
+            android:name="HelpActivity"
+            android:screenOrientation="landscape">
+
+        </activity>
+        <activity
+            android:name="SettingsActivity"
+            android:screenOrientation="landscape">
+
+        </activity>
+    </application>
 </manifest>

@@ -1,7 +1,7 @@
 buildscript {
     repositories {
         jcenter()
-	google()
+        google()
     }
 
     dependencies {
@@ -12,12 +12,8 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-	google()
+        google()
     }
-
-    // tasks.withType(JavaCompile) {
-    //     options.deprecation = true
-    // }
 }
 
 apply plugin: 'com.android.application'
@@ -27,6 +23,11 @@ android {
     buildToolsVersion '28.0.2'
 
     defaultConfig {
+        applicationId "org.billthefarmer.scope"
+        minSdkVersion 11
+        targetSdkVersion 28
+        versionCode 118
+        versionName "1.18"
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
     }
 
@@ -36,8 +37,7 @@ android {
     }
 
     lintOptions {
-	disable 'IconDensities', 'ClickableViewAccessibility',
-            'CustomViewStyleable'
-	// abortOnError false
+        disable 'IconDensities', 'ClickableViewAccessibility', 'CustomViewStyleable'
+        // abortOnError false
     }
 }

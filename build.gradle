@@ -14,6 +14,10 @@ allprojects {
         jcenter()
         google()
     }
+
+    // tasks.withType(JavaCompile) {
+    //     options.deprecation = true
+    // }
 }
 
 apply plugin: 'com.android.application'
@@ -37,7 +41,8 @@ android {
     }
 
     lintOptions {
-        disable 'IconDensities', 'ClickableViewAccessibility', 'CustomViewStyleable'
+        disable 'IconDensities', 'ClickableViewAccessibility',
+            'CustomViewStyleable'
         // abortOnError false
     }
 }

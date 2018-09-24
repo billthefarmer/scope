@@ -40,6 +40,7 @@ public class HelpActivity extends Activity
 
     // On create
     @Override
+    @SuppressWarnings("deprecation")
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);

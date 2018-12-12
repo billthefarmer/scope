@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0'
+        classpath 'com.android.tools.build:gradle:3.2.1'
     }
 }
 
@@ -24,14 +24,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         applicationId "org.billthefarmer.scope"
         minSdkVersion 14
-        targetSdkVersion 28
-        versionCode 118
-        versionName "1.18"
+        targetSdkVersion 22
+        versionCode 119
+        versionName "1.19"
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
     }
 
@@ -42,7 +42,7 @@ android {
 
     lintOptions {
         disable 'IconDensities', 'ClickableViewAccessibility',
-            'CustomViewStyleable'
+            'CustomViewStyleable', 'ExpiredTargetSdkVersion'
         // abortOnError false
     }
 }

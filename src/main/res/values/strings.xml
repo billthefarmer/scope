@@ -73,6 +73,6 @@
   <string name="pref_dark_summ">Use Dark Theme</string>
 
   <string name="pref_about">About</string>
-  <string name="pref_about_summ">Version %s</string>
+  <string name="pref_about_summ">Scope <a href="https://github.com/billthefarmer/scope/releases/latest">version %s</a></string>
 
 </resources>

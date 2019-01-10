@@ -41,6 +41,7 @@ public class SettingsFragment extends android.preference.PreferenceFragment
     private static final String KEY_PREF_INPUT = "pref_input";
     private static final String KEY_PREF_DARK = "pref_dark";
     private static final String KEY_PREF_ABOUT = "pref_about";
+
     private static final int VERSION_M = 23;
 
     // onCreate
@@ -64,7 +65,7 @@ public class SettingsFragment extends android.preference.PreferenceFragment
 
         if (about != null)
         {
-            String sum = (String) about.getSummary();
+            String sum = about.getSummary().toString();
 
             // Set version in text view
             String s = String.format(sum, BuildConfig.VERSION_NAME);

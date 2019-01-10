@@ -30,8 +30,8 @@ android {
         applicationId "org.billthefarmer.scope"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 120
-        versionName "1.20"
+        versionCode 121
+        versionName "1.21"
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
     }
 

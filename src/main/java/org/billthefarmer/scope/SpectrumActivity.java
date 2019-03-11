@@ -23,11 +23,13 @@
 
 package org.billthefarmer.scope;
 
+import android.Manifest;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.media.AudioFormat;
 import android.media.AudioManager;
@@ -58,7 +60,7 @@ public class SpectrumActivity extends Activity
     private static final String PREF_SCREEN = "pref_screen";
     private static final String PREF_DARK = "pref_dark";
 
-    private static final int VERSION_M = 23;
+    private static final int REQUEST_PERMISSIONS = 1;
 
     private Spectrum spectrum;
     private TextView text;
@@ -217,11 +219,36 @@ public class SpectrumActivity extends Activity
         // Get preferences
         getPreferences();
 
-        if (theme != dark && Build.VERSION.SDK_INT != VERSION_M)
+        if (theme != dark && Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
             recreate();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+            if (checkSelfPermission(Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED)
+            {
+                requestPermissions(new String[]
+                    {Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSIONS);
+
+                return;
+            }
+        }
 
         // Start the audio thread
         audio.start();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions,
+                                           int[] grantResults)
+    {
+        if (requestCode == REQUEST_PERMISSIONS)
+            for (int i = 0; i < grantResults.length; i++)
+                if (permissions[i].equals(Manifest.permission.RECORD_AUDIO) &&
+                    grantResults[i] == PackageManager.PERMISSION_GRANTED)
+                    // Granted, start audio thread
+                    audio.start();
     }
 
     @Override

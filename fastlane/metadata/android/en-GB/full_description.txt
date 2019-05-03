@@ -1,0 +1,12 @@
+An audio oscilloscope and spectrum.
+
+ *  Timebase 0.1 ms - 0.5 sec
+ *  Sync control
+ *  Single shot
+ *  Storage
+ *  Index
+ *  Spectrum
+
+There are toolbar icons to control single step, sync timebase, storage
+and scrolling. The spectrum display has a display lock function and shows the
+current dominant frequency and signal level in the toolbar.

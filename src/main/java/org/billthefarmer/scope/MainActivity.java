@@ -463,6 +463,10 @@ public class MainActivity extends Activity
         case R.id.action_spectrum:
             return onSpectrumClick(item);
 
+        // Help
+        case R.id.action_help:
+            return onHelpClick(item);
+
         // Settings
         case R.id.action_settings:
             return onSettingsClick(item);
@@ -480,6 +484,14 @@ public class MainActivity extends Activity
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
 
+        return true;
+    }
+
+    // On help click
+    private boolean onHelpClick(MenuItem item)
+    {
+        Intent intent = new Intent(this, HelpActivity.class);
+        startActivity(intent);
         return true;
     }
 

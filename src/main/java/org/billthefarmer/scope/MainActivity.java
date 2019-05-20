@@ -592,6 +592,7 @@ public class MainActivity extends Activity
         audio.start();
     }
 
+    // onRequestPermissionsResult
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String[] permissions,
@@ -601,8 +602,14 @@ public class MainActivity extends Activity
             for (int i = 0; i < grantResults.length; i++)
                 if (permissions[i].equals(Manifest.permission.RECORD_AUDIO) &&
                     grantResults[i] == PackageManager.PERMISSION_GRANTED)
-                    // Granted, start audio thread
-                    audio.start();
+                {
+                    // Granted, recreate or start audio thread
+                    if (Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
+                        recreate();
+
+                    else
+                        audio.start();
+                }
     }
 
     // On pause

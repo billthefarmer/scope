@@ -42,8 +42,6 @@ public class SettingsFragment extends android.preference.PreferenceFragment
     private static final String KEY_PREF_DARK = "pref_dark";
     private static final String KEY_PREF_ABOUT = "pref_about";
 
-    private static final int VERSION_M = 23;
-
     // onCreate
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -124,7 +122,7 @@ public class SettingsFragment extends android.preference.PreferenceFragment
         }
         if (key.equals(KEY_PREF_DARK))
         {
-            if (Build.VERSION.SDK_INT != VERSION_M)
+            if (Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
                 getActivity().recreate();
         }
     }

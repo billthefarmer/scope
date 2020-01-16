@@ -30,7 +30,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioRecord;
@@ -543,8 +542,7 @@ public class MainActivity extends Activity
     // Show toast
     void showToast(int key)
     {
-        Resources resources = getResources();
-        String text = resources.getString(key);
+        String text = getString(key);
 
         showToast(text);
     }

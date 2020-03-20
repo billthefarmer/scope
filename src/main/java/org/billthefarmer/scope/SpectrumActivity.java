@@ -414,9 +414,14 @@ public class SpectrumActivity extends Activity
             Thread t = thread;
             thread = null;
 
-            // Wait for the thread to exit
-            while (t != null && t.isAlive())
-                Thread.yield();
+            try
+            {
+                // Wait for the thread to exit
+                if (t != null && t.isAlive())
+                    t.join();
+            }
+
+            catch (Exception e) {}
         }
 
         // Stop and release the audio recorder
@@ -433,9 +438,8 @@ public class SpectrumActivity extends Activity
 
                     audioRecord.release();
                 }
-                catch (Exception e)
-                {
-                }
+
+                catch (Exception e) {}
             }
         }
 

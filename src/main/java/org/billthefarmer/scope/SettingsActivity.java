@@ -46,11 +46,11 @@ public class SettingsActivity extends Activity
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
 
-        boolean darkTheme =
+        boolean dark =
             preferences.getBoolean(KEY_PREF_DARK, false);
 
-        if (darkTheme)
-            setTheme(R.style.AppDarkTheme);
+        if (!dark)
+            setTheme(R.style.AppTheme);
 
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction()
@@ -75,7 +75,6 @@ public class SettingsActivity extends Activity
             break;
 
         default:
-
             return false;
         }
 

@@ -80,8 +80,8 @@ public class SpectrumActivity extends Activity
         // Get preferences
         getPreferences();
 
-        if (dark)
-            setTheme(R.style.AppDarkTheme);
+        if (!dark)
+            setTheme(R.style.AppTheme);
 
         setContentView(R.layout.activity_spectrum);
 

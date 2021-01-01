@@ -10,6 +10,8 @@ and documentation.
 
 ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Spectrum.png)
 
+![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Scope-settings.png)
+
  *  Timebase 0.1 ms - 0.5 sec
  *  Sync control
  *  Single shot

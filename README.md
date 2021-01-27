@@ -1,4 +1,4 @@
-# ![Logo](src/main/res/drawable-mdpi/ic_launcher.png) Oscilloscope [![Build Status](https://travis-ci.org/billthefarmer/scope.svg?branch=master)](https://travis-ci.org/billthefarmer/scope) [![Release](https://img.shields.io/github/release/billthefarmer/scope.svg?logo=github)](https://github.com/billthefarmer/scope/releases) [![Available on F-Droid](https://f-droid.org/wiki/images/c/ca/F-Droid-button_available-on_smaller.png)](https://f-droid.org/packages/org.billthefarmer.scope)
+# ![Logo](src/main/res/drawable-mdpi/ic_launcher.png) Oscilloscope ![.github/workflows/main.yml](https://github.com/billthefarmer/scope/workflows/.github/workflows/main.yml/badge.svg) [![Release](https://img.shields.io/github/release/billthefarmer/scope.svg?logo=github)](https://github.com/billthefarmer/scope/releases) [![Available on F-Droid](https://f-droid.org/wiki/images/c/ca/F-Droid-button_available-on_smaller.png)](https://f-droid.org/packages/org.billthefarmer.scope)
 
 Android Oscilloscope. The app is available on
 [F-Droid](https://f-droid.org/packages/org.billthefarmer.scope)

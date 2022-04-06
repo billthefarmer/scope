@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string name="app_name">Oscyloskop</string>
+  <string name="short_name">Zakres</string>
+  <string name="spectrum">Widmo</string>
+  <string name="settings">Ustawienia</string>
+  <string name="built">Skompilowano %s</string>
+  <string name="copyright">Prawa autorskie \u00A9 2017 <a
+  href="https://billthefarmer.github.io">Bill Farmer</a>
+  </string>
+  <string name="licence">Licencja <a
+  href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  </string>
+
+  <string name="error_buffer">
+    Błąd podczas nagrywania dźwięku! Nie można znaleźć działającej
+    wejściowej częstotliwości próbkowania.
+  </string>
+  <string name="error_init">
+    Rejestrator dźwięku nie został zainicjowany! Być może wybrane
+    źródło wejścia nie jest dostępne lub nie można znaleźć
+    działającej częstotliwości próbkowania na wejściu.
+  </string>
+
+  <string name="action_bright_line">Jasna linia</string>
+  <string name="action_single_shot">Pojedyncza próbka</string>
+  <string name="action_trigger">Wyzwalacz</string>
+  <string name="action_timebase">Podstawa czasu</string>
+  <string name="action_storage">Archiwizacja</string>
+  <string name="action_clear">Wyczyść</string>
+  <string name="action_left">W lewo</string>
+  <string name="action_right">W prawo</string>
+  <string name="action_start">Początek</string>
+  <string name="action_end">Koniec</string>
+  <string name="action_spectrum">Widmo</string>
+  <string name="action_help">Pomoc</string>
+  <string name="action_lock">Blokada</string>
+  <string name="action_settings">Ustawienia</string>
+
+  <string name="tb0.1ms">0.1 ms</string>
+  <string name="tb0.2ms">0.2 ms</string>
+  <string name="tb0.5ms">0.5 ms</string>
+  <string name="tb1.0ms">1.0 ms</string>
+  <string name="tb2.0ms">2.0 ms</string>
+  <string name="tb5.0ms">5.0 ms</string>
+  <string name="tb10ms">10 ms</string>
+  <string name="tb20ms">20 ms</string>
+  <string name="tb50ms">50 ms</string>
+  <string name="tb0.1sec">0.1 sek</string>
+  <string name="tb0.2sec">0.2 sek</string>
+  <string name="tb0.5sec">0.5 sek</string>
+
+  <string name="bright_on">Jasna linia włączona</string>
+  <string name="bright_off">Jasna linia wyłączona</string>
+  <string name="single_on">Pojedyncze próbkowanie włączone</string>
+  <string name="single_off">Pojedyncze próbkowanie wyłączone</string>
+  <string name="storage_on">Archiwizacja włączona</string>
+  <string name="storage_off">Archiwizacja wyłączona</string>
+  <string name="lock_on">Blokada ekranu włączona</string>
+  <string name="lock_off">Blokada ekranu wyłączona</string>
+
+  <string name="pref_input_category">Wejście</string>
+
+  <string name="pref_input">Źródło sygnału wejściowego</string>
+  <string name="pref_input_summ">%s"</string>
+
+  <string name="pref_display">Ekran</string>
+
+  <string name="pref_fill">Wypełnij</string>
+  <string name="pref_fill_summ">Wypełniaj ślad widma</string>
+
+  <string name="pref_hold">Wstrzymaj</string>
+  <string name="pref_hold_summ">Wstrzymaj ślad widma</string>
+
+  <string name="pref_screen">Ekran</string>
+  <string name="pref_screen_summ">Nie wygaszaj ekranu</string>
+
+  <string name="pref_theme">Motyw</string>
+
+  <string name="pref_dark">Ciemny motyw</string>
+  <string name="pref_dark_summ">Używaj ciemnego motywu</string>
+
+  <string name="pref_about">O aplikacji</string>
+  <string name="pref_about_summ"><a href="https://github.com/billthefarmer/scope/releases/latest">Wersja %s</a></string>
+
+</resources>

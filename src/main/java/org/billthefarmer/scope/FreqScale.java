@@ -72,10 +72,11 @@ public class FreqScale extends View
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         // Get offered dimension
-        int w = MeasureSpec.getSize(widthMeasureSpec);
+        int d = Math.max(MeasureSpec.getSize(widthMeasureSpec),
+                         MeasureSpec.getSize(heightMeasureSpec));
 
         // Set wanted dimensions
-        setMeasuredDimension(w, w / HEIGHT_FRACTION);
+        setMeasuredDimension(d, d / HEIGHT_FRACTION);
     }
 
     @Override

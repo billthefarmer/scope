@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AlwaysShowAction">
+
+  <item
+      android:id="@+id/bright"
+      android:icon="@drawable/action_bright"
+      android:showAsAction="ifRoom"
+      android:title="@string/action_bright_line" />
+
+  <item
+      android:id="@+id/single"
+      android:icon="@drawable/action_single"
+      android:showAsAction="ifRoom"
+      android:title="@string/action_single_shot" />
+
+  <item
+      android:id="@+id/trigger"
+      android:icon="@drawable/ic_repeat_one_white_36dp"
+      android:showAsAction="ifRoom"
+      android:title="@string/action_trigger" />
+
+  <item
+      android:id="@+id/timebase"
+      android:icon="@drawable/ic_access_time_white_36dp"
+      android:showAsAction="ifRoom"
+      android:title="@string/action_timebase">
+
+    <menu>
+      <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/tb0_1ms"
+            android:title="@string/tb0.1ms" />
+
+        <item
+            android:id="@+id/tb0_2ms"
+            android:title="@string/tb0.2ms" />
+
+        <item
+            android:id="@+id/tb0_5ms"
+            android:title="@string/tb0.5ms" />
+
+        <item
+            android:id="@+id/tb1_0ms"
+            android:checked="true"
+            android:title="@string/tb1.0ms" />
+
+        <item
+            android:id="@+id/tb2_0ms"
+            android:title="@string/tb2.0ms" />
+
+        <item
+            android:id="@+id/tb5_0ms"
+            android:title="@string/tb5.0ms" />
+
+        <item
+            android:id="@+id/tb10ms"
+            android:title="@string/tb10ms" />
+
+        <item
+            android:id="@+id/tb20ms"
+            android:title="@string/tb20ms" />
+
+        <item
+            android:id="@+id/tb50ms"
+            android:title="@string/tb50ms" />
+
+        <item
+            android:id="@+id/tb0_1sec"
+            android:title="@string/tb0.1sec" />
+
+        <item
+            android:id="@+id/tb0_2sec"
+            android:title="@string/tb0.2sec" />
+
+        <item
+            android:id="@+id/tb0_5sec"
+            android:title="@string/tb0.5sec" />
+
+      </group>
+    </menu>
+  </item>
+
+  <item
+      android:id="@+id/storage"
+      android:icon="@drawable/action_storage"
+      android:showAsAction="ifRoom"
+      android:title="@string/action_storage" />
+
+  <item
+      android:id="@+id/clear"
+      android:icon="@drawable/ic_clear_white_36dp"
+      android:showAsAction="ifRoom"
+      android:title="@string/action_clear" />
+
+  <item
+      android:id="@+id/left"
+      android:icon="@drawable/ic_keyboard_arrow_left_white_36dp"
+      android:showAsAction="ifRoom"
+      android:title="@string/action_left" />
+
+  <item
+      android:id="@+id/right"
+      android:icon="@drawable/ic_keyboard_arrow_right_white_36dp"
+      android:showAsAction="ifRoom"
+      android:title="@string/action_right" />
+
+  <item
+      android:id="@+id/start"
+      android:icon="@drawable/ic_first_page_white_36dp"
+      android:showAsAction="ifRoom"
+      android:title="@string/action_start" />
+
+  <item
+      android:id="@+id/end"
+      android:icon="@drawable/ic_last_page_white_36dp"
+      android:showAsAction="ifRoom"
+      android:title="@string/action_end" />
+
+  <item
+      android:id="@+id/action_spectrum"
+      android:icon="@drawable/ic_equalizer_white_36dp"
+      android:showAsAction="ifRoom"
+      android:title="@string/action_spectrum" />
+
+  <item
+      android:id="@+id/action_help"
+      android:icon="@drawable/ic_help_outline_white_36dp"
+      android:showAsAction="ifRoom"
+      android:title="@string/action_help" />
+
+  <item
+      android:id="@+id/action_settings"
+      android:icon="@drawable/ic_settings_white_36dp"
+      android:showAsAction="ifRoom"
+      android:title="@string/action_settings" />
+
+</menu>

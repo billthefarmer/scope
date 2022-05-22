@@ -77,10 +77,11 @@ public class YScale extends View
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         // Get offered dimension
-        int h = MeasureSpec.getSize(heightMeasureSpec);
+        int d = Math.min(MeasureSpec.getSize(heightMeasureSpec),
+                         MeasureSpec.getSize(widthMeasureSpec));
 
         // Set wanted dimensions
-        setMeasuredDimension(h / WIDTH_FRACTION, h);
+        setMeasuredDimension(d / WIDTH_FRACTION, d);
     }
 
     // onSizeChanged

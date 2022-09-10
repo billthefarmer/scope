@@ -41,6 +41,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -557,6 +558,10 @@ public class MainActivity extends Activity
         // Make a new one
         toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
+        // Fix for android 13
+        View view = toast.getView();
+        if (view != null && Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
+            view.setBackgroundResource(R.drawable.toast_frame);
         toast.show();
     }
 

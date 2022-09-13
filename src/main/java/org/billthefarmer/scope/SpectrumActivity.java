@@ -203,6 +203,10 @@ public class SpectrumActivity extends Activity
         // Make a new one
         toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
+        // Fix for android 13
+        View view = toast.getView();
+        if (view != null && Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
+            view.setBackgroundResource(R.drawable.toast_frame);
         toast.show();
     }
 

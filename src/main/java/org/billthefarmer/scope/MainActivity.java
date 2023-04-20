@@ -37,9 +37,13 @@ import android.media.AudioTrack;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.Window;
@@ -99,6 +103,9 @@ public class MainActivity extends Activity
 
     protected int timebase;
 
+    private GestureDetector gestureDetector;
+    private ScaleGestureDetector scaleDetector;
+
     private Scope scope;
     private XScale xscale;
     private YScale yscale;
@@ -153,6 +160,20 @@ public class MainActivity extends Activity
             xscale.step = 1000 * xscale.scale;
             unit.scale = scope.scale;
         }
+
+        // Set up gesture detectors
+        gestureDetector =
+            new GestureDetector(this, new GestureListener());
+        scaleDetector =
+            new ScaleGestureDetector(this, new ScaleListener());
+
+        if (scope != null)
+            scope.setOnTouchListener((v, event) ->
+            {
+                scaleDetector.onTouchEvent(event);
+                gestureDetector.onTouchEvent(event);
+                return true;
+            });
     }
 
     // onCreateOptionsMenu
@@ -480,6 +501,13 @@ public class MainActivity extends Activity
         return true;
     }
 
+    // dispatchTouchEvent
+    // @Override
+    // public boolean dispatchTouchEvent(MotionEvent event)
+    // {
+    //     return super.dispatchTouchEvent(event);
+    // }
+
     // On settings click
     private boolean onSettingsClick(MenuItem item)
     {
@@ -687,6 +715,60 @@ public class MainActivity extends Activity
 
         // Show it
         dialog.show();
+    }
+
+    // GestureListener
+    private class GestureListener
+        extends GestureDetector.SimpleOnGestureListener
+    {
+        // onDown
+        @Override
+        public boolean onDown(MotionEvent e)
+        {
+            return true;
+        }
+
+        // onScroll
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2,
+                                float distanceX, float distanceY)
+        {
+            float scale = (float) (2.0 / ((audio.sample / 100000.0) *
+                                           scope.scale));
+            scope.start += distanceX / scale;
+            if (scope.start < 0)
+                scope.start = 0;
+
+            xscale.start = scope.start;
+            xscale.postInvalidate();
+
+            return true;
+        }
+
+        // onSingleTapConfirmed
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent e)
+        {
+            scope.index = e.getX();
+            return true;
+        }
+    }
+
+    // ScaleListener
+    private class ScaleListener
+        extends ScaleGestureDetector.SimpleOnScaleGestureListener
+    {
+        // onScale
+        @Override
+        public boolean onScale(ScaleGestureDetector detector)
+        {
+            Log.d(TAG, "Scale " + detector.getScaleFactor());
+            scope.scale /= detector.getScaleFactor();
+            xscale.scale = scope.scale;
+            xscale.postInvalidate();
+
+            return true;
+        }
     }
 
     // Audio

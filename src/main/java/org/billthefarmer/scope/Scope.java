@@ -146,8 +146,8 @@ public class Scope extends View
 
         // Calculate y scale
 
-        if (max < 4096)
-            max = 4096;
+        if (max < 1024)
+            max = 1024;
 
         yscale = (float) (max / (height / 2.0));
 
@@ -245,28 +245,28 @@ public class Scope extends View
     }
 
     // On touch event
-    @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
-        float x = event.getX();
-        float y = event.getY();
+    // @Override
+    // public boolean onTouchEvent(MotionEvent event)
+    // {
+    //     float x = event.getX();
+    //     float y = event.getY();
 
-        // Set the index from the touch dimension
-        switch (event.getAction())
-        {
-        case MotionEvent.ACTION_DOWN:
-            index = x;
-            break;
+    //     // Set the index from the touch dimension
+    //     switch (event.getAction())
+    //     {
+    //     case MotionEvent.ACTION_DOWN:
+    //         index = x;
+    //         break;
 
-        case MotionEvent.ACTION_MOVE:
-            index = x;
-            break;
+    //     case MotionEvent.ACTION_MOVE:
+    //         index = x;
+    //         break;
 
-        case MotionEvent.ACTION_UP:
-            index = x;
-            break;
-        }
+    //     case MotionEvent.ACTION_UP:
+    //         index = x;
+    //         break;
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
 }

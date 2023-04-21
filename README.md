@@ -43,9 +43,8 @@ the device.
 Touching the display will produce a vertical index line, which will
 show the value at that point. The value is arbitrary, as there is
 automatic gain control on the input so the trace does not get
-clipped. The position of the index can be finely adjusted by rolling
-the finger tip. The index can be removed by swiping it off to the
-left, or touching the Start icon.
+clipped. The display will respond to scroll and scale gestures. The
+index can be removed and scaling reset by touching the Start icon.
 
 Touch the left edge Y scale to adjust the sync level. A pointer will
 appear which can be adjusted by sliding up and down. Touch the start

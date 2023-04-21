@@ -24,6 +24,7 @@
 package org.billthefarmer.scope;
 
 import android.Manifest;
+import android.animation.ValueAnimator;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -48,6 +49,7 @@ import android.view.SubMenu;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Toast;
 
 // MainActivity
@@ -245,14 +247,14 @@ public class MainActivity extends Activity
         // Start
         scope.start = bundle.getFloat(START, 0);
         xscale.start = scope.start;
-        xscale.postInvalidate();
+        xscale.invalidate();
 
         // Index
         scope.index = bundle.getFloat(INDEX, 0);
 
         // Level
         yscale.index = bundle.getFloat(LEVEL, 0);
-        yscale.postInvalidate();
+        yscale.invalidate();
     }
 
     // Save state
@@ -440,7 +442,7 @@ public class MainActivity extends Activity
                     scope.start = 0;
 
                 xscale.start = scope.start;
-                xscale.postInvalidate();
+                xscale.invalidate();
             }
             break;
 
@@ -453,7 +455,7 @@ public class MainActivity extends Activity
                     scope.start -= xscale.step;
 
                 xscale.start = scope.start;
-                xscale.postInvalidate();
+                xscale.invalidate();
             }
             break;
 
@@ -464,9 +466,10 @@ public class MainActivity extends Activity
                 scope.start = 0;
                 scope.index = 0;
                 xscale.start = 0;
-                xscale.postInvalidate();
+                xscale.invalidate();
                 yscale.index = 0;
-                yscale.postInvalidate();
+                yscale.invalidate();
+                setTimebase(timebase, false);
             }
             break;
 
@@ -478,7 +481,7 @@ public class MainActivity extends Activity
                     scope.start += xscale.step;
                 scope.start -= xscale.step;
                 xscale.start = scope.start;
-                xscale.postInvalidate();
+                xscale.invalidate();
             }
             break;
 
@@ -500,13 +503,6 @@ public class MainActivity extends Activity
 
         return true;
     }
-
-    // dispatchTouchEvent
-    // @Override
-    // public boolean dispatchTouchEvent(MotionEvent event)
-    // {
-    //     return super.dispatchTouchEvent(event);
-    // }
 
     // On settings click
     private boolean onSettingsClick(MenuItem item)
@@ -553,8 +549,8 @@ public class MainActivity extends Activity
             xscale.start = 0;
 
             // Update display
-            xscale.postInvalidate();
-            unit.postInvalidate();
+            xscale.invalidate();
+            unit.invalidate();
         }
 
         // Show timebase
@@ -728,6 +724,38 @@ public class MainActivity extends Activity
             return true;
         }
 
+        // onFling
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2,
+                               float velocityX, float velocityY)
+        {
+            float scale = (float) (2.0 / ((audio.sample / 100000.0) *
+                                          scope.scale));
+            // Calculate target value for animator
+            float target = scope.start - velocityX / scale / 4;
+
+            // Start the animation
+            ValueAnimator animator =
+                ValueAnimator.ofFloat(scope.start, target);
+            animator.setInterpolator(new DecelerateInterpolator());
+            animator.addUpdateListener((animation) ->
+            {
+                scope.start = (float) animation.getAnimatedValue();
+
+                if (scope.start < 0)
+                {
+                    animation.cancel();
+                    scope.start = 0;
+                }
+
+                xscale.start = scope.start;
+                xscale.invalidate();
+            });
+
+            animator.start();
+            return true;
+        }
+
         // onScroll
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2,
@@ -740,7 +768,7 @@ public class MainActivity extends Activity
                 scope.start = 0;
 
             xscale.start = scope.start;
-            xscale.postInvalidate();
+            xscale.invalidate();
 
             return true;
         }
@@ -762,10 +790,9 @@ public class MainActivity extends Activity
         @Override
         public boolean onScale(ScaleGestureDetector detector)
         {
-            Log.d(TAG, "Scale " + detector.getScaleFactor());
             scope.scale /= detector.getScaleFactor();
             xscale.scale = scope.scale;
-            xscale.postInvalidate();
+            xscale.invalidate();
 
             return true;
         }

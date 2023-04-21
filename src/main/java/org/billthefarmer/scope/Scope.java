@@ -243,30 +243,4 @@ public class Scope extends View
 
         canvas.drawBitmap(bitmap, 0, 0, null);
     }
-
-    // On touch event
-    // @Override
-    // public boolean onTouchEvent(MotionEvent event)
-    // {
-    //     float x = event.getX();
-    //     float y = event.getY();
-
-    //     // Set the index from the touch dimension
-    //     switch (event.getAction())
-    //     {
-    //     case MotionEvent.ACTION_DOWN:
-    //         index = x;
-    //         break;
-
-    //     case MotionEvent.ACTION_MOVE:
-    //         index = x;
-    //         break;
-
-    //     case MotionEvent.ACTION_UP:
-    //         index = x;
-    //         break;
-    //     }
-
-    //     return true;
-    // }
 }

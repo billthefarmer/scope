@@ -145,9 +145,8 @@ public class Scope extends View
             xstop = (int) audio.length;
 
         // Calculate y scale
-
-        if (max < 1024)
-            max = 1024;
+        if (max < 2048)
+            max = 2048;
 
         yscale = (float) (max / (height / 2.0));
 

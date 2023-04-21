@@ -34,7 +34,7 @@ and documentation.
  *  **Start** - Moves the trace to the start
  *  **End** - Moves the trace to the end
  *  **Spectrum** - Spectrum display
- *  **Settings** - **Input source** and **About** items
+ *  **Settings** - Settings display
 
 The last two or six items may be on the menu, depending on the size of
 the device.

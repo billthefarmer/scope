@@ -131,8 +131,8 @@ public class Spectrum extends View
         canvas.drawBitmap(graticule, 0, 0, null);
 
         // Check max value
-        if (max < 0.5f)
-            max = 0.5f;
+        if (max < 1.0f)
+            max = 1.0f;
 
         // Calculate the scaling
         float yscale = (height / max);

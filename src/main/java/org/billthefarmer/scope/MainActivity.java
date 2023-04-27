@@ -151,7 +151,6 @@ public class MainActivity extends Activity
         if (scope != null)
         {
             scope.audio = audio;
-            scope.stretch = 1.0f;
         }
 
         // Set timebase index
@@ -160,10 +159,10 @@ public class MainActivity extends Activity
         // Set up scale
         if (scope != null && xscale != null && unit != null)
         {
-            scope.scale = values[timebase];
-            xscale.scale = scope.scale;
+            scope.xscale = values[timebase];
+            xscale.scale = scope.xscale;
             xscale.step = 1000 * xscale.scale;
-            unit.scale = scope.scale;
+            unit.scale = scope.xscale;
         }
 
         // Set up gesture detectors
@@ -466,8 +465,6 @@ public class MainActivity extends Activity
         case R.id.start:
             if (scope != null && xscale != null)
             {
-                scope.stretch = 1.0f;
-
                 scope.start = 0;
                 scope.index = 0;
                 xscale.start = 0;
@@ -539,10 +536,10 @@ public class MainActivity extends Activity
         if (scope != null && xscale != null && unit != null)
         {
             // Set up scale
-            scope.scale = values[timebase];
-            xscale.scale = scope.scale;
+            scope.xscale = values[timebase];
+            xscale.scale = scope.xscale;
             xscale.step = 1000 * xscale.scale;
-            unit.scale = scope.scale;
+            unit.scale = scope.xscale;
 
             // Set up scope points
             scope.points = timebase == 0;
@@ -733,7 +730,7 @@ public class MainActivity extends Activity
                                float velocityX, float velocityY)
         {
             float scale = (float) (2.0 / ((audio.sample / 100000.0) *
-                                          scope.scale));
+                                          scope.xscale));
             // Calculate target value for animator
             float target = scope.start - velocityX / scale / 4;
 
@@ -771,7 +768,7 @@ public class MainActivity extends Activity
                                 float distanceX, float distanceY)
         {
             float scale = (float) (2.0 / ((audio.sample / 100000.0) *
-                                           scope.scale));
+                                          scope.xscale));
             scope.start += distanceX / scale;
             if (scope.start < 0)
                 scope.start = 0;
@@ -802,8 +799,8 @@ public class MainActivity extends Activity
         @Override
         public boolean onScale(ScaleGestureDetector detector)
         {
-            scope.scale /= detector.getScaleFactor();
-            xscale.scale = scope.scale;
+            scope.xscale /= detector.getScaleFactor();
+            xscale.scale = scope.xscale;
             xscale.invalidate();
 
             return true;

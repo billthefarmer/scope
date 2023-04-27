@@ -52,8 +52,7 @@ public class Scope extends View
     protected boolean storage;
     protected boolean clear;
 
-    protected float step;
-    protected float scale;
+    protected float xscale;
     protected float start;
     protected float index;
 
@@ -137,7 +136,8 @@ public class Scope extends View
         }
 
         // Calculate x scale etc
-        float xscale = (float) (2.0 / ((audio.sample / 100000.0) * scale));
+        float xscale = (float)
+            (2.0 / ((audio.sample / 100000.0) * this.xscale));
         int xstart = Math.round(start);
         int xstep = Math.round((float) 1.0 / xscale);
         int xstop = Math.round(xstart + ((float) width / xscale));
@@ -223,19 +223,21 @@ public class Scope extends View
             paint.setTextAlign(Paint.Align.CENTER);
 
             // Draw time value
-            if (scale < 100.0)
+            if (this.xscale < 100.0)
             {
                 String s = String.format(Locale.getDefault(),
-                                         (scale < 1.0) ? "%3.3f" :
-                                         (scale < 10.0) ? "%3.2f" : "%3.1f",
-                                         (start + (index * scale)) /
+                                         (this.xscale < 1.0) ? "%3.3f" :
+                                         (this.xscale < 10.0) ?
+                                         "%3.2f" : "%3.1f",
+                                         (start + (index * this.xscale)) /
                                          MainActivity.SMALL_SCALE);
                 cb.drawText(s, index, height / 2, paint);
             }
+
             else
             {
                 String s = String.format(Locale.getDefault(), "%3.3f",
-                                         (start + (index * scale)) /
+                                         (start + (index * this.xscale)) /
                                          MainActivity.LARGE_SCALE);
                 cb.drawText(s, index, height / 2, paint);
             }

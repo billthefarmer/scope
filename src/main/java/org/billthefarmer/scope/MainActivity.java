@@ -149,7 +149,10 @@ public class MainActivity extends Activity
         audio = new Audio();
 
         if (scope != null)
+        {
             scope.audio = audio;
+            scope.stretch = 1.0f;
+        }
 
         // Set timebase index
         timebase = DEFAULT_TIMEBASE;
@@ -451,8 +454,8 @@ public class MainActivity extends Activity
             if (scope != null && xscale != null)
             {
                 scope.start += xscale.step;
-                if (scope.start >= audio.length)
-                    scope.start -= xscale.step;
+                if (scope.start > audio.length)
+                    scope.start = audio.length - (xscale.step / 4);
 
                 xscale.start = scope.start;
                 xscale.invalidate();
@@ -463,6 +466,8 @@ public class MainActivity extends Activity
         case R.id.start:
             if (scope != null && xscale != null)
             {
+                scope.stretch = 1.0f;
+
                 scope.start = 0;
                 scope.index = 0;
                 xscale.start = 0;
@@ -477,9 +482,7 @@ public class MainActivity extends Activity
         case R.id.end:
             if (scope != null && xscale != null)
             {
-                while (scope.start < audio.length)
-                    scope.start += xscale.step;
-                scope.start -= xscale.step;
+                scope.start = audio.length - (xscale.step / 4);
                 xscale.start = scope.start;
                 xscale.invalidate();
             }
@@ -748,6 +751,12 @@ public class MainActivity extends Activity
                     scope.start = 0;
                 }
 
+                if (scope.start > audio.length)
+                {
+                    animation.cancel();
+                    scope.start = audio.length - (xscale.step / 4);
+                }
+
                 xscale.start = scope.start;
                 xscale.invalidate();
             });
@@ -767,15 +776,18 @@ public class MainActivity extends Activity
             if (scope.start < 0)
                 scope.start = 0;
 
+            if (scope.start > audio.length)
+                scope.start = audio.length - (xscale.step / 4);
+
             xscale.start = scope.start;
             xscale.invalidate();
 
             return true;
         }
 
-        // onSingleTapConfirmed
+        // onSingleTapUp
         @Override
-        public boolean onSingleTapConfirmed(MotionEvent e)
+        public boolean onSingleTapUp(MotionEvent e)
         {
             scope.index = e.getX();
             return true;

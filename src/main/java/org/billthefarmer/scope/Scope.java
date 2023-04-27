@@ -41,6 +41,8 @@ public class Scope extends View
     private int width;
     private int height;
 
+    private int max;
+
     private Path path;
     private Canvas cb;
     private Paint paint;
@@ -56,6 +58,7 @@ public class Scope extends View
     protected float index;
 
     protected float yscale;
+    protected float stretch;
 
     protected boolean points;
     protected MainActivity.Audio audio;
@@ -115,8 +118,6 @@ public class Scope extends View
         cb.translate(0, height / 2);
     }
 
-    private int max;
-
     // On draw
     @Override
     protected void onDraw(Canvas canvas)
@@ -145,8 +146,8 @@ public class Scope extends View
             xstop = (int) audio.length;
 
         // Calculate y scale
-        if (max < 2048)
-            max = 2048;
+        if (max < 4096)
+            max = 4096;
 
         yscale = (float) (max / (height / 2.0));
 

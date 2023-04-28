@@ -55,9 +55,13 @@ import android.widget.Toast;
 // MainActivity
 public class MainActivity extends Activity
 {
+    private static final String PREF_BRIGHT = "pref_bright";
+    private static final String PREF_DARK = "pref_dark";
     private static final String PREF_INPUT = "pref_input";
     private static final String PREF_SCREEN = "pref_screen";
-    private static final String PREF_DARK = "pref_dark";
+    private static final String PREF_SINGLE = "pref_single";
+    private static final String PREF_STORAGE = "pref_storage";
+    private static final String PREF_TIMEBASE = "pref_timebase";
 
     private static final String TAG = "Scope";
 
@@ -65,8 +69,8 @@ public class MainActivity extends Activity
 
     private static final String BRIGHT = "bright";
     private static final String SINGLE = "single";
-    private static final String TIMEBASE = "timebase";
     private static final String STORAGE = "storage";
+    private static final String TIMEBASE = "timebase";
 
     private static final String START = "start";
     private static final String INDEX = "index";
@@ -665,7 +669,13 @@ public class MainActivity extends Activity
         {
             audio.input =
                 Integer.parseInt(preferences.getString(PREF_INPUT, "0"));
+            audio.bright = preferences.getBoolean(PREF_BRIGHT, false);
+            audio.single = preferences.getBoolean(PREF_SINGLE, false);
         }
+
+        scope.storage = preferences.getBoolean(PREF_STORAGE, false);
+        timebase = preferences.getInt(PREF_TIMEBASE, DEFAULT_TIMEBASE);
+        setTimebase(timebase, false);
 
         boolean screen = preferences.getBoolean(PREF_SCREEN, false);
 
@@ -685,8 +695,13 @@ public class MainActivity extends Activity
     {
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
 
-        // TODO
+        editor.putBoolean(PREF_BRIGHT, audio.bright);
+        editor.putBoolean(PREF_SINGLE, audio.single);
+        editor.putBoolean(PREF_STORAGE, scope.storage);
+        editor.putInt(PREF_TIMEBASE, timebase);
+        editor.apply();
     }
 
     // Show alert

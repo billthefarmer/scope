@@ -7,25 +7,25 @@
   <item
       android:id="@+id/bright"
       android:icon="@drawable/action_bright"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_bright_line" />
 
   <item
       android:id="@+id/single"
       android:icon="@drawable/action_single"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_single_shot" />
 
   <item
       android:id="@+id/trigger"
       android:icon="@drawable/ic_repeat_one_white_36dp"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_trigger" />
 
   <item
       android:id="@+id/timebase"
       android:icon="@drawable/ic_access_time_white_36dp"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_timebase">
 
     <menu>
@@ -87,14 +87,13 @@
   <item
       android:id="@+id/storage"
       android:icon="@drawable/action_storage"
-      android:checkable="true"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_storage" />
 
   <item
       android:id="@+id/clear"
       android:icon="@drawable/ic_clear_white_36dp"
-      android:showAsAction="ifRoom"
+      android:showAsAction="always"
       android:title="@string/action_clear" />
 
   <item

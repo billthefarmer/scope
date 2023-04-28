@@ -119,7 +119,6 @@ public class MainActivity extends Activity
 
     private Audio audio;
     private Toast toast;
-    private SubMenu submenu;
 
     private boolean dark;
 
@@ -188,31 +187,34 @@ public class MainActivity extends Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        MenuItem item;
-
         // Inflate the menu; this adds items to the action bar if it
         // is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
-        // Set menu state from restored state
+        return true;
+    }
 
+    // onPrepareOptionsMenu
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
         // Bright
-        item = menu.findItem(R.id.bright);
-        item.setIcon(audio.bright ? R.drawable.bright_checked :
-                     R.drawable.action_bright);
+        menu.findItem(R.id.bright).setIcon(audio.bright?
+                                           R.drawable.bright_checked :
+                                           R.drawable.action_bright);
 
         // Single
-        item = menu.findItem(R.id.single);
-        item.setIcon(audio.single ? R.drawable.single_checked :
-                     R.drawable.action_single);
+        menu.findItem(R.id.single).setIcon(audio.single?
+                                           R.drawable.single_checked :
+                                           R.drawable.action_single);
 
         // Timebase
-        item = menu.findItem(R.id.timebase);
         if (timebase != DEFAULT_TIMEBASE)
         {
+            MenuItem item = menu.findItem(R.id.timebase);
             if (item.hasSubMenu())
             {
-                submenu = item.getSubMenu();
+                SubMenu submenu = item.getSubMenu();
                 item = submenu.getItem(timebase);
                 if (item != null)
                     item.setChecked(true);
@@ -220,10 +222,10 @@ public class MainActivity extends Activity
         }
 
         // Storage
-        item = menu.findItem(R.id.storage);
-        item.setIcon(scope.storage ?
-                     R.drawable.storage_checked :
-                     R.drawable.action_storage);
+        menu.findItem(R.id.storage).setIcon(scope.storage ?
+                                            R.drawable.storage_checked :
+                                            R.drawable.action_storage);
+        menu.findItem(R.id.storage).setChecked(scope.storage);
 
         return true;
     }
@@ -261,6 +263,8 @@ public class MainActivity extends Activity
         // Level
         yscale.index = bundle.getFloat(LEVEL, 0);
         yscale.invalidate();
+
+        invalidateOptionsMenu();
     }
 
     // Save state
@@ -327,12 +331,6 @@ public class MainActivity extends Activity
         case R.id.trigger:
             if (audio.single)
                 audio.trigger = true;
-            break;
-
-        // Timebase
-        case R.id.timebase:
-            if (item.hasSubMenu())
-                submenu = item.getSubMenu();
             break;
 
         // 0.1 ms
@@ -673,9 +671,12 @@ public class MainActivity extends Activity
             audio.single = preferences.getBoolean(PREF_SINGLE, false);
         }
 
-        scope.storage = preferences.getBoolean(PREF_STORAGE, false);
-        timebase = preferences.getInt(PREF_TIMEBASE, DEFAULT_TIMEBASE);
-        setTimebase(timebase, false);
+        if (scope != null)
+        {
+            scope.storage = preferences.getBoolean(PREF_STORAGE, false);
+            timebase = preferences.getInt(PREF_TIMEBASE, DEFAULT_TIMEBASE);
+            setTimebase(timebase, false);
+        }
 
         boolean screen = preferences.getBoolean(PREF_SCREEN, false);
 

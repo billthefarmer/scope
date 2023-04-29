@@ -65,8 +65,6 @@ public class MainActivity extends Activity
 
     private static final String TAG = "Scope";
 
-    private static final String STATE = "state";
-
     private static final String BRIGHT = "bright";
     private static final String SINGLE = "single";
     private static final String STORAGE = "storage";
@@ -236,32 +234,29 @@ public class MainActivity extends Activity
     {
         super.onRestoreInstanceState(savedInstanceState);
 
-        // Get saved state bundle
-        Bundle bundle = savedInstanceState.getBundle(STATE);
-
         // Bright
-        audio.bright = bundle.getBoolean(BRIGHT, false);
+        audio.bright = savedInstanceState.getBoolean(BRIGHT, false);
 
         // Single
-        audio.single = bundle.getBoolean(SINGLE, false);
+        audio.single = savedInstanceState.getBoolean(SINGLE, false);
 
         // Timebase
-        timebase = bundle.getInt(TIMEBASE, DEFAULT_TIMEBASE);
+        timebase = savedInstanceState.getInt(TIMEBASE, DEFAULT_TIMEBASE);
         setTimebase(timebase, false);
 
         // Storage
-        scope.storage = bundle.getBoolean(STORAGE, false);
+        scope.storage = savedInstanceState.getBoolean(STORAGE, false);
 
         // Start
-        scope.start = bundle.getFloat(START, 0);
+        scope.start = savedInstanceState.getFloat(START, 0);
         xscale.start = scope.start;
         xscale.invalidate();
 
         // Index
-        scope.index = bundle.getFloat(INDEX, 0);
+        scope.index = savedInstanceState.getFloat(INDEX, 0);
 
         // Level
-        yscale.index = bundle.getFloat(LEVEL, 0);
+        yscale.index = savedInstanceState.getFloat(LEVEL, 0);
         yscale.invalidate();
 
         invalidateOptionsMenu();
@@ -273,32 +268,26 @@ public class MainActivity extends Activity
     {
         super.onSaveInstanceState(outState);
 
-        // State bundle
-        Bundle bundle = new Bundle();
-
         // Bright
-        bundle.putBoolean(BRIGHT, audio.bright);
+        outState.putBoolean(BRIGHT, audio.bright);
 
         // Single
-        bundle.putBoolean(SINGLE, audio.single);
+        outState.putBoolean(SINGLE, audio.single);
 
         // Timebase
-        bundle.putInt(TIMEBASE, timebase);
+        outState.putInt(TIMEBASE, timebase);
 
         // Storage
-        bundle.putBoolean(STORAGE, scope.storage);
+        outState.putBoolean(STORAGE, scope.storage);
 
         // Start
-        bundle.putFloat(START, scope.start);
+        outState.putFloat(START, scope.start);
 
         // Index
-        bundle.putFloat(INDEX, scope.index);
+        outState.putFloat(INDEX, scope.index);
 
         // Level
-        bundle.putFloat(LEVEL, yscale.index);
-
-        // Save bundle
-        outState.putBundle(STATE, bundle);
+        outState.putFloat(LEVEL, yscale.index);
     }
 
     // On options item

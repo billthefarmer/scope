@@ -26,6 +26,7 @@ package org.billthefarmer.scope;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
@@ -46,11 +47,35 @@ public class SettingsActivity extends Activity
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
 
-        boolean dark =
-            preferences.getBoolean(KEY_PREF_DARK, false);
+        int theme =
+            Integer.parseInt(preferences.getString(MainActivity.PREF_THEME, "0"));
 
-        if (!dark)
+        Configuration config = getResources().getConfiguration();
+        int night = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        switch (theme)
+        {
+        case MainActivity.LIGHT:
             setTheme(R.style.AppTheme);
+            break;
+
+        case MainActivity.DARK:
+            setTheme(R.style.AppDarkTheme);
+            break;
+
+        case MainActivity.SYSTEM:
+            switch (night)
+            {
+            case Configuration.UI_MODE_NIGHT_NO:
+                setTheme(R.style.AppTheme);
+                break;
+
+            case Configuration.UI_MODE_NIGHT_YES:
+                setTheme(R.style.AppDarkTheme);
+                break;
+            }
+            break;
+        }
 
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction()

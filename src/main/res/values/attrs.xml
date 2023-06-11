@@ -10,7 +10,7 @@
     <attr name="pref_fill" format="reference" />
     <attr name="pref_hold" format="reference" />
     <attr name="pref_screen" format="reference" />
-    <attr name="pref_dark" format="reference" />
+    <attr name="pref_theme" format="reference" />
     <attr name="pref_about" format="reference" />
 
   </declare-styleable>

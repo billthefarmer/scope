@@ -31,6 +31,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioRecord;
@@ -55,13 +56,14 @@ import android.widget.Toast;
 // MainActivity
 public class MainActivity extends Activity
 {
-    private static final String PREF_BRIGHT = "pref_bright";
-    private static final String PREF_DARK = "pref_dark";
-    private static final String PREF_INPUT = "pref_input";
-    private static final String PREF_SCREEN = "pref_screen";
-    private static final String PREF_SINGLE = "pref_single";
-    private static final String PREF_STORAGE = "pref_storage";
-    private static final String PREF_TIMEBASE = "pref_timebase";
+    public static final String PREF_ABOUT = "pref_about";
+    public static final String PREF_THEME = "pref_theme";
+    public static final String PREF_INPUT = "pref_input";
+    public static final String PREF_SCREEN = "pref_screen";
+    public static final String PREF_BRIGHT = "pref_bright";
+    public static final String PREF_SINGLE = "pref_single";
+    public static final String PREF_STORAGE = "pref_storage";
+    public static final String PREF_TIMEBASE = "pref_timebase";
 
     private static final String TAG = "Scope";
 
@@ -100,6 +102,10 @@ public class MainActivity extends Activity
 
     public static final int VERSION_CODE_S_V2 = 32;
 
+    public static final int LIGHT  = 0;
+    public static final int DARK   = 1;
+    public static final int SYSTEM = 2;
+
     protected static final int SIZE = 20;
     protected static final int DEFAULT_TIMEBASE = 3;
     protected static final float SMALL_SCALE = 200;
@@ -118,7 +124,8 @@ public class MainActivity extends Activity
     private Audio audio;
     private Toast toast;
 
-    private boolean dark;
+    // private boolean dark;
+    private int theme;
 
     // On create
     @Override
@@ -129,8 +136,32 @@ public class MainActivity extends Activity
         // Get preferences
         getPreferences();
 
-        if (!dark)
+        Configuration config = getResources().getConfiguration();
+        int night = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        switch (theme)
+        {
+        case LIGHT:
             setTheme(R.style.AppTheme);
+            break;
+
+        case DARK:
+            setTheme(R.style.AppDarkTheme);
+            break;
+
+        case SYSTEM:
+            switch (night)
+            {
+            case Configuration.UI_MODE_NIGHT_NO:
+                setTheme(R.style.AppTheme);
+                break;
+
+            case Configuration.UI_MODE_NIGHT_YES:
+                setTheme(R.style.AppDarkTheme);
+                break;
+            }
+            break;
+        }
 
         setContentView(R.layout.activity_main);
 
@@ -588,12 +619,12 @@ public class MainActivity extends Activity
     {
         super.onResume();
 
-        boolean theme = dark;
+        int last = theme;
 
         // Get preferences
         getPreferences();
 
-        if (theme != dark && Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
+        if (last != theme && Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
             recreate();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -677,7 +708,7 @@ public class MainActivity extends Activity
         else
             window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        dark = preferences.getBoolean(PREF_DARK, false);
+        theme = Integer.parseInt(preferences.getString(PREF_THEME, "0"));
     }
 
     // Save preferences

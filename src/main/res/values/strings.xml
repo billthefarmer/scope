@@ -76,6 +76,7 @@
   <string name="pref_screen_summ">Keep screen on</string>
 
   <string name="pref_theme">Theme</string>
+  <string translatable="false" name="pref_theme_summ">%s</string>
 
   <string name="pref_dark">Dark Theme</string>
   <string name="pref_dark_summ">Use Dark Theme</string>

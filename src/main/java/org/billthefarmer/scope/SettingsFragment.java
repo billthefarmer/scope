@@ -38,10 +38,6 @@ import android.preference.PreferenceScreen;
 public class SettingsFragment extends android.preference.PreferenceFragment
     implements SharedPreferences.OnSharedPreferenceChangeListener
 {
-    private static final String KEY_PREF_INPUT = "pref_input";
-    private static final String KEY_PREF_DARK = "pref_dark";
-    private static final String KEY_PREF_ABOUT = "pref_about";
-
     // onCreate
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -55,11 +51,11 @@ public class SettingsFragment extends android.preference.PreferenceFragment
             PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         ListPreference preference =
-            (ListPreference) findPreference(KEY_PREF_INPUT);
+            (ListPreference) findPreference(MainActivity.PREF_INPUT);
         preference.setSummary(preference.getEntry());
 
         // Get about summary
-        Preference about = findPreference(KEY_PREF_ABOUT);
+        Preference about = findPreference(MainActivity.PREF_ABOUT);
 
         if (about != null)
         {
@@ -112,7 +108,7 @@ public class SettingsFragment extends android.preference.PreferenceFragment
     public void onSharedPreferenceChanged(SharedPreferences preferences,
                                           String key)
     {
-        if (key.equals(KEY_PREF_INPUT))
+        if (key.equals(MainActivity.PREF_INPUT))
         {
             Preference preference = findPreference(key);
 
@@ -120,7 +116,8 @@ public class SettingsFragment extends android.preference.PreferenceFragment
             // value
             preference.setSummary(((ListPreference) preference).getEntry());
         }
-        if (key.equals(KEY_PREF_DARK))
+
+        if (key.equals(MainActivity.PREF_THEME))
         {
             if (Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
                 getActivity().recreate();

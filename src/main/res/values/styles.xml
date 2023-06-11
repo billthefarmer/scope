@@ -24,7 +24,7 @@
     <item name="pref_fill">@drawable/ic_action_cloud</item>
     <item name="pref_hold">@drawable/ic_action_upload</item>
     <item name="pref_screen">@drawable/ic_action_brightness_low</item>
-    <item name="pref_dark">@drawable/ic_action_brightness_high</item>
+    <item name="pref_theme">@drawable/ic_action_brightness_high</item>
     <item name="pref_about">@drawable/ic_action_about</item>
 
   </style>
@@ -52,7 +52,7 @@
     <item name="pref_fill">@drawable/ic_action_cloud_dark</item>
     <item name="pref_hold">@drawable/ic_action_upload_dark</item>
     <item name="pref_screen">@drawable/ic_action_brightness_low_dark</item>
-    <item name="pref_dark">@drawable/ic_action_brightness_high_dark</item>
+    <item name="pref_theme">@drawable/ic_action_brightness_high_dark</item>
     <item name="pref_about">@drawable/ic_action_about_dark</item>
 
   </style>

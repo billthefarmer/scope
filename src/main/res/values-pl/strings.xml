@@ -78,9 +78,6 @@
 
   <string name="pref_theme">Motyw</string>
 
-  <string name="pref_dark">Ciemny motyw</string>
-  <string name="pref_dark_summ">Używaj ciemnego motywu</string>
-
   <string name="pref_about">O aplikacji</string>
   <string name="pref_about_summ"><a href="https://github.com/billthefarmer/scope/releases/latest">Wersja %s</a></string>
 

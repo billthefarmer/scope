@@ -66,4 +66,4 @@ The input source may be selected. Some of the selections will not be
 available, depending on the device. The fill option selects spectrum
 trace fill. The hold option selects spectrum trace hold. The screen
 option will stop the screen turning off. The theme option selects the
-dark theme. The about item shows the version and copyright.
+app theme. The about item shows the version and copyright.

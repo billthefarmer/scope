@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
   <item
-      android:id="@+id/app_name"
-      android:title="@string/short_name" />
+      android:id="@+id/action_scope"
+      android:title="@string/app_name" />
 
   <item
       android:id="@+id/action_spectrum"

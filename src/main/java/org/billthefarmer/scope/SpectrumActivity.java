@@ -30,6 +30,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioRecord;
@@ -41,27 +42,32 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import java.util.Arrays;
 import java.util.Locale;
 
 // SpectrumActivity
 public class SpectrumActivity extends Activity
-    implements View.OnClickListener
+    implements View.OnClickListener, PopupMenu.OnMenuItemClickListener
+
 {
     private static final String PREF_INPUT = "pref_input";
     private static final String PREF_FILL = "pref_fill";
     private static final String PREF_HOLD = "pref_hold";
     private static final String PREF_SCREEN = "pref_screen";
-    private static final String PREF_DARK = "pref_dark";
+    private static final String PREF_THEME = "pref_theme";
 
     private static final int REQUEST_PERMISSIONS = 1;
 
     private Spectrum spectrum;
+    private Toolbar toolbar;
     private TextView text;
     private Toast toast;
 
@@ -69,7 +75,7 @@ public class SpectrumActivity extends Activity
 
     private Audio audio;
 
-    private boolean dark;
+    private int theme;
 
     // On create
     @Override
@@ -80,8 +86,32 @@ public class SpectrumActivity extends Activity
         // Get preferences
         getPreferences();
 
-        if (!dark)
+        Configuration config = getResources().getConfiguration();
+        int night = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        switch (theme)
+        {
+        case MainActivity.LIGHT:
             setTheme(R.style.AppTheme);
+            break;
+
+        case MainActivity.DARK:
+            setTheme(R.style.AppDarkTheme);
+            break;
+
+        case MainActivity.SYSTEM:
+            switch (night)
+            {
+            case Configuration.UI_MODE_NIGHT_NO:
+                setTheme(R.style.AppTheme);
+                break;
+
+            case Configuration.UI_MODE_NIGHT_YES:
+                setTheme(R.style.AppDarkTheme);
+                break;
+            }
+            break;
+        }
 
         setContentView(R.layout.activity_spectrum);
 
@@ -95,14 +125,29 @@ public class SpectrumActivity extends Activity
         if (spectrum != null)
             spectrum.setOnClickListener(this);
 
-        // Enable back navigation on action bar
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(R.string.spectrum);
+        setTitle(R.string.spectrum);
 
+        // Show custom view
+        ActionBar actionBar = getActionBar();
         actionBar.setCustomView(R.layout.text);
         actionBar.setDisplayShowCustomEnabled(true);
         text = (TextView) actionBar.getCustomView();
+
+        // Find toolbar
+        ViewGroup root = (ViewGroup) getWindow().getDecorView();
+        toolbar = findToolbar(root);
+
+        if (toolbar != null)
+        {
+            toolbar.setNavigationIcon(R.drawable.ic_menu_white_36dp);
+            toolbar.setNavigationOnClickListener((v) ->
+            {
+                PopupMenu popup = new PopupMenu(this, v);
+                popup.inflate(R.menu.navigation);
+                popup.setOnMenuItemClickListener(this);
+                popup.show();
+            });
+        }
 
         audio = new Audio();
 
@@ -186,6 +231,59 @@ public class SpectrumActivity extends Activity
         }
     }
 
+    // onMenuItemClick
+    @Override
+    public boolean onMenuItemClick(MenuItem item)
+    {
+        Intent intent;
+
+        // Get id
+        int id = item.getItemId();
+        switch (id)
+        {
+        // Scope
+        case R.id.action_scope:
+            finish();
+            return true;
+
+        // Help
+        case R.id.action_help:
+            intent = new Intent(this, HelpActivity.class);
+            startActivity(intent);
+            return true;
+
+            // Settings
+        case R.id.action_settings:
+            intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            return true;
+
+        default:
+            return false;
+        }
+    }
+
+    // findToolbar
+    private Toolbar findToolbar(ViewGroup group)
+    {
+        View result = null;
+        final int count = group.getChildCount();
+        for (int i = 0; i < count; i++)
+        {
+            View view = group.getChildAt(i);
+            if (view instanceof Toolbar)
+                return (Toolbar) view;
+
+            if (view instanceof ViewGroup)
+                result = findToolbar((ViewGroup) view);
+
+            if (result != null)
+                break;
+        }
+
+        return (Toolbar) result;
+    }
+
     // Show toast.
     void showToast(int key)
     {
@@ -216,12 +314,12 @@ public class SpectrumActivity extends Activity
     {
         super.onResume();
 
-        boolean theme = dark;
+        int last = theme;
 
         // Get preferences
         getPreferences();
 
-        if (theme != dark && Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
+        if (last != theme && Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
             recreate();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -299,7 +397,7 @@ public class SpectrumActivity extends Activity
         else
             window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        dark = preferences.getBoolean(PREF_DARK, false);
+        theme = Integer.parseInt(preferences.getString(PREF_THEME, "0"));
     }
 
     // Save preferences

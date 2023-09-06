@@ -6,7 +6,7 @@
       android:icon="@drawable/action_lock"
       android:showAsAction="ifRoom"
       android:title="@string/action_lock" />
-
+  <!--
   <item
       android:id="@+id/action_help"
       android:icon="@drawable/ic_help_outline_white_36dp"
@@ -18,5 +18,5 @@
       android:icon="@drawable/ic_settings_white_36dp"
       android:showAsAction="ifRoom"
       android:title="@string/action_settings" />
-
+  -->
 </menu>

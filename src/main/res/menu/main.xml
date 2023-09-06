@@ -119,7 +119,7 @@
       android:icon="@drawable/ic_last_page_white_36dp"
       android:showAsAction="ifRoom"
       android:title="@string/action_end" />
-
+  <!--
   <item
       android:id="@+id/action_spectrum"
       android:icon="@drawable/ic_equalizer_white_36dp"
@@ -137,5 +137,5 @@
       android:icon="@drawable/ic_settings_white_36dp"
       android:showAsAction="ifRoom"
       android:title="@string/action_settings" />
-
+  -->
 </menu>

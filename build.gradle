@@ -28,7 +28,7 @@ android {
 
     defaultConfig {
         applicationId "org.billthefarmer.scope"
-        minSdkVersion 14
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 135
         versionName "1.35"

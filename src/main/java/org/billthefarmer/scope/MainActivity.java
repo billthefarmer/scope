@@ -48,13 +48,17 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.SubMenu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.PopupMenu;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 // MainActivity
 public class MainActivity extends Activity
+    implements PopupMenu.OnMenuItemClickListener
 {
     public static final String PREF_ABOUT = "pref_about";
     public static final String PREF_THEME = "pref_theme";
@@ -117,6 +121,7 @@ public class MainActivity extends Activity
     private ScaleGestureDetector scaleDetector;
 
     private Scope scope;
+    private Toolbar toolbar;
     private XScale xscale;
     private YScale yscale;
     private Unit unit;
@@ -170,12 +175,23 @@ public class MainActivity extends Activity
         yscale = findViewById(R.id.yscale);
         unit = findViewById(R.id.unit);
 
-        // Get action bar
-        ActionBar actionBar = getActionBar();
-
         // Set short title
-        if (actionBar != null)
-            actionBar.setTitle(R.string.short_name);
+        if (config.orientation == Configuration.ORIENTATION_PORTRAIT)
+            setTitle(R.string.short_name);
+
+        // Find toolbar
+        ViewGroup root = (ViewGroup) getWindow().getDecorView();
+        toolbar = findToolbar(root);
+
+        // Set up navigation
+        toolbar.setNavigationIcon(R.drawable.ic_menu_white_36dp);
+        toolbar.setNavigationOnClickListener((v) ->
+        {
+            PopupMenu popup = new PopupMenu(this, v);
+            popup.inflate(R.menu.navigation);
+            popup.setOnMenuItemClickListener(this);
+            popup.show();
+        });
 
         // Create audio
         audio = new Audio();
@@ -524,6 +540,52 @@ public class MainActivity extends Activity
         }
 
         return true;
+    }
+
+    // onMenuItemClick
+    @Override
+    public boolean onMenuItemClick(MenuItem item)
+    {
+        // Get id
+        int id = item.getItemId();
+        switch (id)
+        {
+        // Spectrum
+        case R.id.action_spectrum:
+            return onSpectrumClick(item);
+
+        // Help
+        case R.id.action_help:
+            return onHelpClick(item);
+
+        // Settings
+        case R.id.action_settings:
+            return onSettingsClick(item);
+
+        default:
+            return false;
+        }
+    }
+
+    // findToolbar
+    private Toolbar findToolbar(ViewGroup group)
+    {
+        View result = null;
+        final int count = group.getChildCount();
+        for (int i = 0; i < count; i++)
+        {
+            View view = group.getChildAt(i);
+            if (view instanceof Toolbar)
+                return (Toolbar) view;
+
+            if (view instanceof ViewGroup)
+                result = findToolbar((ViewGroup) view);
+
+            if (result != null)
+                break;
+        }
+
+        return (Toolbar) result;
     }
 
     // On settings click

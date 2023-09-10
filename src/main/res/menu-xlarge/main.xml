@@ -119,23 +119,5 @@
       android:icon="@drawable/ic_last_page_white_36dp"
       android:showAsAction="always"
       android:title="@string/action_end" />
-  <!--
-  <item
-      android:id="@+id/action_spectrum"
-      android:icon="@drawable/ic_equalizer_white_36dp"
-      android:showAsAction="always"
-      android:title="@string/action_spectrum" />
 
-  <item
-      android:id="@+id/action_help"
-      android:icon="@drawable/ic_help_outline_white_36dp"
-      android:showAsAction="always"
-      android:title="@string/action_help" />
-
-  <item
-      android:id="@+id/action_settings"
-      android:icon="@drawable/ic_settings_white_36dp"
-      android:showAsAction="always"
-      android:title="@string/action_settings" />
-  -->
 </menu>

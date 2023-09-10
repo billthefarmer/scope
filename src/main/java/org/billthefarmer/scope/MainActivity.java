@@ -120,8 +120,8 @@ public class MainActivity extends Activity
     private GestureDetector gestureDetector;
     private ScaleGestureDetector scaleDetector;
 
-    private Scope scope;
     private Toolbar toolbar;
+    private Scope scope;
     private XScale xscale;
     private YScale yscale;
     private Unit unit;

@@ -54,22 +54,22 @@ public class HelpActivity extends Activity
             PreferenceManager.getDefaultSharedPreferences(this);
 
         int theme =
-            Integer.parseInt(preferences.getString(MainActivity.PREF_THEME, "0"));
+            Integer.parseInt(preferences.getString(Main.PREF_THEME, "0"));
 
         Configuration config = getResources().getConfiguration();
         int night = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
         switch (theme)
         {
-        case MainActivity.LIGHT:
+        case Main.LIGHT:
             setTheme(R.style.AppTheme);
             break;
 
-        case MainActivity.DARK:
+        case Main.DARK:
             setTheme(R.style.AppDarkTheme);
             break;
 
-        case MainActivity.SYSTEM:
+        case Main.SYSTEM:
             switch (night)
             {
             case Configuration.UI_MODE_NIGHT_NO:

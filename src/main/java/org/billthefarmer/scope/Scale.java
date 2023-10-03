@@ -97,12 +97,12 @@ public class Scale extends View
         canvas.scale(1, -1);
 
         // Draw scale ticks
-        for (int i = 0; i < height; i += MainActivity.SIZE)
+        for (int i = 0; i < height; i += Main.SIZE)
         {
             canvas.drawLine(width * 2 / 3, i, width, i, paint);
         }
 
-        for (int i = 0; i < height; i += MainActivity.SIZE * 5)
+        for (int i = 0; i < height; i += Main.SIZE * 5)
         {
             canvas.drawLine(width / 3, i, width, i, paint);
         }

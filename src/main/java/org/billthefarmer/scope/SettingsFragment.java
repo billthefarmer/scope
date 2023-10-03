@@ -51,11 +51,11 @@ public class SettingsFragment extends android.preference.PreferenceFragment
             PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         ListPreference preference =
-            (ListPreference) findPreference(MainActivity.PREF_INPUT);
+            (ListPreference) findPreference(Main.PREF_INPUT);
         preference.setSummary(preference.getEntry());
 
         // Get about summary
-        Preference about = findPreference(MainActivity.PREF_ABOUT);
+        Preference about = findPreference(Main.PREF_ABOUT);
 
         if (about != null)
         {
@@ -108,7 +108,7 @@ public class SettingsFragment extends android.preference.PreferenceFragment
     public void onSharedPreferenceChanged(SharedPreferences preferences,
                                           String key)
     {
-        if (key.equals(MainActivity.PREF_INPUT))
+        if (key.equals(Main.PREF_INPUT))
         {
             Preference preference = findPreference(key);
 
@@ -117,7 +117,7 @@ public class SettingsFragment extends android.preference.PreferenceFragment
             preference.setSummary(((ListPreference) preference).getEntry());
         }
 
-        if (key.equals(MainActivity.PREF_THEME))
+        if (key.equals(Main.PREF_THEME))
         {
             if (Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
                 getActivity().recreate();

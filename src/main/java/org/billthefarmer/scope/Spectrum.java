@@ -118,7 +118,7 @@ public class Spectrum extends View
                 }
             }
 
-            for (int i = 0; i < height; i += MainActivity.SIZE)
+            for (int i = 0; i < height; i += Main.SIZE)
             {
                 c.drawLine(0, i, width, i, paint);
             }

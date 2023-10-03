@@ -60,7 +60,7 @@ public class Scope extends View
     protected float stretch;
 
     protected boolean points;
-    protected MainActivity.Audio audio;
+    protected Main.Audio audio;
 
     // Scope
     public Scope(Context context, AttributeSet attrs)
@@ -100,12 +100,12 @@ public class Scope extends View
         paint.setColor(Color.argb(255, 0, 63, 0));
 
         // Draw graticule
-        for (int i = 0; i < width; i += MainActivity.SIZE)
+        for (int i = 0; i < width; i += Main.SIZE)
             canvas.drawLine(i, 0, i, height, paint);
 
         canvas.translate(0, height / 2);
 
-        for (int i = 0; i < height / 2; i += MainActivity.SIZE)
+        for (int i = 0; i < height / 2; i += Main.SIZE)
         {
             canvas.drawLine(0, i, width, i, paint);
             canvas.drawLine(0, -i, width, -i, paint);
@@ -230,7 +230,7 @@ public class Scope extends View
                                          (this.xscale < 10.0) ?
                                          "%3.2f" : "%3.1f",
                                          (start + (index * this.xscale)) /
-                                         MainActivity.SMALL_SCALE);
+                                         Main.SMALL_SCALE);
                 cb.drawText(s, index, height / 2, paint);
             }
 
@@ -238,7 +238,7 @@ public class Scope extends View
             {
                 String s = String.format(Locale.getDefault(), "%3.3f",
                                          (start + (index * this.xscale)) /
-                                         MainActivity.LARGE_SCALE);
+                                         Main.LARGE_SCALE);
                 cb.drawText(s, index, height / 2, paint);
             }
         }

@@ -91,15 +91,15 @@ public class SpectrumActivity extends Activity
 
         switch (theme)
         {
-        case MainActivity.LIGHT:
+        case Main.LIGHT:
             setTheme(R.style.AppTheme);
             break;
 
-        case MainActivity.DARK:
+        case Main.DARK:
             setTheme(R.style.AppDarkTheme);
             break;
 
-        case MainActivity.SYSTEM:
+        case Main.SYSTEM:
             switch (night)
             {
             case Configuration.UI_MODE_NIGHT_NO:
@@ -134,20 +134,17 @@ public class SpectrumActivity extends Activity
         text = (TextView) actionBar.getCustomView();
 
         // Find toolbar
-        ViewGroup root = (ViewGroup) getWindow().getDecorView();
-        toolbar = findToolbar(root);
-
-        if (toolbar != null)
+        toolbar = findViewById(getResources().getIdentifier("action_bar",
+                                                            "id", "android"));
+        // Set up navigation
+        toolbar.setNavigationIcon(R.drawable.ic_menu_white_36dp);
+        toolbar.setNavigationOnClickListener((v) ->
         {
-            toolbar.setNavigationIcon(R.drawable.ic_menu_white_36dp);
-            toolbar.setNavigationOnClickListener((v) ->
-            {
-                PopupMenu popup = new PopupMenu(this, v);
-                popup.inflate(R.menu.navigation);
-                popup.setOnMenuItemClickListener(this);
-                popup.show();
-            });
-        }
+            PopupMenu popup = new PopupMenu(this, v);
+            popup.inflate(R.menu.navigation);
+            popup.setOnMenuItemClickListener(this);
+            popup.show();
+        });
 
         audio = new Audio();
 
@@ -263,27 +260,6 @@ public class SpectrumActivity extends Activity
         }
     }
 
-    // findToolbar
-    private Toolbar findToolbar(ViewGroup group)
-    {
-        View result = null;
-        final int count = group.getChildCount();
-        for (int i = 0; i < count; i++)
-        {
-            View view = group.getChildAt(i);
-            if (view instanceof Toolbar)
-                return (Toolbar) view;
-
-            if (view instanceof ViewGroup)
-                result = findToolbar((ViewGroup) view);
-
-            if (result != null)
-                break;
-        }
-
-        return (Toolbar) result;
-    }
-
     // Show toast.
     void showToast(int key)
     {
@@ -303,7 +279,7 @@ public class SpectrumActivity extends Activity
         toast.setGravity(Gravity.CENTER, 0, 0);
         // Fix for android 13
         View view = toast.getView();
-        if (view != null && Build.VERSION.SDK_INT > MainActivity.VERSION_CODE_S_V2)
+        if (view != null && Build.VERSION.SDK_INT > Main.VERSION_CODE_S_V2)
             view.setBackgroundResource(R.drawable.toast_frame);
         toast.show();
     }

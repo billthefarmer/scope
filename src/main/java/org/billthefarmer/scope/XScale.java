@@ -107,10 +107,10 @@ public class XScale extends View
         paint.setColor(textColour);
 
         // Draw ticks
-        for (int i = 0; i < width; i += MainActivity.SIZE)
+        for (int i = 0; i < width; i += Main.SIZE)
             canvas.drawLine(i, 0, i, height / 4, paint);
 
-        for (int i = 0; i < width; i += MainActivity.SIZE * 5)
+        for (int i = 0; i < width; i += Main.SIZE * 5)
             canvas.drawLine(i, 0, i, height / 3, paint);
 
         // Set up paint
@@ -123,12 +123,12 @@ public class XScale extends View
         {
             canvas.drawText("ms", 0, height - (height / 6), paint);
 
-            for (int i = MainActivity.SIZE * 10; i < width;
-                    i += MainActivity.SIZE * 10)
+            for (int i = Main.SIZE * 10; i < width;
+                    i += Main.SIZE * 10)
             {
                 String s = String.format(Locale.getDefault(),
                                          "%1.1f", (start + (i * scale)) /
-                                         MainActivity.SMALL_SCALE);
+                                         Main.SMALL_SCALE);
                 canvas.drawText(s, i, height - (height / 8), paint);
             }
         }
@@ -136,12 +136,12 @@ public class XScale extends View
         {
             canvas.drawText("sec", 0, height - (height / 6), paint);
 
-            for (int i = MainActivity.SIZE * 10; i < width;
-                    i += MainActivity.SIZE * 10)
+            for (int i = Main.SIZE * 10; i < width;
+                    i += Main.SIZE * 10)
             {
                 String s = String.format(Locale.getDefault(),
                                          "%1.1f", (start + (i * scale)) /
-                                         MainActivity.LARGE_SCALE);
+                                         Main.LARGE_SCALE);
                 canvas.drawText(s, i, height - (height / 8), paint);
             }
         }

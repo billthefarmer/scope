@@ -122,13 +122,13 @@ public class YScale extends View
         canvas.translate(0, height / 2);
 
         // Draw scale ticks
-        for (int i = 0; i < height / 2; i += MainActivity.SIZE)
+        for (int i = 0; i < height / 2; i += Main.SIZE)
         {
             canvas.drawLine(width * 2 / 3, i, width, i, paint);
             canvas.drawLine(width * 2 / 3, -i, width, -i, paint);
         }
 
-        for (int i = 0; i < height / 2; i += MainActivity.SIZE * 5)
+        for (int i = 0; i < height / 2; i += Main.SIZE * 5)
         {
             canvas.drawLine(width / 3, i, width, i, paint);
             canvas.drawLine(width / 3, -i, width, -i, paint);

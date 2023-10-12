@@ -18,13 +18,13 @@
 
   <item
       android:id="@+id/trigger"
-      android:icon="@drawable/ic_repeat_one_white_36dp"
+      android:icon="@drawable/ic_repeat_one_white_24dp"
       android:showAsAction="always"
       android:title="@string/action_trigger" />
 
   <item
       android:id="@+id/timebase"
-      android:icon="@drawable/ic_access_time_white_36dp"
+      android:icon="@drawable/ic_access_time_white_24dp"
       android:showAsAction="always"
       android:title="@string/action_timebase">
 
@@ -92,31 +92,31 @@
 
   <item
       android:id="@+id/clear"
-      android:icon="@drawable/ic_clear_white_36dp"
+      android:icon="@drawable/ic_clear_white_24dp"
       android:showAsAction="always"
       android:title="@string/action_clear" />
 
   <item
       android:id="@+id/left"
-      android:icon="@drawable/ic_keyboard_arrow_left_white_36dp"
+      android:icon="@drawable/ic_keyboard_arrow_left_white_24dp"
       android:showAsAction="ifRoom"
       android:title="@string/action_left" />
 
   <item
       android:id="@+id/right"
-      android:icon="@drawable/ic_keyboard_arrow_right_white_36dp"
+      android:icon="@drawable/ic_keyboard_arrow_right_white_24dp"
       android:showAsAction="ifRoom"
       android:title="@string/action_right" />
 
   <item
       android:id="@+id/start"
-      android:icon="@drawable/ic_first_page_white_36dp"
+      android:icon="@drawable/ic_first_page_white_24dp"
       android:showAsAction="ifRoom"
       android:title="@string/action_start" />
 
   <item
       android:id="@+id/end"
-      android:icon="@drawable/ic_last_page_white_36dp"
+      android:icon="@drawable/ic_last_page_white_24dp"
       android:showAsAction="ifRoom"
       android:title="@string/action_end" />
 

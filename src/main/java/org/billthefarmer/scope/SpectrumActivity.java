@@ -137,7 +137,7 @@ public class SpectrumActivity extends Activity
         toolbar = findViewById(getResources().getIdentifier("action_bar",
                                                             "id", "android"));
         // Set up navigation
-        toolbar.setNavigationIcon(R.drawable.ic_menu_white_36dp);
+        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
         toolbar.setNavigationOnClickListener((v) ->
         {
             PopupMenu popup = new PopupMenu(this, v);

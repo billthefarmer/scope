@@ -23,8 +23,6 @@
 
 package org.billthefarmer.scope;
 
-import android.app.ActionBar;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -84,24 +82,6 @@ public class SettingsFragment extends android.preference.PreferenceFragment
         super.onPause();
         getPreferenceScreen().getSharedPreferences()
         .unregisterOnSharedPreferenceChangeListener(this);
-    }
-
-    // On preference tree click
-    @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-                                         Preference preference)
-    {
-        boolean result =
-            super.onPreferenceTreeClick(preferenceScreen, preference);
-
-        if (preference instanceof PreferenceScreen)
-        {
-            Dialog dialog = ((PreferenceScreen) preference).getDialog();
-            ActionBar actionBar = dialog.getActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(false);
-        }
-
-        return result;
     }
 
     // On shared preference changed

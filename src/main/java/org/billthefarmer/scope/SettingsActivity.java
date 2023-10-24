@@ -47,8 +47,7 @@ public class SettingsActivity extends Activity
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
 
-        int theme =
-            Integer.parseInt(preferences.getString(Main.PREF_THEME, "0"));
+        int theme = Integer.parseInt(preferences.getString(Main.PREF_THEME, "0"));
 
         Configuration config = getResources().getConfiguration();
         int night = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -85,7 +84,7 @@ public class SettingsActivity extends Activity
         // Enable back navigation on action bar
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(R.string.settings);
+        setTitle(R.string.settings);
     }
 
     // On options item selected

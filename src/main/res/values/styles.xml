@@ -20,12 +20,12 @@
          API-level can go here.
     -->
 
-    <item name="pref_input">@drawable/ic_action_mic</item>
-    <item name="pref_fill">@drawable/ic_action_cloud</item>
-    <item name="pref_hold">@drawable/ic_action_upload</item>
-    <item name="pref_screen">@drawable/ic_action_brightness_low</item>
-    <item name="pref_theme">@drawable/ic_action_brightness_high</item>
-    <item name="pref_about">@drawable/ic_action_about</item>
+    <item name="pref_input">@drawable/ic_mic_black_24dp</item>
+    <item name="pref_fill">@drawable/ic_cloud_black_24dp</item>
+    <item name="pref_hold">@drawable/ic_file_upload_black_24dp</item>
+    <item name="pref_screen">@drawable/ic_brightness_low_black_24dp</item>
+    <item name="pref_theme">@drawable/ic_brightness_high_black_24dp</item>
+    <item name="pref_about">@drawable/ic_info_outline_black_24dp</item>
 
   </style>
 
@@ -48,12 +48,12 @@
          API-level can go here.
     -->
 
-    <item name="pref_input">@drawable/ic_action_mic_dark</item>
-    <item name="pref_fill">@drawable/ic_action_cloud_dark</item>
-    <item name="pref_hold">@drawable/ic_action_upload_dark</item>
-    <item name="pref_screen">@drawable/ic_action_brightness_low_dark</item>
-    <item name="pref_theme">@drawable/ic_action_brightness_high_dark</item>
-    <item name="pref_about">@drawable/ic_action_about_dark</item>
+    <item name="pref_input">@drawable/ic_mic_white_24dp</item>
+    <item name="pref_fill">@drawable/ic_cloud_white_24dp</item>
+    <item name="pref_hold">@drawable/ic_file_upload_white_24dp</item>
+    <item name="pref_screen">@drawable/ic_brightness_low_white_24dp</item>
+    <item name="pref_theme">@drawable/ic_brightness_high_white_24dp</item>
+    <item name="pref_about">@drawable/ic_info_outline_white_24dp</item>
 
   </style>
 

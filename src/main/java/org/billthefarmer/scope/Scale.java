@@ -51,7 +51,7 @@ public class Scale extends View
         Resources resources = getResources();
 
         final TypedArray typedArray =
-            context.obtainStyledAttributes(attrs, R.styleable.Scope, 0, 0);
+            context.obtainStyledAttributes(attrs, R.styleable.Scope);
 
         textColour =
             typedArray.getColor(R.styleable.Scope_TextColour,

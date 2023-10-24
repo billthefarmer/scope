@@ -54,8 +54,8 @@ public class FreqScale extends View
 
         Resources resources = getResources();
 
-        final TypedArray typedArray = context.obtainStyledAttributes(attrs,
-                                      R.styleable.Scope, 0, 0);
+        final TypedArray typedArray =
+            context.obtainStyledAttributes(attrs, R.styleable.Scope);
 
         textColour = typedArray.getColor(R.styleable.Scope_TextColour,
                                          resources.getColor(android.R.color.black));

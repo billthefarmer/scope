@@ -664,8 +664,18 @@ public class Main extends Activity
         // Get preferences
         getPreferences();
 
-        if (last != theme && Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
-            recreate();
+        if (last != theme)
+        {
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M)
+            {
+                Intent intent = new Intent(this, getClass());
+                startActivity(intent);
+                finish();
+            }
+
+            else
+                recreate();
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
@@ -690,17 +700,23 @@ public class Main extends Activity
                                            int[] grantResults)
     {
         if (requestCode == REQUEST_PERMISSIONS)
+        {
             for (int i = 0; i < grantResults.length; i++)
                 if (permissions[i].equals(Manifest.permission.RECORD_AUDIO) &&
                     grantResults[i] == PackageManager.PERMISSION_GRANTED)
                 {
-                    // Granted, recreate or start audio thread
-                    if (Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
-                        recreate();
+                    // Granted, recreate
+                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M)
+                    {
+                        Intent intent = new Intent(this, getClass());
+                        startActivity(intent);
+                        finish();
+                    }
 
                     else
-                        audio.start();
+                        recreate();
                 }
+        }
     }
 
     // On pause

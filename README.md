@@ -1,7 +1,7 @@
 # ![Logo](src/main/res/drawable-mdpi/ic_launcher.png) Oscilloscope [![.github/workflows/main.yml](https://github.com/billthefarmer/scope/workflows/.github/workflows/build.yml/badge.svg)](https://github.com/billthefarmer/scope/actions) [![Release](https://img.shields.io/github/release/billthefarmer/scope.svg?logo=github)](https://github.com/billthefarmer/scope/releases)
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.svg" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/org.billthefarmer.scope)
 
-Android Oscilloscope. The app is available on
+Android Audio Oscilloscope. The app is available on
 [F-Droid](https://f-droid.org/packages/org.billthefarmer.scope)
 and [here](https://github.com/billthefarmer/scope/releases). See the
 [Wiki](https://github.com/billthefarmer/scope/wiki) for more screenshots
@@ -42,7 +42,7 @@ the device.
 ### Oscilloscope
 Touching the display will produce a vertical index line, which will
 show the value at that point. The value is arbitrary, as there is
-automatic gain control on the input so the trace does not get
+automatic gain control on the audio input so the trace does not get
 clipped. The display will respond to scroll and scale gestures. The
 index can be removed and scaling reset by touching the Start icon.
 
@@ -62,7 +62,7 @@ toolbar. Touch it again to release the lock. To display the help
 screen, touch the help icon.
 
 ### Settings
-The input source may be selected. Some of the selections will not be
+The audio input source may be selected. Some of the selections will not be
 available, depending on the device. The fill option selects spectrum
 trace fill. The hold option selects spectrum trace hold. The screen
 option will stop the screen turning off. The theme option selects the

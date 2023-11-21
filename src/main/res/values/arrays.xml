@@ -2,8 +2,12 @@
 <resources>
 
   <string-array name="pref_input_entries">
-    <item>Default audio source</item>
-    <item>Microphone audio source</item>
+    <item>
+      Default audio source
+    </item>
+    <item>
+      Microphone audio source
+    </item>
     <item>
       Microphone audio source with same orientation as camera if
       available, the main device microphone otherwise

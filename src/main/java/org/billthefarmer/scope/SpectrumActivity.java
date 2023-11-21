@@ -54,6 +54,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 // SpectrumActivity
+@SuppressWarnings("deprecation")
 public class SpectrumActivity extends Activity
     implements View.OnClickListener, PopupMenu.OnMenuItemClickListener
 
@@ -298,16 +299,13 @@ public class SpectrumActivity extends Activity
         if (last != theme && Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
             recreate();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        if (checkSelfPermission(Manifest.permission.RECORD_AUDIO)
+            != PackageManager.PERMISSION_GRANTED)
         {
-            if (checkSelfPermission(Manifest.permission.RECORD_AUDIO)
-                != PackageManager.PERMISSION_GRANTED)
-            {
-                requestPermissions(new String[]
-                    {Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSIONS);
+            requestPermissions(new String[]
+            {Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSIONS);
 
-                return;
-            }
+            return;
         }
 
         // Start the audio thread
@@ -524,39 +522,17 @@ public class SpectrumActivity extends Activity
         // Process Audio
         protected void processAudio()
         {
-            // Assume the output sample will work on the input as
-            // there isn't an AudioRecord.getNativeInputSampleRate()
-            sample =
-                AudioTrack.getNativeOutputSampleRate(AudioManager.STREAM_MUSIC);
-
-            // Calculate fps
-            fps = (double) sample / SAMPLES;
-
-            // Get buffer size
-            int size =
-                AudioRecord.getMinBufferSize(sample,
-                                             AudioFormat.CHANNEL_IN_MONO,
-                                             AudioFormat.ENCODING_PCM_16BIT);
-            // Give up if it doesn't work
-            if (size == AudioRecord.ERROR_BAD_VALUE ||
-                    size == AudioRecord.ERROR ||
-                    size <= 0)
-            {
-                runOnUiThread(() -> showAlert(R.string.app_name,
-                                              R.string.error_buffer));
-
-                thread = null;
-                return;
-            }
-
-            // Create the AudioRecord object
             try
             {
-                audioRecord =
-                    new AudioRecord(input, sample,
-                                    AudioFormat.CHANNEL_IN_MONO,
-                                    AudioFormat.ENCODING_PCM_16BIT,
-                                    size);
+                // Create the AudioRecord object
+                audioRecord = new AudioRecord.Builder()
+                    .setAudioSource(input)
+                    .setAudioFormat
+                    (new AudioFormat.Builder()
+                     .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+                     .setChannelMask(AudioFormat.CHANNEL_IN_MONO)
+                     .build())
+                    .build();
             }
 
             // Exception
@@ -564,13 +540,17 @@ public class SpectrumActivity extends Activity
             {
                 runOnUiThread(() -> showAlert(R.string.app_name,
                                               R.string.error_init));
-
                 thread = null;
                 return;
             }
 
-            // Check audiorecord
+            // Get sample rate
+            sample = audioRecord.getSampleRate();
 
+            // Calculate fps
+            fps = (double) sample / SAMPLES;
+
+            // Check audiorecord
             // Check state
             int state = audioRecord.getState();
 
@@ -597,7 +577,7 @@ public class SpectrumActivity extends Activity
             while (thread != null)
             {
                 // Read a buffer of data
-                size = audioRecord.read(data, 0, STEP);
+                int size = audioRecord.read(data, 0, STEP);
 
                 // Stop the thread if no data or error state
                 if (size <= 0)

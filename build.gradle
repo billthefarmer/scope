@@ -23,21 +23,21 @@ allprojects {
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     namespace "org.billthefarmer.scope"
 
     defaultConfig {
         applicationId "org.billthefarmer.scope"
-        minSdkVersion 21
-        targetSdkVersion 28
+        minSdkVersion 23
+        targetSdkVersion 30
         versionCode 137
         versionName "1.37"
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_9
+        targetCompatibility JavaVersion.VERSION_1_9
     }
 
     lintOptions {

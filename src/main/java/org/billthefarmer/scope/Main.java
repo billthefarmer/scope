@@ -57,6 +57,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 // Main
+@SuppressWarnings("deprecation")
 public class Main extends Activity
     implements PopupMenu.OnMenuItemClickListener
 {
@@ -666,27 +667,16 @@ public class Main extends Activity
 
         if (last != theme)
         {
-            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M)
-            {
-                Intent intent = new Intent(this, getClass());
-                startActivity(intent);
-                finish();
-            }
-
-            else
+            if (Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
                 recreate();
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        if (checkSelfPermission(Manifest.permission.RECORD_AUDIO)
+            != PackageManager.PERMISSION_GRANTED)
         {
-            if (checkSelfPermission(Manifest.permission.RECORD_AUDIO)
-                != PackageManager.PERMISSION_GRANTED)
-            {
-                requestPermissions(new String[]
-                    {Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSIONS);
-
-                return;
-            }
+            requestPermissions(new String[]
+            {Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSIONS);
+            return;
         }
 
         // Start the audio thread
@@ -705,16 +695,12 @@ public class Main extends Activity
                 if (permissions[i].equals(Manifest.permission.RECORD_AUDIO) &&
                     grantResults[i] == PackageManager.PERMISSION_GRANTED)
                 {
-                    // Granted, recreate
-                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M)
-                    {
-                        Intent intent = new Intent(this, getClass());
-                        startActivity(intent);
-                        finish();
-                    }
+                    // Granted, recreate or start audio thread
+                    if (Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
+                        recreate();
 
                     else
-                        recreate();
+                        audio.start();
                 }
         }
     }
@@ -925,6 +911,7 @@ public class Main extends Activity
         private static final int LAST = 3;
 
         private AudioRecord audioRecord;
+
         private short buffer[];
 
         // Constructor
@@ -990,47 +977,29 @@ public class Main extends Activity
         // Process Audio
         protected void processAudio()
         {
-            // Assume the output sample rate will work on the input as
-            // there isn't an AudioRecord.getNativeInputSampleRate()
-            sample =
-                AudioTrack.getNativeOutputSampleRate(AudioManager.STREAM_MUSIC);
-
-            // Get buffer size
-            int size =
-                AudioRecord.getMinBufferSize(sample,
-                                             AudioFormat.CHANNEL_IN_MONO,
-                                             AudioFormat.ENCODING_PCM_16BIT);
-            // Give up if it doesn't work
-            if (size == AudioRecord.ERROR_BAD_VALUE ||
-                    size == AudioRecord.ERROR ||
-                    size <= 0)
-            {
-                runOnUiThread(() -> showAlert(R.string.app_name,
-                                              R.string.error_buffer));
-
-                thread = null;
-                return;
-            }
-
-            // Create the AudioRecord object
             try
             {
-                audioRecord =
-                    new AudioRecord(input, sample,
-                                    AudioFormat.CHANNEL_IN_MONO,
-                                    AudioFormat.ENCODING_PCM_16BIT,
-                                    size);
+                // Create the AudioRecord object
+                audioRecord = new AudioRecord.Builder()
+                    .setAudioSource(input)
+                    .setAudioFormat
+                    (new AudioFormat.Builder()
+                     .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+                     .setChannelMask(AudioFormat.CHANNEL_IN_MONO)
+                     .build())
+                    .build();
             }
 
-            // Exception
             catch (Exception e)
             {
                 runOnUiThread(() -> showAlert(R.string.app_name,
                                               R.string.error_init));
-
                 thread = null;
                 return;
             }
+
+            // Get sample rate
+            sample = audioRecord.getSampleRate();
 
             // Check audiorecord
             // Check state
@@ -1059,7 +1028,7 @@ public class Main extends Activity
             while (thread != null)
             {
                 // Read a buffer of data
-                size = audioRecord.read(buffer, 0, FRAMES);
+                int size = audioRecord.read(buffer, 0, FRAMES);
 
                 // Stop the thread if no data or error state
                 if (size <= 0)

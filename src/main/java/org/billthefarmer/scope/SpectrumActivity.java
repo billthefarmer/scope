@@ -691,6 +691,23 @@ public class SpectrumActivity extends Activity
                     }
                 }
 
+                // Sum of harmonics
+                double sumh = 0.0;
+                // Sum of fundamental
+                double sumf = 0.0;
+                for (int i = 1; i < RANGE; i++)
+                    // Sum the fundamental
+                    if (Math.abs(xf[i] - frequency) < fps)
+                        sumf += xa[i] * xa[i];
+
+                    // Sum the harmonics
+                    else if (Math.IEEEremainder(xf[i], frequency) <
+                             Math.round(xf[i] / frequency) * fps)
+                        sumh += xa[i] * xa[i];
+
+                // Total harmonic distortion
+                double thd = Math.sqrt(sumh / sumf) * 100.0;
+
                 // Level
                 double level = 0.0;
 
@@ -709,8 +726,8 @@ public class SpectrumActivity extends Activity
                 if (max > MIN)
                 {
                     final String s = String.format(Locale.getDefault(),
-                                                   "%1.1fHz  %1.1fdB",
-                                                   frequency, dB);
+                                                   "%1.0f%% %1.1fHz  %1.1fdB",
+                                                   thd, frequency, dB);
                     text.post(() -> text.setText(s));
                 }
                 else

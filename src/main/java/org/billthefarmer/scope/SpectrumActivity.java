@@ -701,7 +701,7 @@ public class SpectrumActivity extends Activity
                         sumf += xa[i] * xa[i];
 
                     // Sum the harmonics
-                    else if (Math.IEEEremainder(xf[i], frequency) <
+                    else if (Math.abs(Math.IEEEremainder(xf[i], frequency)) <
                              Math.round(xf[i] / frequency) * fps)
                         sumh += xa[i] * xa[i];
 
@@ -726,10 +726,11 @@ public class SpectrumActivity extends Activity
                 if (max > MIN)
                 {
                     final String s = String.format(Locale.getDefault(),
-                                                   "%1.0f%% %1.1fHz  %1.1fdB",
+                                                   "%1.0f%%  %1.1fHz  %1.1fdB",
                                                    thd, frequency, dB);
                     text.post(() -> text.setText(s));
                 }
+
                 else
                 {
                     frequency = 0.0;

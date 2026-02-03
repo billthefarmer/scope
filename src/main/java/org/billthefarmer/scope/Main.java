@@ -56,6 +56,9 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+
 // Main
 @SuppressWarnings("deprecation")
 public class Main extends Activity
@@ -120,6 +123,7 @@ public class Main extends Activity
 
     private GestureDetector gestureDetector;
     private ScaleGestureDetector scaleDetector;
+    private ExecutorService executor;
 
     private Toolbar toolbar;
     private Scope scope;
@@ -212,6 +216,9 @@ public class Main extends Activity
             xscale.step = 1000 * xscale.scale;
             unit.scale = scope.xscale;
         }
+
+        // Executor
+        executor =  Executors.newSingleThreadExecutor();
 
         // Set up gesture detectors
         gestureDetector =
@@ -897,7 +904,6 @@ public class Main extends Activity
         protected int sample;
 
         // Data
-        protected Thread thread;
         protected short data[];
         protected long length;
 
@@ -913,6 +919,7 @@ public class Main extends Activity
         private AudioRecord audioRecord;
 
         private short buffer[];
+        private boolean running;
 
         // Constructor
         protected Audio()
@@ -924,15 +931,15 @@ public class Main extends Activity
         // Start audio
         protected void start()
         {
-            // Start the thread
-            thread = new Thread(this, "Audio");
-            thread.start();
+            // Start
+            executor.execute(this);
         }
 
         // Run
         @Override
         public void run()
         {
+            running = true;
             processAudio();
         }
 
@@ -941,18 +948,7 @@ public class Main extends Activity
         {
             // Stop and release the audio recorder
             cleanUpAudioRecord();
-
-            Thread t = thread;
-            thread = null;
-
-            try
-            {
-                // Wait for the thread to exit
-                if (t != null && t.isAlive())
-                    t.join();
-            }
-
-            catch (Exception e) {}
+            running = false;
         }
 
         // Stop and release the audio recorder
@@ -994,7 +990,7 @@ public class Main extends Activity
             {
                 runOnUiThread(() -> showAlert(R.string.app_name,
                                               R.string.error_init));
-                thread = null;
+                running = false;
                 return;
             }
 
@@ -1011,7 +1007,7 @@ public class Main extends Activity
                                               R.string.error_init));
 
                 audioRecord.release();
-                thread = null;
+                running = false;
                 return;
             }
 
@@ -1024,16 +1020,16 @@ public class Main extends Activity
             state = INIT;
             short last = 0;
 
-            // Continue until the thread is stopped
-            while (thread != null)
+            // Continue until stopped
+            while (running)
             {
                 // Read a buffer of data
                 int size = audioRecord.read(buffer, 0, FRAMES);
 
-                // Stop the thread if no data or error state
+                // Stop the if no data or error state
                 if (size <= 0)
                 {
-                    thread = null;
+                    running = false;
                     break;
                 }
 

@@ -50,6 +50,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -67,6 +70,7 @@ public class SpectrumActivity extends Activity
 
     private static final int REQUEST_PERMISSIONS = 1;
 
+    private ExecutorService executor;
     private Spectrum spectrum;
     private Toolbar toolbar;
     private TextView text;
@@ -148,6 +152,9 @@ public class SpectrumActivity extends Activity
         });
 
         audio = new Audio();
+
+        // Executor
+        executor =  Executors.newSingleThreadExecutor();
 
         if (spectrum != null)
             spectrum.audio = audio;
@@ -437,7 +444,7 @@ public class SpectrumActivity extends Activity
 
         private long counter;
 
-        private Thread thread;
+        private boolean running;
         private short data[];
         private double buffer[];
 
@@ -469,15 +476,15 @@ public class SpectrumActivity extends Activity
         // Start audio
         protected void start()
         {
-            // Start the thread
-            thread = new Thread(this, "Audio");
-            thread.start();
+            // Start
+            executor.execute(this);
         }
 
         // Run
         @Override
         public void run()
         {
+            running = true;
             processAudio();
         }
 
@@ -486,18 +493,7 @@ public class SpectrumActivity extends Activity
         {
             // Stop and release the audio recorder
             cleanUpAudioRecord();
-
-            Thread t = thread;
-            thread = null;
-
-            try
-            {
-                // Wait for the thread to exit
-                if (t != null && t.isAlive())
-                    t.join();
-            }
-
-            catch (Exception e) {}
+            running = false;
         }
 
         // Stop and release the audio recorder
@@ -540,7 +536,7 @@ public class SpectrumActivity extends Activity
             {
                 runOnUiThread(() -> showAlert(R.string.app_name,
                                               R.string.error_init));
-                thread = null;
+                running = false;
                 return;
             }
 
@@ -560,7 +556,7 @@ public class SpectrumActivity extends Activity
                                               R.string.error_init));
 
                 audioRecord.release();
-                thread = null;
+                running = false;
                 return;
             }
 
@@ -574,15 +570,15 @@ public class SpectrumActivity extends Activity
             Arrays.fill(xm, 0.0);
 
             // Continue until the thread is stopped
-            while (thread != null)
+            while (running)
             {
                 // Read a buffer of data
                 int size = audioRecord.read(data, 0, STEP);
 
-                // Stop the thread if no data or error state
+                // Stop if no data or error state
                 if (size <= 0)
                 {
-                    thread = null;
+                    running = false;
                     break;
                 }
 

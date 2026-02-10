@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.android.tools.build:gradle:8.13.2'
     }
 }
 
@@ -23,13 +23,13 @@ allprojects {
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 35
     namespace "org.billthefarmer.scope"
 
     defaultConfig {
         applicationId "org.billthefarmer.scope"
         minSdkVersion 23
-        targetSdkVersion 30
+        targetSdkVersion 35
         versionName "1.38"
         versionCode 138
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
@@ -40,10 +40,15 @@ android {
         targetCompatibility JavaVersion.VERSION_1_9
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     lintOptions {
         disable 'IconDensities', 'ClickableViewAccessibility', 'ExpiredTargetSdkVersion',
-            'CustomViewStyleable', 'OldTargetApi', 'NonConstantResourceId',
-	    'AndroidGradlePluginVersion'
+            'CustomViewStyleable', 'OldTargetApi', 'NonConstantResourceId', 'GradleDependency',
+	    'AndroidGradlePluginVersion', 'MissingPermission', 'DiscouragedApi'
+
         // abortOnError false
     }
 }

@@ -231,6 +231,7 @@ public class Main extends Activity
             {
                 scaleDetector.onTouchEvent(event);
                 gestureDetector.onTouchEvent(event);
+                v.performClick();
                 return true;
             });
     }

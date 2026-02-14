@@ -45,10 +45,8 @@ android {
     }
 
     lintOptions {
-        disable 'IconDensities', 'ClickableViewAccessibility', 'ExpiredTargetSdkVersion',
-            'CustomViewStyleable', 'OldTargetApi', 'NonConstantResourceId', 'GradleDependency',
-	    'AndroidGradlePluginVersion', 'MissingPermission', 'DiscouragedApi'
-
+        disable 'MissingPermission', 'CustomViewStyleable', 'OldTargetApi', 'GradleDependency', 
+	'NonConstantResourceId', 'AndroidGradlePluginVersion', 'DiscouragedApi'
         // abortOnError false
     }
 }

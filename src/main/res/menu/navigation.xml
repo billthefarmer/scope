@@ -10,11 +10,11 @@
       android:title="@string/action_spectrum" />
 
   <item
-      android:id="@+id/action_help"
-      android:title="@string/action_help" />
-
-  <item
       android:id="@+id/action_settings"
       android:title="@string/action_settings" />
+
+  <item
+      android:id="@+id/action_help"
+      android:title="@string/action_help" />
 
 </menu>

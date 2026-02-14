@@ -245,4 +245,11 @@ public class Scope extends View
 
         canvas.drawBitmap(bitmap, 0, 0, null);
     }
+
+    // performClick
+    @Override
+    public boolean performClick()
+    {
+        return super.performClick();
+    }
 }

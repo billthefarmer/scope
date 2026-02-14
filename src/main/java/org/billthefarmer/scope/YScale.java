@@ -166,7 +166,15 @@ public class YScale extends View
             break;
         }
 
+        performClick();
         invalidate();
         return true;
+    }
+
+    // performClick
+    @Override
+    public boolean performClick()
+    {
+        return super.performClick();
     }
 }

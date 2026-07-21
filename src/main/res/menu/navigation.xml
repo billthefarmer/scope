@@ -10,6 +10,35 @@
       android:title="@string/action_spectrum" />
 
   <item
+      android:id="@+id/action_window"
+      android:title="Window">
+
+    <menu>
+      <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/window_rectangular"
+            android:title="Rectangular"
+            android:checked="true"/>
+
+        <item
+            android:id="@+id/window_hann"
+            android:title="Hann"/>
+
+        <item
+            android:id="@+id/window_hamming"
+            android:title="Hamming"/>
+
+        <item
+            android:id="@+id/window_blackman"
+            android:title="Blackman"/>
+
+      </group>
+    </menu>
+
+  </item>
+
+  <item
       android:id="@+id/action_settings"
       android:title="@string/action_settings" />
 

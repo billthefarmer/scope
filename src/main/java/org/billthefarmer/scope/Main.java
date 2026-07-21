@@ -62,7 +62,7 @@ import java.util.concurrent.ExecutorService;
 // Main
 @SuppressWarnings("deprecation")
 public class Main extends Activity
-    implements PopupMenu.OnMenuItemClickListener
+        implements PopupMenu.OnMenuItemClickListener
 {
     public static final String PREF_ABOUT = "pref_about";
     public static final String PREF_THEME = "pref_theme";
@@ -85,26 +85,26 @@ public class Main extends Activity
     private static final String LEVEL = "level";
 
     private static final float values[] =
-    {
-        0.1f, 0.2f, 0.5f, 1.0f,
-        2.0f, 5.0f, 10.0f, 20.0f,
-        50.0f, 100.0f, 200.0f, 500.0f
-    };
+            {
+                    0.1f, 0.2f, 0.5f, 1.0f,
+                    2.0f, 5.0f, 10.0f, 20.0f,
+                    50.0f, 100.0f, 200.0f, 500.0f
+            };
 
     private static final String strings[] =
-    {
-        "0.1 ms", "0.2 ms", "0.5 ms",
-        "1.0 ms", "2.0 ms", "5.0 ms",
-        "10 ms", "20 ms", "50 ms",
-        "0.1 sec", "0.2 sec", "0.5 sec"
-    };
+            {
+                    "0.1 ms", "0.2 ms", "0.5 ms",
+                    "1.0 ms", "2.0 ms", "5.0 ms",
+                    "10 ms", "20 ms", "50 ms",
+                    "0.1 sec", "0.2 sec", "0.5 sec"
+            };
 
     private static final int counts[] =
-    {
-        256, 512, 1024, 2048,
-        4096, 8192, 16384, 32768,
-        65536, 131072, 262144, 524288
-    };
+            {
+                    256, 512, 1024, 2048,
+                    4096, 8192, 16384, 32768,
+                    65536, 131072, 262144, 524288
+            };
 
     private static final int REQUEST_PERMISSIONS = 1;
 
@@ -151,26 +151,26 @@ public class Main extends Activity
 
         switch (theme)
         {
-        case LIGHT:
-            setTheme(R.style.AppTheme);
-            break;
-
-        case DARK:
-            setTheme(R.style.AppDarkTheme);
-            break;
-
-        case SYSTEM:
-            switch (night)
-            {
-            case Configuration.UI_MODE_NIGHT_NO:
+            case LIGHT:
                 setTheme(R.style.AppTheme);
                 break;
 
-            case Configuration.UI_MODE_NIGHT_YES:
+            case DARK:
                 setTheme(R.style.AppDarkTheme);
                 break;
-            }
-            break;
+
+            case SYSTEM:
+                switch (night)
+                {
+                    case Configuration.UI_MODE_NIGHT_NO:
+                        setTheme(R.style.AppTheme);
+                        break;
+
+                    case Configuration.UI_MODE_NIGHT_YES:
+                        setTheme(R.style.AppDarkTheme);
+                        break;
+                }
+                break;
         }
 
         setContentView(R.layout.activity_main);
@@ -186,7 +186,7 @@ public class Main extends Activity
 
         // Find toolbar
         toolbar = findViewById(getResources().getIdentifier("action_bar",
-                                                            "id", "android"));
+                "id", "android"));
         // Set up navigation
         toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
         toolbar.setNavigationOnClickListener((v) ->
@@ -222,9 +222,9 @@ public class Main extends Activity
 
         // Set up gesture detectors
         gestureDetector =
-            new GestureDetector(this, new GestureListener());
+                new GestureDetector(this, new GestureListener());
         scaleDetector =
-            new ScaleGestureDetector(this, new ScaleListener());
+                new ScaleGestureDetector(this, new ScaleListener());
 
         if (scope != null)
             scope.setOnTouchListener((v, event) ->
@@ -253,13 +253,13 @@ public class Main extends Activity
     {
         // Bright
         menu.findItem(R.id.bright).setIcon(audio.bright?
-                                           R.drawable.bright_checked :
-                                           R.drawable.action_bright);
+                R.drawable.bright_checked :
+                R.drawable.action_bright);
 
         // Single
         menu.findItem(R.id.single).setIcon(audio.single?
-                                           R.drawable.single_checked :
-                                           R.drawable.action_single);
+                R.drawable.single_checked :
+                R.drawable.action_single);
 
         // Timebase
         if (timebase != DEFAULT_TIMEBASE)
@@ -276,8 +276,8 @@ public class Main extends Activity
 
         // Storage
         menu.findItem(R.id.storage).setIcon(scope.storage ?
-                                            R.drawable.storage_checked :
-                                            R.drawable.action_storage);
+                R.drawable.storage_checked :
+                R.drawable.action_storage);
         menu.findItem(R.id.storage).setChecked(scope.storage);
 
         return true;
@@ -353,198 +353,224 @@ public class Main extends Activity
         int id = item.getItemId();
         switch (id)
         {
-        // Bright line
-        case R.id.bright:
-            audio.bright = !audio.bright;
-            item.setIcon(audio.bright ?
-                         R.drawable.bright_checked :
-                         R.drawable.action_bright);
-            showToast(audio.bright ? R.string.bright_on : R.string.bright_off);
-            break;
+            // Bright line
+            case R.id.bright:
+                audio.bright = !audio.bright;
+                item.setIcon(audio.bright ?
+                        R.drawable.bright_checked :
+                        R.drawable.action_bright);
+                showToast(audio.bright ? R.string.bright_on : R.string.bright_off);
+                break;
 
-        // Single shot
-        case R.id.single:
-            audio.single = !audio.single;
-            item.setIcon(audio.single ?
-                         R.drawable.single_checked :
-                         R.drawable.action_single);
-            showToast(audio.single ? R.string.single_on : R.string.single_off);
-            break;
+            // Single shot
+            case R.id.single:
+                audio.single = !audio.single;
+                item.setIcon(audio.single ?
+                        R.drawable.single_checked :
+                        R.drawable.action_single);
+                showToast(audio.single ? R.string.single_on : R.string.single_off);
+                break;
 
-        // Trigger
-        case R.id.trigger:
-            if (audio.single)
-                audio.trigger = true;
-            break;
+            // Trigger
+            case R.id.trigger:
+                if (audio.single)
+                    audio.trigger = true;
+                break;
 
-        // 0.1 ms
-        case R.id.tb0_1ms:
-            timebase = 0;
-            item.setChecked(true);
-            setTimebase(timebase, true);
-            break;
+            // 0.1 ms
+            case R.id.tb0_1ms:
+                timebase = 0;
+                item.setChecked(true);
+                setTimebase(timebase, true);
+                break;
 
-        // 0.2 ms
-        case R.id.tb0_2ms:
-            timebase = 1;
-            item.setChecked(true);
-            setTimebase(timebase, true);
-            break;
+            // 0.2 ms
+            case R.id.tb0_2ms:
+                timebase = 1;
+                item.setChecked(true);
+                setTimebase(timebase, true);
+                break;
 
-        // 0.5 ms
-        case R.id.tb0_5ms:
-            timebase = 2;
-            item.setChecked(true);
-            setTimebase(timebase, true);
-            break;
+            // 0.5 ms
+            case R.id.tb0_5ms:
+                timebase = 2;
+                item.setChecked(true);
+                setTimebase(timebase, true);
+                break;
 
-        // 1.0 ms
-        case R.id.tb1_0ms:
-            timebase = 3;
-            item.setChecked(true);
-            setTimebase(timebase, true);
-            break;
+            // 1.0 ms
+            case R.id.tb1_0ms:
+                timebase = 3;
+                item.setChecked(true);
+                setTimebase(timebase, true);
+                break;
 
-        // 2.0 ms
-        case R.id.tb2_0ms:
-            timebase = 4;
-            item.setChecked(true);
-            setTimebase(timebase, true);
-            break;
+            // 2.0 ms
+            case R.id.tb2_0ms:
+                timebase = 4;
+                item.setChecked(true);
+                setTimebase(timebase, true);
+                break;
 
-        // 5.0 ms
-        case R.id.tb5_0ms:
-            timebase = 5;
-            item.setChecked(true);
-            setTimebase(timebase, true);
-            break;
+            // 5.0 ms
+            case R.id.tb5_0ms:
+                timebase = 5;
+                item.setChecked(true);
+                setTimebase(timebase, true);
+                break;
 
-        // 10 ms
-        case R.id.tb10ms:
-            timebase = 6;
-            item.setChecked(true);
-            setTimebase(timebase, true);
-            break;
+            // 10 ms
+            case R.id.tb10ms:
+                timebase = 6;
+                item.setChecked(true);
+                setTimebase(timebase, true);
+                break;
 
-        // 20 ms
-        case R.id.tb20ms:
-            timebase = 7;
-            item.setChecked(true);
-            setTimebase(timebase, true);
-            break;
+            // 20 ms
+            case R.id.tb20ms:
+                timebase = 7;
+                item.setChecked(true);
+                setTimebase(timebase, true);
+                break;
 
-        // 50 ms
+            // 50 ms
 
-        case R.id.tb50ms:
-            timebase = 8;
-            item.setChecked(true);
-            setTimebase(timebase, true);
-            break;
+            case R.id.tb50ms:
+                timebase = 8;
+                item.setChecked(true);
+                setTimebase(timebase, true);
+                break;
 
-        // 0.1 sec
-        case R.id.tb0_1sec:
-            timebase = 9;
-            item.setChecked(true);
-            setTimebase(timebase, true);
-            break;
+            // 0.1 sec
+            case R.id.tb0_1sec:
+                timebase = 9;
+                item.setChecked(true);
+                setTimebase(timebase, true);
+                break;
 
-        // 0.2 sec
-        case R.id.tb0_2sec:
-            timebase = 10;
-            item.setChecked(true);
-            setTimebase(timebase, true);
-            break;
+            // 0.2 sec
+            case R.id.tb0_2sec:
+                timebase = 10;
+                item.setChecked(true);
+                setTimebase(timebase, true);
+                break;
 
-        // 0.5 sec
-        case R.id.tb0_5sec:
-            timebase = 11;
-            item.setChecked(true);
-            setTimebase(timebase, true);
-            break;
+            // 0.5 sec
+            case R.id.tb0_5sec:
+                timebase = 11;
+                item.setChecked(true);
+                setTimebase(timebase, true);
+                break;
+            // Rectangular
+            case R.id.window_rectangular:
+                audio.windowType = 0;
+                item.setChecked(true);
+                showToast("Rectangular");
+                break;
 
-        // Storage
-        case R.id.storage:
-            if (scope != null)
-            {
-                scope.storage = !scope.storage;
-                item.setIcon(scope.storage ?
-                             R.drawable.storage_checked :
-                             R.drawable.action_storage);
-                showToast(scope.storage ?
-                          R.string.storage_on : R.string.storage_off);
-            }
-            break;
+// Hann
+            case R.id.window_hann:
+                audio.windowType = 1;
+                item.setChecked(true);
+                showToast("Hann");
+                break;
 
-        // Clear
-        case R.id.clear:
-            if ((scope != null) && scope.storage)
-                scope.clear = true;
-            break;
+// Hamming
+            case R.id.window_hamming:
+                audio.windowType = 2;
+                item.setChecked(true);
+                showToast("Hamming");
+                break;
 
-        // Left
-        case R.id.left:
-            if (scope != null && xscale != null)
-            {
-                scope.start -= xscale.step;
-                if (scope.start < 0)
+// Blackman
+            case R.id.window_blackman:
+                audio.windowType = 3;
+                item.setChecked(true);
+                showToast("Blackman");
+                break;
+            // Storage
+            case R.id.storage:
+                if (scope != null)
+                {
+                    scope.storage = !scope.storage;
+                    item.setIcon(scope.storage ?
+                            R.drawable.storage_checked :
+                            R.drawable.action_storage);
+                    showToast(scope.storage ?
+                            R.string.storage_on : R.string.storage_off);
+                }
+                break;
+
+            // Clear
+            case R.id.clear:
+                if ((scope != null) && scope.storage)
+                    scope.clear = true;
+                break;
+
+            // Left
+            case R.id.left:
+                if (scope != null && xscale != null)
+                {
+                    scope.start -= xscale.step;
+                    if (scope.start < 0)
+                        scope.start = 0;
+
+                    xscale.start = scope.start;
+                    xscale.invalidate();
+                }
+                break;
+
+            // Right
+            case R.id.right:
+                if (scope != null && xscale != null)
+                {
+                    scope.start += xscale.step;
+                    if (scope.start > audio.length)
+                        scope.start = audio.length - (xscale.step / 4);
+
+                    xscale.start = scope.start;
+                    xscale.invalidate();
+                }
+                break;
+
+            // Start
+            case R.id.start:
+                if (scope != null && xscale != null)
+                {
                     scope.start = 0;
+                    scope.index = 0;
+                    xscale.start = 0;
+                    xscale.invalidate();
+                    yscale.index = 0;
+                    yscale.invalidate();
+                    setTimebase(timebase, false);
+                }
+                break;
 
-                xscale.start = scope.start;
-                xscale.invalidate();
-            }
-            break;
-
-        // Right
-        case R.id.right:
-            if (scope != null && xscale != null)
-            {
-                scope.start += xscale.step;
-                if (scope.start > audio.length)
+            // End
+            case R.id.end:
+                if (scope != null && xscale != null)
+                {
                     scope.start = audio.length - (xscale.step / 4);
+                    xscale.start = scope.start;
+                    xscale.invalidate();
+                }
+                break;
 
-                xscale.start = scope.start;
-                xscale.invalidate();
-            }
-            break;
+            // Spectrum
+            case R.id.action_spectrum:
+                return onSpectrumClick(item);
 
-        // Start
-        case R.id.start:
-            if (scope != null && xscale != null)
-            {
-                scope.start = 0;
-                scope.index = 0;
-                xscale.start = 0;
-                xscale.invalidate();
-                yscale.index = 0;
-                yscale.invalidate();
-                setTimebase(timebase, false);
-            }
-            break;
+            // Help
+            case R.id.action_help:
+                return onHelpClick(item);
 
-        // End
-        case R.id.end:
-            if (scope != null && xscale != null)
-            {
-                scope.start = audio.length - (xscale.step / 4);
-                xscale.start = scope.start;
-                xscale.invalidate();
-            }
-            break;
+            // Settings
+            case R.id.action_settings:
+                return onSettingsClick(item);
 
-        // Spectrum
-        case R.id.action_spectrum:
-            return onSpectrumClick(item);
-
-        // Help
-        case R.id.action_help:
-            return onHelpClick(item);
-
-        // Settings
-        case R.id.action_settings:
-            return onSettingsClick(item);
-
-        default:
-            return false;
+            default:
+                return false;
         }
 
         return true;
@@ -557,21 +583,43 @@ public class Main extends Activity
         // Get id
         int id = item.getItemId();
         switch (id)
-        {
-        // Spectrum
-        case R.id.action_spectrum:
-            return onSpectrumClick(item);
+        {// Window - Rectangular
+            case R.id.window_rectangular:
+                audio.windowType = 0;
+                showToast("Rectangular");
+                return true;
 
-        // Help
-        case R.id.action_help:
-            return onHelpClick(item);
+// Window - Hann
+            case R.id.window_hann:
+                audio.windowType = 1;
+                showToast("Hann");
+                return true;
 
-        // Settings
-        case R.id.action_settings:
-            return onSettingsClick(item);
+// Window - Hamming
+            case R.id.window_hamming:
+                audio.windowType = 2;
+                showToast("Hamming");
+                return true;
 
-        default:
-            return false;
+// Window - Blackman
+            case R.id.window_blackman:
+                audio.windowType = 3;
+                showToast("Blackman");
+                return true;
+            // Spectrum
+            case R.id.action_spectrum:
+                return onSpectrumClick(item);
+
+            // Help
+            case R.id.action_help:
+                return onHelpClick(item);
+
+            // Settings
+            case R.id.action_settings:
+                return onSettingsClick(item);
+
+            default:
+                return false;
         }
     }
 
@@ -680,10 +728,10 @@ public class Main extends Activity
         }
 
         if (checkSelfPermission(Manifest.permission.RECORD_AUDIO)
-            != PackageManager.PERMISSION_GRANTED)
+                != PackageManager.PERMISSION_GRANTED)
         {
             requestPermissions(new String[]
-            {Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSIONS);
+                    {Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSIONS);
             return;
         }
 
@@ -701,7 +749,7 @@ public class Main extends Activity
         {
             for (int i = 0; i < grantResults.length; i++)
                 if (permissions[i].equals(Manifest.permission.RECORD_AUDIO) &&
-                    grantResults[i] == PackageManager.PERMISSION_GRANTED)
+                        grantResults[i] == PackageManager.PERMISSION_GRANTED)
                 {
                     // Granted, recreate or start audio thread
                     if (Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
@@ -730,13 +778,13 @@ public class Main extends Activity
     void getPreferences()
     {
         SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(this);
+                PreferenceManager.getDefaultSharedPreferences(this);
 
         // Set preferences
         if (audio != null)
         {
             audio.input =
-                Integer.parseInt(preferences.getString(PREF_INPUT, "0"));
+                    Integer.parseInt(preferences.getString(PREF_INPUT, "0"));
             audio.bright = preferences.getBoolean(PREF_BRIGHT, false);
             audio.single = preferences.getBoolean(PREF_SINGLE, false);
         }
@@ -765,7 +813,7 @@ public class Main extends Activity
     void savePreferences()
     {
         SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(this);
+                PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putBoolean(PREF_BRIGHT, audio.bright);
@@ -780,17 +828,17 @@ public class Main extends Activity
     {
         // Create an alert dialog builder
         AlertDialog.Builder builder =
-            new AlertDialog.Builder(this);
+                new AlertDialog.Builder(this);
 
         // Set the title, message and button
         builder.setTitle(appName);
         builder.setMessage(errorBuffer);
         builder.setNeutralButton(android.R.string.ok,
-                                 (dialog, which) ->
-        {
-            // Dismiss dialog
-            dialog.dismiss();
-        });
+                (dialog, which) ->
+                {
+                    // Dismiss dialog
+                    dialog.dismiss();
+                });
 
         // Create the dialog
         AlertDialog dialog = builder.create();
@@ -801,7 +849,7 @@ public class Main extends Activity
 
     // GestureListener
     private class GestureListener
-        extends GestureDetector.SimpleOnGestureListener
+            extends GestureDetector.SimpleOnGestureListener
     {
         // onDown
         @Override
@@ -816,13 +864,13 @@ public class Main extends Activity
                                float velocityX, float velocityY)
         {
             float scale = (float) (2.0 / ((audio.sample / 100000.0) *
-                                          scope.xscale));
+                    scope.xscale));
             // Calculate target value for animator
             float target = scope.start - velocityX / scale / 4;
 
             // Start the animation
             ValueAnimator animator =
-                ValueAnimator.ofFloat(scope.start, target);
+                    ValueAnimator.ofFloat(scope.start, target);
             animator.setInterpolator(new DecelerateInterpolator());
             animator.addUpdateListener((animation) ->
             {
@@ -854,7 +902,7 @@ public class Main extends Activity
                                 float distanceX, float distanceY)
         {
             float scale = (float) (2.0 / ((audio.sample / 100000.0) *
-                                          scope.xscale));
+                    scope.xscale));
             scope.start += distanceX / scale;
             if (scope.start < 0)
                 scope.start = 0;
@@ -879,7 +927,7 @@ public class Main extends Activity
 
     // ScaleListener
     private class ScaleListener
-        extends ScaleGestureDetector.SimpleOnScaleGestureListener
+            extends ScaleGestureDetector.SimpleOnScaleGestureListener
     {
         // onScale
         @Override
@@ -907,7 +955,7 @@ public class Main extends Activity
         // Data
         protected short data[];
         protected long length;
-
+        protected int windowType = 1;   // 0=Rectangular, 1=Hann, 2=Hamming, 3=Blackman
         // Private data
         private static final int SAMPLES = 524288;
         private static final int FRAMES = 4096;
@@ -961,7 +1009,7 @@ public class Main extends Activity
                 try
                 {
                     if (audioRecord.getRecordingState() ==
-                        AudioRecord.RECORDSTATE_RECORDING)
+                            AudioRecord.RECORDSTATE_RECORDING)
                         audioRecord.stop();
 
                     audioRecord.release();
@@ -978,19 +1026,19 @@ public class Main extends Activity
             {
                 // Create the AudioRecord object
                 audioRecord = new AudioRecord.Builder()
-                    .setAudioSource(input)
-                    .setAudioFormat
-                    (new AudioFormat.Builder()
-                     .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
-                     .setChannelMask(AudioFormat.CHANNEL_IN_MONO)
-                     .build())
-                    .build();
+                        .setAudioSource(input)
+                        .setAudioFormat
+                                (new AudioFormat.Builder()
+                                        .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+                                        .setChannelMask(AudioFormat.CHANNEL_IN_MONO)
+                                        .build())
+                        .build();
             }
 
             catch (Exception e)
             {
                 runOnUiThread(() -> showAlert(R.string.app_name,
-                                              R.string.error_init));
+                        R.string.error_init));
                 running = false;
                 return;
             }
@@ -1005,7 +1053,7 @@ public class Main extends Activity
             if (state != AudioRecord.STATE_INITIALIZED)
             {
                 runOnUiThread(() -> showAlert(R.string.app_name,
-                                              R.string.error_init));
+                        R.string.error_init));
 
                 audioRecord.release();
                 running = false;
@@ -1037,113 +1085,113 @@ public class Main extends Activity
                 // State machine for sync and copying data to display buffer
                 switch (state)
                 {
-                // INIT: waiting for sync
-                case INIT:
+                    // INIT: waiting for sync
+                    case INIT:
 
-                    index = 0;
+                        index = 0;
 
-                    if (bright)
-                        state++;
+                        if (bright)
+                            state++;
 
-                    else
-                    {
-                        if (single && !trigger)
-                            break;
-
-                        // Calculate sync level
-                        float level = -yscale.index * scope.yscale;
-
-                        // Initialise sync
-                        int dx;
-
-                        // Sync polarity
-                        if (level < 0)
-                        {
-                            for (int i = 0; i < size; i++)
-                            {
-                                dx = buffer[i] - last;
-
-                                if (dx < 0 && last > level && buffer[i] < level)
-                                {
-                                    index = i;
-                                    state++;
-                                    break;
-                                }
-
-                                last = buffer[i];
-                            }
-                        }
                         else
                         {
-                            for (int i = 0; i < size; i++)
+                            if (single && !trigger)
+                                break;
+
+                            // Calculate sync level
+                            float level = -yscale.index * scope.yscale;
+
+                            // Initialise sync
+                            int dx;
+
+                            // Sync polarity
+                            if (level < 0)
                             {
-                                dx = buffer[i] - last;
-
-                                if (dx > 0 && last < level && buffer[i] > level)
+                                for (int i = 0; i < size; i++)
                                 {
-                                    index = i;
-                                    state++;
-                                    break;
-                                }
+                                    dx = buffer[i] - last;
 
-                                last = buffer[i];
+                                    if (dx < 0 && last > level && buffer[i] < level)
+                                    {
+                                        index = i;
+                                        state++;
+                                        break;
+                                    }
+
+                                    last = buffer[i];
+                                }
+                            }
+                            else
+                            {
+                                for (int i = 0; i < size; i++)
+                                {
+                                    dx = buffer[i] - last;
+
+                                    if (dx > 0 && last < level && buffer[i] > level)
+                                    {
+                                        index = i;
+                                        state++;
+                                        break;
+                                    }
+
+                                    last = buffer[i];
+                                }
                             }
                         }
-                    }
 
-                    // No sync, try next time
-                    if (state == INIT)
+                        // No sync, try next time
+                        if (state == INIT)
+                            break;
+
+                        // Reset trigger
+                        if (single && trigger)
+                            trigger = false;
+
+                        // FIRST: First chunk of data
+                    case FIRST:
+
+                        // Update count
+                        count = counts[timebase];
+                        length = count;
+
+                        // Copy data
+                        System.arraycopy(buffer, index, data, 0, size - index);
+                        index = size - index;
+
+                        // If done, wait for sync again
+                        if (index >= count)
+                            state = INIT;
+
+                            // Else get some more data next time
+                        else
+                            state++;
                         break;
 
-                    // Reset trigger
-                    if (single && trigger)
-                        trigger = false;
+                    // NEXT: Subsequent chunks of data
+                    case NEXT:
 
-                // FIRST: First chunk of data
-                case FIRST:
+                        // Copy data
+                        System.arraycopy(buffer, 0, data, index, size);
+                        index += size;
 
-                    // Update count
-                    count = counts[timebase];
-                    length = count;
+                        // Done, wait for sync again
+                        if (index >= count)
+                            state = INIT;
 
-                    // Copy data
-                    System.arraycopy(buffer, index, data, 0, size - index);
-                    index = size - index;
+                            // Else if last but one chunk, get last chunk next time
+                        else if (index + size >= count)
+                            state++;
+                        break;
 
-                    // If done, wait for sync again
-                    if (index >= count)
+                    // LAST: Last chunk of data
+                    case LAST:
+
+                        // Copy data
+                        System.arraycopy(buffer, 0, data, index, count - index);
+
+                        // Wait for sync next time
                         state = INIT;
-
-                    // Else get some more data next time
-                    else
-                        state++;
-                    break;
-
-                // NEXT: Subsequent chunks of data
-                case NEXT:
-
-                    // Copy data
-                    System.arraycopy(buffer, 0, data, index, size);
-                    index += size;
-
-                    // Done, wait for sync again
-                    if (index >= count)
-                        state = INIT;
-
-                    // Else if last but one chunk, get last chunk next time
-                    else if (index + size >= count)
-                        state++;
-                    break;
-
-                // LAST: Last chunk of data
-                case LAST:
-
-                    // Copy data
-                    System.arraycopy(buffer, 0, data, index, count - index);
-
-                    // Wait for sync next time
-                    state = INIT;
-                    break;
+                        break;
                 }
 
                 // Update display

@@ -59,7 +59,7 @@ import java.util.Locale;
 // SpectrumActivity
 @SuppressWarnings("deprecation")
 public class SpectrumActivity extends Activity
-    implements View.OnClickListener, PopupMenu.OnMenuItemClickListener
+        implements View.OnClickListener, PopupMenu.OnMenuItemClickListener
 
 {
     private static final String PREF_INPUT = "pref_input";
@@ -96,26 +96,26 @@ public class SpectrumActivity extends Activity
 
         switch (theme)
         {
-        case Main.LIGHT:
-            setTheme(R.style.AppTheme);
-            break;
-
-        case Main.DARK:
-            setTheme(R.style.AppDarkTheme);
-            break;
-
-        case Main.SYSTEM:
-            switch (night)
-            {
-            case Configuration.UI_MODE_NIGHT_NO:
+            case Main.LIGHT:
                 setTheme(R.style.AppTheme);
                 break;
 
-            case Configuration.UI_MODE_NIGHT_YES:
+            case Main.DARK:
                 setTheme(R.style.AppDarkTheme);
                 break;
-            }
-            break;
+
+            case Main.SYSTEM:
+                switch (night)
+                {
+                    case Configuration.UI_MODE_NIGHT_NO:
+                        setTheme(R.style.AppTheme);
+                        break;
+
+                    case Configuration.UI_MODE_NIGHT_YES:
+                        setTheme(R.style.AppDarkTheme);
+                        break;
+                }
+                break;
         }
 
         setContentView(R.layout.activity_spectrum);
@@ -140,7 +140,7 @@ public class SpectrumActivity extends Activity
 
         // Find toolbar
         toolbar = findViewById(getResources().getIdentifier("action_bar",
-                                                            "id", "android"));
+                "id", "android"));
         // Set up navigation
         toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
         toolbar.setNavigationOnClickListener((v) ->
@@ -184,33 +184,33 @@ public class SpectrumActivity extends Activity
         int id = item.getItemId();
         switch (id)
         {
-        // Home
-        case android.R.id.home:
-            finish();
-            break;
+            // Home
+            case android.R.id.home:
+                finish();
+                break;
 
-        // Lock
-        case R.id.action_lock:
-            audio.lock = !audio.lock;
-            item.setIcon(audio.lock ? R.drawable.lock_checked :
-                         R.drawable.action_lock);
-            showToast(audio.lock ? R.string.lock_on : R.string.lock_off);
-            break;
+            // Lock
+            case R.id.action_lock:
+                audio.lock = !audio.lock;
+                item.setIcon(audio.lock ? R.drawable.lock_checked :
+                        R.drawable.action_lock);
+                showToast(audio.lock ? R.string.lock_on : R.string.lock_off);
+                break;
 
-        // Help
-        case R.id.action_help:
-            intent = new Intent(this, HelpActivity.class);
-            startActivity(intent);
-            break;
+            // Help
+            case R.id.action_help:
+                intent = new Intent(this, HelpActivity.class);
+                startActivity(intent);
+                break;
 
-        // Settings
-        case R.id.action_settings:
-            intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            break;
+            // Settings
+            case R.id.action_settings:
+                intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                break;
 
-        default:
-            return false;
+            default:
+                return false;
         }
 
         return true;
@@ -224,15 +224,15 @@ public class SpectrumActivity extends Activity
         int id = v.getId();
         switch (id)
         {
-        // Spectrum
-        case R.id.spectrum:
-            audio.lock = !audio.lock;
-            if (lockItem != null)
-                lockItem.setIcon(audio.lock ?
-                                 R.drawable.lock_checked :
-                                 R.drawable.action_lock);
-            showToast(audio.lock ? R.string.lock_on : R.string.lock_off);
-            break;
+            // Spectrum
+            case R.id.spectrum:
+                audio.lock = !audio.lock;
+                if (lockItem != null)
+                    lockItem.setIcon(audio.lock ?
+                            R.drawable.lock_checked :
+                            R.drawable.action_lock);
+                showToast(audio.lock ? R.string.lock_on : R.string.lock_off);
+                break;
         }
     }
 
@@ -246,25 +246,25 @@ public class SpectrumActivity extends Activity
         int id = item.getItemId();
         switch (id)
         {
-        // Scope
-        case R.id.action_scope:
-            finish();
-            return true;
+            // Scope
+            case R.id.action_scope:
+                finish();
+                return true;
 
-        // Help
-        case R.id.action_help:
-            intent = new Intent(this, HelpActivity.class);
-            startActivity(intent);
-            return true;
+            // Help
+            case R.id.action_help:
+                intent = new Intent(this, HelpActivity.class);
+                startActivity(intent);
+                return true;
 
             // Settings
-        case R.id.action_settings:
-            intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            return true;
+            case R.id.action_settings:
+                intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
 
-        default:
-            return false;
+            default:
+                return false;
         }
     }
 
@@ -307,10 +307,10 @@ public class SpectrumActivity extends Activity
             recreate();
 
         if (checkSelfPermission(Manifest.permission.RECORD_AUDIO)
-            != PackageManager.PERMISSION_GRANTED)
+                != PackageManager.PERMISSION_GRANTED)
         {
             requestPermissions(new String[]
-            {Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSIONS);
+                    {Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSIONS);
 
             return;
         }
@@ -327,7 +327,7 @@ public class SpectrumActivity extends Activity
         if (requestCode == REQUEST_PERMISSIONS)
             for (int i = 0; i < grantResults.length; i++)
                 if (permissions[i].equals(Manifest.permission.RECORD_AUDIO) &&
-                    grantResults[i] == PackageManager.PERMISSION_GRANTED)
+                        grantResults[i] == PackageManager.PERMISSION_GRANTED)
                 {
                     // Granted, recreate or start audio thread
                     if (Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
@@ -357,13 +357,13 @@ public class SpectrumActivity extends Activity
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(this);
+                PreferenceManager.getDefaultSharedPreferences(this);
 
         // Set preferences
         if (audio != null)
         {
             audio.input =
-                Integer.parseInt(preferences.getString(PREF_INPUT, "0"));
+                    Integer.parseInt(preferences.getString(PREF_INPUT, "0"));
             audio.fill = preferences.getBoolean(PREF_FILL, true);
             audio.hold = preferences.getBoolean(PREF_HOLD, true);
         }
@@ -385,7 +385,7 @@ public class SpectrumActivity extends Activity
     void savePreferences()
     {
         SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(this);
+                PreferenceManager.getDefaultSharedPreferences(this);
 
         // TODO
     }
@@ -395,17 +395,17 @@ public class SpectrumActivity extends Activity
     {
         // Create an alert dialog builder
         AlertDialog.Builder builder =
-            new AlertDialog.Builder(this);
+                new AlertDialog.Builder(this);
 
         // Set the title, message and button
         builder.setTitle(appName);
         builder.setMessage(errorBuffer);
         builder.setNeutralButton(android.R.string.ok,
-                                 (dialog, which) ->
-        {
-            // Dismiss dialog
-            dialog.dismiss();
-        });
+                (dialog, which) ->
+                {
+                    // Dismiss dialog
+                    dialog.dismiss();
+                });
 
         // Create the dialog
         AlertDialog dialog = builder.create();
@@ -458,6 +458,7 @@ public class SpectrumActivity extends Activity
         private double xf[];
 
 
+        protected int windowType = 0;
         // Constructor
         protected Audio()
         {
@@ -522,20 +523,20 @@ public class SpectrumActivity extends Activity
             {
                 // Create the AudioRecord object
                 audioRecord = new AudioRecord.Builder()
-                    .setAudioSource(input)
-                    .setAudioFormat
-                    (new AudioFormat.Builder()
-                     .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
-                     .setChannelMask(AudioFormat.CHANNEL_IN_MONO)
-                     .build())
-                    .build();
+                        .setAudioSource(input)
+                        .setAudioFormat
+                                (new AudioFormat.Builder()
+                                        .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+                                        .setChannelMask(AudioFormat.CHANNEL_IN_MONO)
+                                        .build())
+                        .build();
             }
 
             // Exception
             catch (Exception e)
             {
                 runOnUiThread(() -> showAlert(R.string.app_name,
-                                              R.string.error_init));
+                        R.string.error_init));
                 running = false;
                 return;
             }
@@ -553,7 +554,7 @@ public class SpectrumActivity extends Activity
             if (state != AudioRecord.STATE_INITIALIZED)
             {
                 runOnUiThread(() -> showAlert(R.string.app_name,
-                                              R.string.error_init));
+                        R.string.error_init));
 
                 audioRecord.release();
                 running = false;
@@ -605,11 +606,32 @@ public class SpectrumActivity extends Activity
                         dmax = Math.abs(buffer[i]);
 
                     // Calculate the window
-                    double window =
-                        0.5 - 0.5 * Math.cos(2.0 * Math.PI *
-                                             i / SAMPLES);
+                    double window;
 
-                    // Normalise and window the input data
+                    switch (windowType)
+                    {
+                        case 0: // Rectangular
+                            window = 1.0;
+                            break;
+
+                        case 1: // Hann
+                            window = 0.5 - 0.5 * Math.cos(2.0 * Math.PI * i / SAMPLES);
+                            break;
+
+                        case 2: // Hamming
+                            window = 0.54 - 0.46 * Math.cos(2.0 * Math.PI * i / SAMPLES);
+                            break;
+
+                        case 3: // Blackman
+                            window = 0.42
+                                    - 0.5 * Math.cos(2.0 * Math.PI * i / SAMPLES)
+                                    + 0.08 * Math.cos(4.0 * Math.PI * i / SAMPLES);
+                            break;
+
+                        default:
+                            window = 1.0;
+                    }
+
                     xr[i] = buffer[i] / norm * window;
                 }
 
@@ -696,9 +718,9 @@ public class SpectrumActivity extends Activity
                     if (Math.abs(xf[i] - frequency) < fps)
                         sumf += xa[i] * xa[i];
 
-                    // Sum the harmonics
+                        // Sum the harmonics
                     else if (Math.abs(Math.IEEEremainder(xf[i], frequency)) <
-                             Math.round(xf[i] / frequency) * fps)
+                            Math.round(xf[i] / frequency) * fps)
                         sumh += xa[i] * xa[i];
 
                 // Total harmonic distortion
@@ -709,7 +731,7 @@ public class SpectrumActivity extends Activity
 
                 for (int i = 0; i < STEP; i++)
                     level += ((double) data[i] / 32768.0) *
-                             ((double) data[i] / 32768.0);
+                            ((double) data[i] / 32768.0);
 
                 level = Math.sqrt(level / STEP) * 2.0;
 
@@ -722,8 +744,8 @@ public class SpectrumActivity extends Activity
                 if (max > MIN)
                 {
                     final String s = String.format(Locale.getDefault(),
-                                                   "%1.0f%%  %1.1fHz  %1.1fdB",
-                                                   thd, frequency, dB);
+                            "%1.0f%%  %1.1fHz  %1.1fdB",
+                            thd, frequency, dB);
                     text.post(() -> text.setText(s));
                 }
 
@@ -731,7 +753,7 @@ public class SpectrumActivity extends Activity
                 {
                     frequency = 0.0;
                     final String s = String.format(Locale.getDefault(),
-                                                   "%1.1fdB", dB);
+                            "%1.1fdB", dB);
                     text.post(() -> text.setText(s));
                 }
             }
@@ -769,7 +791,7 @@ public class SpectrumActivity extends Activity
             }
 
             for (int mmax = 1, istep = 2 * mmax; mmax < n;
-                    mmax = istep, istep = 2 * mmax)
+                 mmax = istep, istep = 2 * mmax)
             {
                 double delta = Math.PI / mmax;
                 for (int m = 0; m < mmax; m++)
@@ -793,3 +815,4 @@ public class SpectrumActivity extends Activity
         }
     }
 }
+

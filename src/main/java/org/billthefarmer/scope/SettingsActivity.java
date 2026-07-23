@@ -34,8 +34,6 @@ import android.view.MenuItem;
 // SettingsActivity
 public class SettingsActivity extends Activity
 {
-    private static final String KEY_PREF_DARK = "pref_dark";
-
     // On create
     @Override
     @SuppressWarnings("deprecation")

@@ -66,9 +66,28 @@ public class SpectrumActivity extends Activity
     private static final String PREF_FILL = "pref_fill";
     private static final String PREF_HOLD = "pref_hold";
     private static final String PREF_SCREEN = "pref_screen";
+    private static final String PREF_WINDOW = "pref_window";
     private static final String PREF_THEME = "pref_theme";
 
+    // Note values for display
+    private static final String notes[] =
+    {
+        "C", "C", "D", "E", "E", "F",
+        "F", "G", "A", "A", "B", "B"
+    };
+
+    private static final String sharps[] =
+    {
+        "", "\u266F", "", "\u266D", "", "",
+        "\u266F", "", "\u266D", "", "\u266D", ""
+    };
+
     private static final int REQUEST_PERMISSIONS = 1;
+
+    private static final int WINDOW_RECTANGULAR = 0;
+    private static final int WINDOW_HANN        = 1;
+    private static final int WINDOW_HAMMING     = 2;
+    private static final int WINDOW_BLACKMAN    = 3;
 
     private ExecutorService executor;
     private Spectrum spectrum;
@@ -249,23 +268,25 @@ public class SpectrumActivity extends Activity
         // Scope
         case R.id.action_scope:
             finish();
-            return true;
+            break;
 
         // Help
         case R.id.action_help:
             intent = new Intent(this, HelpActivity.class);
             startActivity(intent);
-            return true;
+            break;
 
             // Settings
         case R.id.action_settings:
             intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
-            return true;
+            break;
 
         default:
             return false;
         }
+
+        return true;
     }
 
     // Show toast.
@@ -366,6 +387,9 @@ public class SpectrumActivity extends Activity
                 Integer.parseInt(preferences.getString(PREF_INPUT, "0"));
             audio.fill = preferences.getBoolean(PREF_FILL, true);
             audio.hold = preferences.getBoolean(PREF_HOLD, true);
+
+            audio.windowType =
+                Integer.parseInt(preferences.getString(PREF_WINDOW, "1"));
         }
 
         boolean screen = preferences.getBoolean(PREF_SCREEN, false);
@@ -421,6 +445,7 @@ public class SpectrumActivity extends Activity
 
         protected int input;
         protected int sample;
+        protected int windowType;
         protected boolean lock;
         protected boolean fill;
         protected boolean hold;
@@ -441,6 +466,9 @@ public class SpectrumActivity extends Activity
 
         private static final double MIN = 0.5;
         private static final double expect = 2.0 * Math.PI * STEP / SAMPLES;
+
+        private static final int REFERENCE = 440;
+        private static final int C5_OFFSET = 57;
 
         private long counter;
 
@@ -605,9 +633,33 @@ public class SpectrumActivity extends Activity
                         dmax = Math.abs(buffer[i]);
 
                     // Calculate the window
-                    double window =
-                        0.5 - 0.5 * Math.cos(2.0 * Math.PI *
-                                             i / SAMPLES);
+                    double window;
+
+                    switch (windowType)
+                    {
+                    case WINDOW_RECTANGULAR:
+                        window = 1.0;
+                        break;
+
+                    case WINDOW_HANN:
+                        window = 0.5 - 0.5 * Math.cos(2.0 * Math.PI *
+                                                 i / SAMPLES);
+                        break;
+
+                    case WINDOW_HAMMING:
+                        window = 0.54 - 0.46 * Math.cos(2.0 * Math.PI *
+                                                        i / SAMPLES);
+                        break;
+
+                    case WINDOW_BLACKMAN:
+                        window = 0.42
+                            - 0.5 * Math.cos(2.0 * Math.PI * i / SAMPLES)
+                            + 0.08 * Math.cos(4.0 * Math.PI * i / SAMPLES);
+                        break;
+
+                    default:
+                        window = 1.0;
+                    }
 
                     // Normalise and window the input data
                     xr[i] = buffer[i] / norm * window;

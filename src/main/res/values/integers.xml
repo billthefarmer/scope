@@ -3,5 +3,6 @@
 
   <integer name="def_input">0</integer>
   <integer name="def_theme">0</integer>
+  <integer name="def_window">1</integer>
 
 </resources>

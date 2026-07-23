@@ -49,6 +49,22 @@
   </PreferenceCategory>
 
   <PreferenceCategory
+      android:key="pref_window_category"
+      android:title="@string/pref_window">
+
+    <ListPreference
+        android:defaultValue="@integer/def_window"
+        android:dialogIcon="?attr/pref_window"
+        android:entries="@array/pref_window_entries"
+        android:entryValues="@array/pref_window_entry_values"
+        android:icon="?attr/pref_window"
+        android:key="pref_window"
+        android:summary="@string/pref_window_summ"
+        android:title="@string/pref_window" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
       android:key="pref_theme_category"
       android:title="@string/pref_theme">
 

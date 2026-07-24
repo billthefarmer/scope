@@ -438,6 +438,12 @@ public class SpectrumActivity extends Activity
         dialog.show();
     }
 
+    // Log2
+    protected double log2(double d)
+    {
+        return Math.log(d) / Math.log(2.0);
+    }
+
     // Audio
     protected class Audio implements Runnable
     {
@@ -467,6 +473,7 @@ public class SpectrumActivity extends Activity
         private static final double MIN = 0.5;
         private static final double expect = 2.0 * Math.PI * STEP / SAMPLES;
 
+        private static final int OCTAVE = 12;
         private static final int REFERENCE = 440;
         private static final int C5_OFFSET = 57;
 
@@ -739,6 +746,19 @@ public class SpectrumActivity extends Activity
                     }
                 }
 
+                // Cents relative to reference
+                double cf = -12.0 * log2(REFERENCE / frequency);
+
+                // Don't count silly values
+                if (Double.isNaN(cf))
+                    cf = 0.0;
+
+                // Note number
+                int note = (int) Math.round(cf) + C5_OFFSET;
+
+                if (note < 0)
+                    note = 0;
+
                 // Sum of harmonics
                 double sumh = 0.0;
                 // Sum of fundamental
@@ -773,9 +793,13 @@ public class SpectrumActivity extends Activity
                 // Update frequency and dB display
                 if (max > MIN)
                 {
-                    final String s = String.format(Locale.getDefault(),
-                                                   "%1.0f%%  %1.1fHz  %1.1fdB",
-                                                   thd, frequency, dB);
+                    final String s =
+                        String.format(Locale.getDefault(),
+                                      "%s%s%d  %1.0f%%  %1.1fHz  %1.1fdB",
+                                      notes[note % OCTAVE],
+                                      sharps[note % OCTAVE],
+                                      note / OCTAVE,
+                                      thd, frequency, dB);
                     text.post(() -> text.setText(s));
                 }
 

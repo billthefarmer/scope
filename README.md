@@ -62,8 +62,10 @@ toolbar. Touch it again to release the lock. To display the help
 screen, touch the help icon.
 
 ### Settings
-The audio input source may be selected. Some of the selections will not be
-available, depending on the device. The fill option selects spectrum
-trace fill. The hold option selects spectrum trace hold. The screen
-option will stop the screen turning off. The theme option selects the
-app theme. The about item shows the version and copyright.
+The audio input source may be selected. Some of the selections will
+not be available, depending on the device. The fill option selects
+spectrum trace fill. The hold option selects spectrum trace hold. The
+screen option will stop the screen turning off. The window option
+selects the window used for the spectrum fft function. The theme
+option selects the app theme. The about item shows the version and
+copyright.

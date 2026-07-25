@@ -1,0 +1,2 @@
+ * Add note display to spectrum
+ * Add window select to spectrum
